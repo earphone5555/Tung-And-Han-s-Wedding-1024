@@ -80,8 +80,9 @@
 
     <div id="game-wrapper" class="relative w-full h-full sm:max-w-5xl sm:h-[94dvh] sm:max-h-[680px] sm:rounded-3xl overflow-hidden sm:border-4 border-[#3b1d11] sm:shadow-[0_12px_0_#3b1d11] bg-[#fff8eb] flex flex-col">
 
+        <!-- TOP HUD LAYER (Ultra-compact 2-row layout for mobile & desktop) -->
         <div id="hud-layer" class="hidden absolute top-0 left-0 right-0 z-20 p-1.5 sm:p-3 pointer-events-none flex flex-col gap-1 sm:gap-1.5">
-            <!-- Row 1: Ultra-compact single bar for Guest, Score, Flowers, Bouquets, Fever & Mute -->
+            <!-- Row 1: Guest, Score, Flowers, Bouquets, Fever & Mute -->
             <div class="flex items-center justify-between gap-1 sm:gap-2">
                 <div class="flex items-center gap-1 sm:gap-2 min-w-0 flex-1">
                     <!-- Guest Name Pill -->
@@ -113,7 +114,7 @@
                         </div>
                     </div>
 
-                    <!-- Ebisu Fever Gauge (Desktop / Tablet inline, Mobile compact) -->
+                    <!-- Ebisu Fever Gauge -->
                     <div class="bg-white/95 border-2 border-[#3b1d11] rounded-xl sm:rounded-2xl px-1.5 sm:px-2.5 py-0.5 sm:py-1 shadow-[0_2px_0_#3b1d11] flex items-center gap-1 shrink-0">
                         <span class="text-xs sm:text-sm">🐈</span>
                         <div class="hidden sm:block w-16 h-2.5 bg-amber-100 rounded-full border border-[#3b1d11] overflow-hidden relative">
@@ -148,16 +149,18 @@
             </div>
         </div>
 
+        <!-- MAIN GAME CANVAS -->
         <canvas id="game-canvas" class="w-full h-full block"></canvas>
 
         <!-- MOBILE / TOUCH ACTION BUTTON (JUMP ONLY) -->
-        <div id="touch-controls" class="hidden absolute bottom-2.5 sm:bottom-3.5 left-0 right-0 z-20 flex justify-center items-center pointer-events-none px-4">
-            <button id="btn-jump" type="button" class="pointer-events-auto cartoon-btn bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black px-7 py-2 sm:px-9 sm:py-2.5 rounded-full text-sm sm:text-base flex items-center justify-center gap-2 shadow-[0_4px_0_#3b1d11]">
+        <div id="touch-controls" class="hidden absolute bottom-2 sm:bottom-3 left-0 right-0 z-20 flex justify-center items-center pointer-events-none px-4">
+            <button id="btn-jump" type="button" class="pointer-events-auto cartoon-btn bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black px-8 py-2 sm:px-10 sm:py-2.5 rounded-full text-sm sm:text-base flex items-center justify-center gap-2 shadow-[0_4px_0_#3b1d11]">
                 <span>🚀 跳躍 / 二段跳</span>
                 <span class="hidden md:inline text-[11px] bg-black/25 px-2 py-0.5 rounded-full">空白鍵</span>
             </button>
         </div>
 
+        <!-- TITLE SCREEN -->
         <div id="title-screen" class="absolute inset-0 bg-black/50 backdrop-blur-[2px] flex items-center justify-center p-2.5 sm:p-4 z-30 overflow-y-auto custom-scroll">
             <div class="cartoon-card rounded-3xl p-3.5 sm:p-5 md:p-6 w-full max-w-xl text-center relative my-auto">
                 
@@ -200,26 +203,43 @@
                     </p>
                 </div>
 
-                <div class="grid grid-cols-2 gap-2 sm:gap-3.5 mb-2.5">
+                <!-- 3 ROLE SELECTION CARDS (Tung, Han, Secret Ebisu) -->
+                <div class="grid grid-cols-3 gap-1.5 sm:gap-3 mb-2">
                     <!-- Groom: Tung -->
-                    <button id="select-tung" type="button" class="role-card selected rounded-2xl p-2 sm:p-2.5 bg-white flex flex-col items-center cursor-pointer text-center">
-                        <div class="w-16 h-20 sm:w-20 sm:h-24 bg-sky-100 rounded-xl border-2 border-[#3b1d11] flex items-center justify-center overflow-hidden mb-1 relative">
+                    <button id="select-tung" type="button" class="role-card selected rounded-2xl p-1.5 sm:p-2.5 bg-white flex flex-col items-center cursor-pointer text-center">
+                        <div class="w-14 h-16 sm:w-20 sm:h-24 bg-sky-100 rounded-xl border-2 border-[#3b1d11] flex items-center justify-center overflow-hidden mb-1 relative">
                             <canvas id="preview-tung" width="110" height="125" class="w-full h-full object-contain"></canvas>
                         </div>
-                        <div class="font-black text-xs sm:text-base text-[#3b1d11]">🤵 新郎 Tung</div>
-                        <span class="text-[10px] sm:text-[11px] font-bold text-rose-600">帥氣西裝 • 飛躍禮堂</span>
+                        <div class="font-black text-[11px] sm:text-base text-[#3b1d11]">🤵 新郎 Tung</div>
+                        <span class="text-[9px] sm:text-[11px] font-bold text-rose-600">帥氣西裝 • 二段跳</span>
                     </button>
 
                     <!-- Bride: Han -->
-                    <button id="select-han" type="button" class="role-card rounded-2xl p-2 sm:p-2.5 bg-white flex flex-col items-center cursor-pointer text-center">
-                        <div class="w-16 h-20 sm:w-20 sm:h-24 bg-rose-100 rounded-xl border-2 border-[#3b1d11] flex items-center justify-center overflow-hidden mb-1 relative">
+                    <button id="select-han" type="button" class="role-card rounded-2xl p-1.5 sm:p-2.5 bg-white flex flex-col items-center cursor-pointer text-center">
+                        <div class="w-14 h-16 sm:w-20 sm:h-24 bg-rose-100 rounded-xl border-2 border-[#3b1d11] flex items-center justify-center overflow-hidden mb-1 relative">
                             <canvas id="preview-han" width="110" height="125" class="w-full h-full object-contain"></canvas>
                         </div>
-                        <div class="font-black text-xs sm:text-base text-[#3b1d11]">👰 新娘 Han</div>
-                        <span class="text-[10px] sm:text-[11px] font-bold text-rose-600">玫瑰花冠 • 俏麗狂奔</span>
+                        <div class="font-black text-[11px] sm:text-base text-[#3b1d11]">👰 新娘 Han</div>
+                        <span class="text-[9px] sm:text-[11px] font-bold text-rose-600">玫瑰花冠 • 二段跳</span>
+                    </button>
+
+                    <!-- Secret Role: Ebisu the Orange Cat -->
+                    <button id="select-ebisu" type="button" class="role-card rounded-2xl p-1.5 sm:p-2.5 bg-stone-100 opacity-85 flex flex-col items-center cursor-pointer text-center relative overflow-hidden">
+                        <div id="ebisu-card-LockTag" class="absolute top-1 right-1 z-10 bg-[#3b1d11] text-amber-300 text-[9px] font-black px-1.5 py-0.5 rounded-full">
+                            🔒 隱藏
+                        </div>
+                        <div id="ebisu-avatar-box" class="w-14 h-16 sm:w-20 sm:h-24 bg-orange-100 rounded-xl border-2 border-[#3b1d11] flex items-center justify-center overflow-hidden mb-1 relative">
+                            <canvas id="preview-ebisu-role" width="110" height="125" class="w-full h-full object-contain filter brightness-50 contrast-125 transition-all"></canvas>
+                        </div>
+                        <div id="ebisu-role-title" class="font-black text-[11px] sm:text-base text-[#3b1d11]">🔒 神秘橘貓</div>
+                        <span id="ebisu-role-desc" class="text-[9px] sm:text-[11px] font-bold text-amber-800">3星全達成解鎖</span>
                     </button>
                 </div>
+                <p id="ebisu-lock-hint" class="hidden text-[11px] font-black text-orange-700 bg-orange-100 border border-orange-300 rounded-xl py-1 px-2 mb-2">
+                    🐾 隱藏角色提示：單局達成「5束捧花＋25連擊＋零失誤閃避路障」3星成就即可解鎖橘貓 Ebisu！
+                </p>
 
+                <!-- Game Rules Highlights -->
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-1.5 sm:gap-2 text-left bg-amber-50/95 border-2 border-amber-300 rounded-2xl p-2 sm:p-2.5 mb-3 text-[11px] text-[#3b1d11]">
                     <div class="flex items-center gap-2">
                         <canvas id="preview-ebisu" width="56" height="56" class="w-9 h-9 shrink-0 bg-orange-200 rounded-xl border border-[#3b1d11]"></canvas>
@@ -236,10 +256,10 @@
                         </div>
                     </div>
                     <div class="flex items-center gap-2 sm:border-l border-amber-200 sm:pl-2">
-                        <span class="text-xl sm:text-2xl shrink-0 w-9 text-center">🕳️</span>
+                        <span class="text-xl sm:text-2xl shrink-0 w-9 text-center">🎁</span>
                         <div>
-                            <div class="font-black text-stone-800">小心斷崖坑洞</div>
-                            <div class="text-[10px] leading-tight font-bold text-stone-600">掉進地洞直接出局！抓準時機跳！</div>
+                            <div class="font-black text-rose-700">破 30 萬分送小禮</div>
+                            <div class="text-[10px] leading-tight font-bold text-stone-600">超過 300,000 分截圖找新郎拿限量小禮物！</div>
                         </div>
                     </div>
                 </div>
@@ -255,65 +275,75 @@
             </div>
         </div>
 
-        <div id="result-screen" class="hidden absolute inset-0 bg-black/60 backdrop-blur-xs flex items-center justify-center p-2.5 sm:p-4 z-30 overflow-y-auto custom-scroll">
-            <div class="cartoon-card rounded-3xl p-3.5 sm:p-5 md:p-6 w-full max-w-md text-center relative my-auto">
+        <!-- RESULT SCREEN -->
+        <div id="result-screen" class="hidden absolute inset-0 bg-black/60 backdrop-blur-xs flex items-center justify-center p-2 sm:p-4 z-30 overflow-y-auto custom-scroll">
+            <div class="cartoon-card rounded-3xl p-3 sm:p-5 w-full max-w-md text-center relative my-auto">
                 
-                <div id="result-new-record" class="hidden bg-gradient-to-r from-amber-400 to-yellow-300 text-[#3b1d11] text-[11px] sm:text-xs font-black px-3.5 py-1 rounded-full border-2 border-[#3b1d11] mb-2 shadow inline-block animate-bounce">
+                <div id="result-new-record" class="hidden bg-gradient-to-r from-amber-400 to-yellow-300 text-[#3b1d11] text-[10px] sm:text-xs font-black px-3 py-0.5 rounded-full border-2 border-[#3b1d11] mb-1 shadow inline-block animate-bounce">
                     🎊 刷新個人最高分紀錄 NEW RECORD! 🎊
                 </div>
 
+                <div id="result-unlock-ebisu" class="hidden bg-gradient-to-r from-orange-500 via-amber-500 to-rose-500 text-white text-[11px] sm:text-xs font-black px-3 py-1 rounded-2xl border-2 border-[#3b1d11] mb-1.5 shadow-[0_3px_0_#3b1d11] animate-pulse">
+                    🐾 恭喜 3 星全制霸！已解鎖隱藏角色「橘貓 Ebisu」（三連跳＋無視路障）！
+                </div>
+
                 <!-- Guest Honor Pill -->
-                <div id="result-guest-banner" class="bg-rose-600 text-white text-xs sm:text-sm font-black px-3.5 py-1 rounded-full border-2 border-[#3b1d11] shadow-[0_3px_0_#3b1d11] inline-flex items-center gap-1.5 mb-1.5 max-w-full">
+                <div id="result-guest-banner" class="bg-rose-600 text-white text-xs sm:text-sm font-black px-3.5 py-0.5 rounded-full border-2 border-[#3b1d11] shadow-[0_2px_0_#3b1d11] inline-flex items-center gap-1.5 mb-1 max-w-full">
                     <span>💌 感謝貴賓：</span>
                     <span id="result-guest-name" class="underline decoration-amber-300 decoration-2 truncate">貴賓</span>
                 </div>
 
-                <h2 id="result-main-title" class="text-xl sm:text-2xl md:text-3xl font-black text-[#3b1d11]">
+                <h2 id="result-main-title" class="text-xl sm:text-2xl font-black text-[#3b1d11] leading-tight">
                     Tung ❤️ Han
                 </h2>
-                <p id="result-sub-title" class="text-[11px] sm:text-xs font-bold text-rose-600 mb-2">
+                <p id="result-sub-title" class="text-[11px] sm:text-xs font-bold text-rose-600 mb-1.5">
                     Welcome to Our Wedding! • 2026.10.24
                 </p>
 
+                <!-- 300,000 SCORE GIFT REMINDER BANNER -->
+                <div id="result-gift-banner" class="rounded-2xl p-2 sm:p-2.5 mb-2 border-2 border-[#3b1d11] text-center transition-all">
+                    <!-- Dynamically populated by JS based on score >= 300000 -->
+                </div>
+
                 <!-- Couple & Ebisu Together Showcase -->
-                <div class="bg-gradient-to-b from-rose-100 via-amber-50 to-white border-3 border-[#3b1d11] rounded-2xl p-2 sm:p-2.5 mb-2.5 relative overflow-hidden">
-                    <canvas id="result-couple-canvas" width="320" height="125" class="w-full h-22 sm:h-28 object-contain mx-auto"></canvas>
-                    <div id="result-rank-badge" class="mt-1 inline-block bg-[#3b1d11] text-amber-300 text-[11px] sm:text-xs font-black px-3 py-1 rounded-full">
+                <div class="bg-gradient-to-b from-rose-100 via-amber-50 to-white border-2 border-[#3b1d11] rounded-2xl p-1.5 sm:p-2 mb-2 relative overflow-hidden">
+                    <canvas id="result-couple-canvas" width="320" height="115" class="w-full h-20 sm:h-24 object-contain mx-auto"></canvas>
+                    <div id="result-rank-badge" class="mt-0.5 inline-block bg-[#3b1d11] text-amber-300 text-[10px] sm:text-xs font-black px-3 py-0.5 rounded-full">
                         🏆 稱號：傳說級光速搶捧花宗師
                     </div>
                 </div>
 
                 <!-- 3-Star Challenge Badges -->
-                <div class="bg-amber-50 border-2 border-amber-300 rounded-2xl p-2 sm:p-2.5 mb-2.5 text-left">
-                    <div class="text-[11px] font-black text-amber-900 mb-1 text-center">⭐ 本局挑戰成就（全達成解鎖宗師榮耀）</div>
-                    <div id="result-missions" class="space-y-1 text-[11px] sm:text-xs font-bold"></div>
+                <div class="bg-amber-50 border-2 border-amber-300 rounded-2xl p-2 mb-2 text-left">
+                    <div class="text-[10px] sm:text-[11px] font-black text-amber-900 mb-0.5 text-center">⭐ 本局挑戰成就（全達成解鎖橘貓 Ebisu）</div>
+                    <div id="result-missions" class="space-y-0.5 text-[10px] sm:text-xs font-bold"></div>
                 </div>
 
                 <!-- Score Breakdown Grid -->
-                <div class="grid grid-cols-3 gap-1.5 sm:gap-2 mb-3">
-                    <div class="bg-rose-50 border-2 border-rose-200 rounded-xl p-1.5 sm:p-2">
+                <div class="grid grid-cols-3 gap-1.5 sm:gap-2 mb-2.5">
+                    <div class="bg-rose-50 border-2 border-rose-200 rounded-xl p-1.5">
                         <div class="text-[10px] font-bold text-rose-700">傳奇捧花</div>
-                        <div id="res-bouquets" class="text-sm sm:text-lg font-black text-rose-600">0 / 5 💐</div>
+                        <div id="res-bouquets" class="text-xs sm:text-base font-black text-rose-600">0 / 5 💐</div>
                     </div>
-                    <div class="bg-orange-50 border-2 border-orange-200 rounded-xl p-1.5 sm:p-2">
+                    <div class="bg-orange-50 border-2 border-orange-200 rounded-xl p-1.5">
                         <div class="text-[10px] font-bold text-orange-700">最高連擊</div>
-                        <div id="res-combo" class="text-sm sm:text-lg font-black text-orange-600">0 連擊</div>
+                        <div id="res-combo" class="text-xs sm:text-base font-black text-orange-600">0 連擊</div>
                     </div>
-                    <div class="bg-amber-100 border-2 border-amber-400 rounded-xl p-1.5 sm:p-2">
+                    <div class="bg-amber-100 border-2 border-amber-400 rounded-xl p-1.5">
                         <div class="text-[10px] font-bold text-amber-900">總祝福積分</div>
-                        <div id="res-score" class="text-sm sm:text-lg font-black text-[#3b1d11]">0</div>
+                        <div id="res-score" class="text-xs sm:text-base font-black text-[#3b1d11]">0</div>
                     </div>
                 </div>
 
                 <!-- Action Buttons -->
                 <div class="flex flex-wrap gap-2">
-                    <button id="btn-change-guest" type="button" class="cartoon-btn bg-stone-200 hover:bg-stone-300 text-[#3b1d11] font-black px-3 py-2 sm:py-2.5 rounded-xl text-xs">
+                    <button id="btn-change-guest" type="button" class="cartoon-btn bg-stone-200 hover:bg-stone-300 text-[#3b1d11] font-black px-3 py-2 rounded-xl text-xs">
                         ✍️ 換人玩
                     </button>
-                    <button id="btn-switch-role" type="button" class="cartoon-btn flex-1 bg-amber-300 hover:bg-amber-400 text-[#3b1d11] font-black py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm">
+                    <button id="btn-switch-role" type="button" class="cartoon-btn flex-1 bg-amber-300 hover:bg-amber-400 text-[#3b1d11] font-black py-2 rounded-xl text-xs sm:text-sm">
                         🔄 換角色跑
                     </button>
-                    <button id="btn-replay" type="button" class="cartoon-btn flex-1 bg-rose-500 hover:bg-rose-600 text-white font-black py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm">
+                    <button id="btn-replay" type="button" class="cartoon-btn flex-1 bg-rose-500 hover:bg-rose-600 text-white font-black py-2 rounded-xl text-xs sm:text-sm">
                         🔥 再戰一局
                     </button>
                 </div>
@@ -470,8 +500,10 @@
         const sfx = new SoundSystem();
 
         let selectedRole = 'tung';
+        let ebisuUnlocked = false;
         let currentGuestName = '';
         let personalBestScore = 0;
+        const GIFT_TARGET_SCORE = 300000;
 
         const FUNNY_GUEST_NAMES = [
             '搶捧花冠軍', '伴郎團代表', '伴娘團女神', '橘貓Ebisu乾爹',
@@ -491,158 +523,172 @@
 
             ctx.save();
             ctx.translate(x, y);
+
+            const runBob = (isRunning && !isJumping) ? Math.abs(Math.sin(animTime * 19)) * -6 : 0;
+            ctx.translate(0, runBob);
             ctx.rotate(tilt);
             ctx.scale(squashX, stretchY);
 
-            const legSwing = isRunning ? Math.sin(animTime * 22) * 10 : 0;
-            const bounceBob = isRunning && !isJumping ? Math.abs(Math.sin(animTime * 22)) * -5 : 0;
-            ctx.translate(0, bounceBob);
-
-            ctx.lineWidth = 3.5;
+            ctx.lineWidth = 3.4;
             ctx.strokeStyle = '#3b1d11';
             ctx.lineJoin = 'round';
             ctx.lineCap = 'round';
 
-            // 1. Animated Legs & Shoes
+            const legSwing = isRunning ? Math.sin(animTime * 19) * 11 : 0;
+
+            // 1. Legs & Shoes
             ctx.fillStyle = role === 'tung' ? '#1e293b' : '#fda4af';
             ctx.beginPath();
-            ctx.roundRect(-14 + legSwing * 0.5, -20, 11, 18, 5);
+            ctx.roundRect(-13 + legSwing * 0.5, -18, 9, 16, 4);
+            ctx.roundRect(4 - legSwing * 0.5, -18, 9, 16, 4);
             ctx.fill();
             ctx.stroke();
 
-            ctx.beginPath();
-            ctx.roundRect(4 - legSwing * 0.5, -20, 11, 18, 5);
-            ctx.fill();
-            ctx.stroke();
-
+            // 2. Torso Outfit (Suit for Tung, Tiered Gown for Han)
             if (role === 'tung') {
-                // Groom Tung: Navy-Charcoal Tuxedo & Bowtie
                 ctx.fillStyle = '#1e293b';
                 ctx.beginPath();
-                ctx.roundRect(-21, -55, 42, 38, 12);
+                ctx.roundRect(-21, -50, 42, 35, 11);
                 ctx.fill();
                 ctx.stroke();
 
-                // Crisp White Shirt V-Front
+                // White dress shirt V-neck
                 ctx.fillStyle = '#ffffff';
                 ctx.beginPath();
-                ctx.moveTo(-10, -54);
-                ctx.lineTo(10, -54);
-                ctx.lineTo(0, -32);
+                ctx.moveTo(-9, -49);
+                ctx.lineTo(9, -49);
+                ctx.lineTo(0, -29);
                 ctx.closePath();
                 ctx.fill();
                 ctx.stroke();
 
-                // Rose Red Bowtie
+                // Red Bowtie
                 ctx.fillStyle = '#e11d48';
                 ctx.beginPath();
-                ctx.moveTo(0, -49);
-                ctx.lineTo(-9, -54);
-                ctx.lineTo(-9, -44);
+                ctx.moveTo(0, -43);
+                ctx.lineTo(-8, -48);
+                ctx.lineTo(-8, -38);
                 ctx.closePath();
-                ctx.moveTo(0, -49);
-                ctx.lineTo(9, -54);
-                ctx.lineTo(9, -44);
-                ctx.closePath();
-                ctx.fill();
-                ctx.stroke();
-
-                // Gold Boutonniere on Lapel
-                ctx.fillStyle = '#fbbf24';
-                ctx.beginPath();
-                ctx.arc(-12, -43, 3.5, 0, Math.PI * 2);
-                ctx.fill();
-            } else {
-                // Bride Han: Layered Satin Wedding Gown with Rose Sash (No Veil)
-                const dressFlutter = isRunning ? Math.sin(animTime * 20) * 2.5 : 0;
-                ctx.fillStyle = '#ffffff';
-                ctx.beginPath();
-                ctx.moveTo(-16, -55);
-                ctx.lineTo(16, -55);
-                ctx.quadraticCurveTo(28, -32, 29 + dressFlutter, -15);
-                ctx.lineTo(-29 + dressFlutter, -15);
-                ctx.quadraticCurveTo(-28, -32, -16, -55);
+                ctx.moveTo(0, -43);
+                ctx.lineTo(8, -48);
+                ctx.lineTo(8, -38);
                 ctx.closePath();
                 ctx.fill();
                 ctx.stroke();
 
-                // Scalloped Lace Trim at Bottom of Gown
-                ctx.fillStyle = '#ffe4e6';
-                ctx.beginPath();
-                ctx.moveTo(-27 + dressFlutter, -19);
-                ctx.quadraticCurveTo(-14, -12, 0, -19);
-                ctx.quadraticCurveTo(14, -12, 27 + dressFlutter, -19);
-                ctx.lineTo(28 + dressFlutter, -15);
-                ctx.lineTo(-28 + dressFlutter, -15);
-                ctx.closePath();
-                ctx.fill();
-                ctx.stroke();
-
-                // Ribbon Waistband
+                // Rose Boutonniere on Lapel
                 ctx.fillStyle = '#fb7185';
                 ctx.beginPath();
-                ctx.roundRect(-17, -41, 34, 7, 3);
+                ctx.arc(-11, -38, 3.8, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.stroke();
+            } else {
+                // Bride Han: Elegant Satin Gown
+                ctx.fillStyle = '#fff1f2';
+                ctx.beginPath();
+                ctx.moveTo(-16, -50);
+                ctx.lineTo(16, -50);
+                ctx.quadraticCurveTo(28, -28, 30, -14);
+                ctx.lineTo(-30, -14);
+                ctx.quadraticCurveTo(-28, -28, -16, -50);
+                ctx.closePath();
                 ctx.fill();
                 ctx.stroke();
 
-                // Pearl Necklace
-                ctx.fillStyle = '#fef08a';
-                for (let px = -8; px <= 8; px += 4) {
-                    ctx.beginPath();
-                    ctx.arc(px, -53, 2, 0, Math.PI * 2);
-                    ctx.fill();
-                }
+                // Scalloped hem frill
+                ctx.fillStyle = '#ffe4e6';
+                ctx.beginPath();
+                ctx.roundRect(-27, -21, 54, 8, 4);
+                ctx.fill();
+                ctx.stroke();
+
+                // Rose Pink Waist Sash
+                ctx.fillStyle = '#fb7185';
+                ctx.beginPath();
+                ctx.roundRect(-17, -38, 34, 6, 3);
+                ctx.fill();
+                ctx.stroke();
             }
 
-            ctx.fillStyle = role === 'tung' ? '#1e293b' : '#ffe4d6';
-            ctx.beginPath();
-            ctx.roundRect(-27 - legSwing * 0.3, -50, 9, 21, 5);
-            ctx.fill();
-            ctx.stroke();
-
-            ctx.beginPath();
-            ctx.roundRect(18 + legSwing * 0.3, -50, 9, 21, 5);
-            ctx.fill();
-            ctx.stroke();
-
-            // Big Expressive Q-Version Head
-            const headY = -84;
-            const headR = 31;
+            // 3. Big Chibi Head
+            const headY = -75;
+            const headR = 27;
 
             if (role === 'han') {
-                const hairBounce = isRunning ? Math.sin(animTime * 22) * 2.5 : 0;
+                // Stylish Chestnut Updo Bun at the back (No veil!)
                 ctx.fillStyle = '#451a03';
                 ctx.beginPath();
-                ctx.arc(-14, headY - 24 + hairBounce, 13, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.stroke();
-
-                ctx.beginPath();
-                ctx.arc(-28, headY + 6, 9, 0, Math.PI * 2);
+                ctx.arc(-18, headY - 16, 13, 0, Math.PI * 2);
                 ctx.fill();
                 ctx.stroke();
             }
 
-            // Face Base
-            ctx.fillStyle = '#ffe4d6';
+            // Face Circle
+            ctx.fillStyle = '#fde6d8';
             ctx.beginPath();
             ctx.arc(0, headY, headR, 0, Math.PI * 2);
             ctx.fill();
             ctx.stroke();
 
+            // Hair Front & Styling
+            ctx.fillStyle = role === 'tung' ? '#27272a' : '#451a03';
+            if (role === 'tung') {
+                ctx.beginPath();
+                ctx.arc(0, headY - 4, headR, Math.PI * 1.05, Math.PI * 1.98);
+                ctx.quadraticCurveTo(15, headY - 12, 24, headY - 6);
+                ctx.quadraticCurveTo(6, headY - 17, -6, headY - 11);
+                ctx.quadraticCurveTo(-18, headY - 18, -26, headY - 4);
+                ctx.closePath();
+                ctx.fill();
+                ctx.stroke();
+
+                // Cute cowlick (呆毛)
+                ctx.beginPath();
+                ctx.moveTo(-2, headY - headR);
+                ctx.quadraticCurveTo(6, headY - headR - 11, 14, headY - headR - 5);
+                ctx.stroke();
+            } else {
+                // Han's parted bangs
+                ctx.beginPath();
+                ctx.arc(0, headY - 3, headR, Math.PI * 1.02, Math.PI * 1.98);
+                ctx.quadraticCurveTo(12, headY - 8, -4, headY - 16);
+                ctx.quadraticCurveTo(-16, headY - 8, -26, headY - 3);
+                ctx.closePath();
+                ctx.fill();
+                ctx.stroke();
+
+                // Rose & Pearl Flower Crown
+                const crownY = headY - 23;
+                ctx.fillStyle = '#f43f5e';
+                ctx.beginPath();
+                ctx.arc(-8, crownY, 5.5, 0, Math.PI * 2);
+                ctx.arc(4, crownY - 2, 6, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.stroke();
+
+                ctx.fillStyle = '#fef08a';
+                ctx.beginPath();
+                ctx.arc(14, crownY + 1, 4, 0, Math.PI * 2);
+                ctx.arc(-17, crownY + 3, 3.8, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.stroke();
+            }
+
             // Rosy Cheeks
-            ctx.fillStyle = 'rgba(244, 63, 94, 0.42)';
+            ctx.fillStyle = 'rgba(244, 63, 94, 0.48)';
             ctx.beginPath();
-            ctx.ellipse(-15, headY + 7, 6.5, 4, 0, 0, Math.PI * 2);
-            ctx.ellipse(19, headY + 7, 6.5, 4, 0, 0, Math.PI * 2);
+            ctx.ellipse(-13, headY + 6, 5.5, 3.2, 0, 0, Math.PI * 2);
+            ctx.ellipse(15, headY + 6, 5.5, 3.2, 0, 0, Math.PI * 2);
             ctx.fill();
 
-            // Eyes & Facial Expressions
-            const isBlinking = Math.sin(animTime * 3.2) > 0.96;
+            // Expressive Eyes & Mouth
+            ctx.strokeStyle = '#3b1d11';
             ctx.fillStyle = '#3b1d11';
+            const isBlinking = !dizzy && !happy && (Math.sin(animTime * 3.5) > 0.96);
+
             if (dizzy) {
-                ctx.lineWidth = 3;
-                [-9, 13].forEach(ex => {
+                ctx.lineWidth = 2.8;
+                [-7, 10].forEach(ex => {
                     ctx.beginPath();
                     ctx.moveTo(ex - 4, headY - 4);
                     ctx.lineTo(ex + 4, headY + 4);
@@ -650,95 +696,63 @@
                     ctx.lineTo(ex - 4, headY + 4);
                     ctx.stroke();
                 });
-            } else if (happy || isBlinking) {
-                ctx.lineWidth = 3.2;
-                [-9, 13].forEach(ex => {
+                ctx.beginPath();
+                ctx.arc(2, headY + 11, 4, 0, Math.PI * 2);
+                ctx.stroke();
+            } else if (happy || isJumping) {
+                ctx.lineWidth = 3;
+                [-7, 10].forEach(ex => {
                     ctx.beginPath();
-                    ctx.arc(ex, headY + 2, 5, Math.PI * 1.1, Math.PI * 1.9);
+                    ctx.arc(ex, headY + 1, 4.5, Math.PI * 1.1, Math.PI * 1.9);
                     ctx.stroke();
                 });
-            } else {
-                [-9, 13].forEach(ex => {
-                    ctx.fillStyle = '#3b1d11';
+                ctx.fillStyle = '#e11d48';
+                ctx.beginPath();
+                ctx.arc(2, headY + 8, 5.5, 0, Math.PI);
+                ctx.fill();
+                ctx.stroke();
+            } else if (isBlinking) {
+                ctx.lineWidth = 2.8;
+                [-7, 10].forEach(ex => {
                     ctx.beginPath();
-                    ctx.ellipse(ex, headY, 4.5, 6, 0, 0, Math.PI * 2);
+                    ctx.moveTo(ex - 4, headY);
+                    ctx.lineTo(ex + 4, headY);
+                    ctx.stroke();
+                });
+                ctx.beginPath();
+                ctx.arc(2, headY + 8, 4, 0.15 * Math.PI, 0.85 * Math.PI);
+                ctx.stroke();
+            } else {
+                [-7, 10].forEach(ex => {
+                    ctx.beginPath();
+                    ctx.arc(ex, headY, 3.8, 0, Math.PI * 2);
                     ctx.fill();
                     ctx.fillStyle = '#ffffff';
                     ctx.beginPath();
-                    ctx.arc(ex + 1.5, headY - 2, 2, 0, Math.PI * 2);
+                    ctx.arc(ex + 1.2, headY - 1.4, 1.4, 0, Math.PI * 2);
                     ctx.fill();
+                    ctx.fillStyle = '#3b1d11';
                 });
-            }
-
-            // Joyful Smile
-            ctx.strokeStyle = '#3b1d11';
-            ctx.lineWidth = 3;
-            ctx.beginPath();
-            if (dizzy) {
-                ctx.arc(2, headY + 14, 4.5, 0, Math.PI * 2);
-                ctx.stroke();
-            } else {
-                ctx.fillStyle = '#f43f5e';
-                ctx.arc(2, headY + 9, 6.5, 0, Math.PI);
-                ctx.fill();
-                ctx.stroke();
-            }
-
-            if (role === 'tung') {
-                ctx.fillStyle = '#27272a';
+                ctx.lineWidth = 2.6;
                 ctx.beginPath();
-                ctx.arc(0, headY - 5, headR + 1, Math.PI * 0.92, Math.PI * 2.08);
-                ctx.quadraticCurveTo(10, headY - 12, 0, headY - 19);
-                ctx.quadraticCurveTo(-12, headY - 9, -headR, headY - 5);
-                ctx.closePath();
-                ctx.fill();
+                ctx.arc(2, headY + 8, 4.5, 0.15 * Math.PI, 0.85 * Math.PI);
                 ctx.stroke();
-
-                const tuftWave = Math.sin(animTime * 15) * 4;
-                ctx.beginPath();
-                ctx.moveTo(0, headY - 35);
-                ctx.quadraticCurveTo(10, headY - 48, 16 + tuftWave, headY - 42);
-                ctx.stroke();
-            } else {
-                ctx.fillStyle = '#451a03';
-                ctx.beginPath();
-                ctx.arc(0, headY - 5, headR + 1, Math.PI * 0.92, Math.PI * 2.08);
-                ctx.quadraticCurveTo(14, headY - 10, 4, headY - 20);
-                ctx.quadraticCurveTo(-12, headY - 8, -headR, headY - 5);
-                ctx.closePath();
-                ctx.fill();
-                ctx.stroke();
-
-                // Rose & Pearl Floral Tiara Crown
-                ctx.fillStyle = '#f43f5e';
-                ctx.beginPath();
-                ctx.arc(0, headY - 32, 6.5, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.stroke();
-
-                ctx.fillStyle = '#fb7185';
-                ctx.beginPath();
-                ctx.arc(-11, headY - 29, 5, 0, Math.PI * 2);
-                ctx.arc(11, headY - 29, 5, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.stroke();
-
-                ctx.fillStyle = '#fef08a';
-                ctx.beginPath();
-                ctx.arc(-5.5, headY - 35, 3, 0, Math.PI * 2);
-                ctx.arc(5.5, headY - 35, 3, 0, Math.PI * 2);
-                ctx.fill();
             }
 
             ctx.restore();
         }
 
-        function drawEbisuCat(ctx, x, y, size, animTime, compression = 0, isGiant = false) {
+        function drawEbisuCat(ctx, x, y, size, animTime, compression = 0, isGiant = false, extraState = {}) {
+            const { dizzy = false, isMainRunner = false, squashX = 1, stretchY = 1, tilt = 0 } = extraState;
             ctx.save();
             ctx.translate(x, y);
-            const scaleY = 1 - compression * 0.35;
-            const scaleX = 1 + compression * 0.25;
+            ctx.rotate(tilt);
+            const scaleY = (1 - compression * 0.35) * stretchY;
+            const scaleX = (1 + compression * 0.25) * squashX;
             ctx.scale(scaleX, scaleY);
+
+            const runBob = isMainRunner ? Math.abs(Math.sin(animTime * 22)) * -5 : 0;
+            ctx.translate(0, runBob);
 
             ctx.lineWidth = isGiant ? 4.5 : 3.2;
             ctx.strokeStyle = '#3b1d11';
@@ -753,7 +767,7 @@
             }
 
             // 1. Wagging All-Orange Striped Tail
-            const tailAngle = Math.sin(animTime * (isGiant ? 18 : 9)) * 0.38;
+            const tailAngle = Math.sin(animTime * (isGiant || isMainRunner ? 18 : 9)) * 0.38;
             ctx.save();
             ctx.translate(-size * 0.42, -size * 0.28);
             ctx.rotate(tailAngle);
@@ -826,7 +840,17 @@
 
             ctx.strokeStyle = '#3b1d11';
             ctx.fillStyle = '#3b1d11';
-            if (compression > 0.1 || isGiant) {
+            if (dizzy) {
+                ctx.lineWidth = 2.6;
+                [-5, 7].forEach(ex => {
+                    ctx.beginPath();
+                    ctx.moveTo(headX + ex - 3, headY - 4);
+                    ctx.lineTo(headX + ex + 3, headY + 2);
+                    ctx.moveTo(headX + ex + 3, headY - 4);
+                    ctx.lineTo(headX + ex - 3, headY + 2);
+                    ctx.stroke();
+                });
+            } else if (compression > 0.1 || isGiant) {
                 ctx.lineWidth = 2.8;
                 ctx.beginPath();
                 ctx.arc(headX - 5, headY - 1, 3.5, Math.PI * 1.1, Math.PI * 1.9);
@@ -846,7 +870,27 @@
             ctx.arc(headX + 1.5, headY + 3, 2.5, 0, Math.PI * 2);
             ctx.fill();
 
-            const pawOffset = isGiant ? Math.sin(animTime * 24) * 8 : 0;
+            // Cute Festive Red Bowtie when Ebisu is the main runner!
+            if (isMainRunner) {
+                ctx.fillStyle = '#e11d48';
+                ctx.strokeStyle = '#3b1d11';
+                ctx.lineWidth = 2.2;
+                const bx = headX - 2;
+                const by = headY + headR * 0.85;
+                ctx.beginPath();
+                ctx.moveTo(bx, by);
+                ctx.lineTo(bx - 8, by - 5);
+                ctx.lineTo(bx - 8, by + 5);
+                ctx.closePath();
+                ctx.moveTo(bx, by);
+                ctx.lineTo(bx + 8, by - 5);
+                ctx.lineTo(bx + 8, by + 5);
+                ctx.closePath();
+                ctx.fill();
+                ctx.stroke();
+            }
+
+            const pawOffset = (isGiant || isMainRunner) ? Math.sin(animTime * 24) * 8 : 0;
             ctx.fillStyle = '#fb923c';
             ctx.strokeStyle = '#3b1d11';
             ctx.lineWidth = 3;
@@ -860,15 +904,72 @@
             ctx.restore();
         }
 
+        function drawWeddingArch(ctx, x, groundY) {
+            ctx.save();
+            ctx.translate(x, groundY);
+            ctx.strokeStyle = '#3b1d11';
+            ctx.lineWidth = 4;
+
+            // Red Carpet
+            ctx.fillStyle = '#e11d48';
+            ctx.beginPath();
+            ctx.roundRect(-90, -8, 250, 14, 5);
+            ctx.fill();
+            ctx.stroke();
+
+            // Arch Columns
+            ctx.fillStyle = '#fffbeb';
+            ctx.beginPath();
+            ctx.roundRect(-55, -185, 24, 180, 6);
+            ctx.roundRect(105, -185, 24, 180, 6);
+            ctx.fill();
+            ctx.stroke();
+
+            // Arch Floral Top
+            ctx.fillStyle = '#fda4af';
+            ctx.beginPath();
+            ctx.arc(37, -175, 96, Math.PI, 0, false);
+            ctx.lineTo(105, -175);
+            ctx.arc(37, -175, 68, 0, Math.PI, true);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+
+            const flowerColors = ['#e11d48', '#fb7185', '#fde047', '#f97316'];
+            for (let i = 0; i <= 8; i++) {
+                const ang = Math.PI + (Math.PI * i) / 8;
+                const fx = 37 + Math.cos(ang) * 82;
+                const fy = -175 + Math.sin(ang) * 82;
+                ctx.fillStyle = flowerColors[i % flowerColors.length];
+                ctx.beginPath();
+                ctx.arc(fx, fy, 11, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.stroke();
+            }
+
+            // Signboard
+            ctx.fillStyle = '#ffffff';
+            ctx.beginPath();
+            ctx.roundRect(-30, -215, 134, 34, 10);
+            ctx.fill();
+            ctx.stroke();
+
+            ctx.fillStyle = '#be123c';
+            ctx.font = '900 13px "Noto Sans TC", sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText('💒 2026.10.24', 37, -193);
+
+            ctx.restore();
+        }
+
         const canvas = document.getElementById('game-canvas');
         const ctx = canvas.getContext('2d');
+        let viewScale = 1;
 
         const game = {
             state: 'TITLE',
             width: 900,
             height: 540,
-            scale: 1,
-            dpr: 1,
             groundY: 450,
             time: 0,
             distance: 0,
@@ -880,6 +981,7 @@
             bouquets: 0,
             totalBouquets: 5,
             bouquetsSpawned: 0,
+            bouquetGrandSlamAwarded: false,
             combo: 0,
             maxCombo: 0,
             multiplier: 1,
@@ -894,7 +996,7 @@
             nextChunkX: 500,
             chunkIndex: 0,
             player: {
-                x: 150,
+                x: 140,
                 y: 450,
                 prevY: 450,
                 vy: 0,
@@ -924,76 +1026,129 @@
         };
 
         function resizeCanvas() {
-            const parent = canvas.parentElement;
-            const rect = parent ? parent.getBoundingClientRect() : { width: 900, height: 540 };
+            const rect = canvas.getBoundingClientRect();
+            const cssW = Math.max(320, rect.width || window.innerWidth || 800);
+            const cssH = Math.max(320, rect.height || window.innerHeight || 540);
             const dpr = Math.min(window.devicePixelRatio || 1, 2);
 
-            const safeW = Math.max(rect.width || window.innerWidth || 900, 300);
-            const safeH = Math.max(rect.height || window.innerHeight || 540, 300);
+            canvas.width = Math.round(cssW * dpr);
+            canvas.height = Math.round(cssH * dpr);
 
-            canvas.width = Math.round(safeW * dpr);
-            canvas.height = Math.round(safeH * dpr);
+            // Reserve dedicated CSS pixel heights for Top HUD and Bottom Jump Button
+            const topHudCss = cssW < 640 ? 60 : 70;
+            const bottomControlsCss = cssW < 640 ? 68 : 78;
+            const playableCssH = Math.max(200, cssH - topHudCss - bottomControlsCss);
 
-            // Reserve space for the top compact HUD (~54px CSS) and bottom Jump button (~52px CSS)
-            // and ensure at least 410 logical pixels of vertical playfield sky between them!
-            const reservedTopCSS = safeW < 640 ? 52 : 68;
-            const reservedBottomCSS = safeW < 640 ? 48 : 56;
-            const usableSkyCSS = Math.max(180, safeH - reservedTopCSS - reservedBottomCSS);
+            // We need ~400 virtual pixels of playable vertical height (362px above groundY + 38px road belt)
+            const minVirtualWidth = cssW < 600 ? 700 : 860;
+            const requiredPlayableVirtualH = 400;
 
-            const minLogicalWidth = 720;
-            const minLogicalSky = 405;
-            const scale = Math.max(0.15, Math.min(safeW / minLogicalWidth, usableSkyCSS / minLogicalSky));
+            const scaleX = cssW / minVirtualWidth;
+            const scaleY = playableCssH / requiredPlayableVirtualH;
+            viewScale = Math.max(0.25, Math.min(scaleX, scaleY, 1.15));
 
-            const oldGroundY = Number.isFinite(game.groundY) ? game.groundY : 450;
-            game.scale = scale;
-            game.dpr = dpr;
-            game.width = safeW / scale;
-            game.height = safeH / scale;
+            game.width = cssW / viewScale;
+            game.height = cssH / viewScale;
 
-            // Anchor groundY cleanly above the bottom Jump button so the sky and platforms have maximum room
-            const bottomReserveLogical = Math.max(82, (reservedBottomCSS / scale) + 18);
-            game.groundY = Math.max(415, Math.floor(game.height - bottomReserveLogical));
-            game.player.x = Math.max(110, Math.min(175, game.width * 0.17));
+            // Convert HUD and Jump Button CSS heights into virtual canvas coordinates
+            const topHudVirtual = topHudCss / viewScale;
+            const bottomControlsVirtual = bottomControlsCss / viewScale;
+            const safePlayableVirtualH = Math.max(requiredPlayableVirtualH, game.height - topHudVirtual - bottomControlsVirtual);
 
-            // Shift existing world objects vertically by deltaGroundY if resized mid-game
-            const deltaY = game.groundY - oldGroundY;
-            if (Number.isFinite(deltaY) && deltaY !== 0 && game.state !== 'TITLE') {
-                game.player.y += deltaY;
-                game.player.prevY += deltaY;
-                game.platforms.forEach(p => p.y += deltaY);
-                game.ebisuList.forEach(e => e.y += deltaY);
-                game.collectibles.forEach(c => c.y += deltaY);
-                game.bouquetItems.forEach(b => b.y += deltaY);
-                game.dashRings.forEach(r => r.y += deltaY);
-                game.mysteryBoxes.forEach(m => m.y += deltaY);
-                game.obstacles.forEach(o => o.y += deltaY);
-            } else if (game.state === 'TITLE') {
+            // Lift groundY above the jump button + road belt (38px), and slightly center if screen is tall
+            const extraVerticalSpace = Math.max(0, safePlayableVirtualH - requiredPlayableVirtualH);
+            const bottomPaddingVirtual = bottomControlsVirtual + 38 + Math.min(90, extraVerticalSpace * 0.25);
+
+            const oldGroundY = game.groundY || (game.height - bottomPaddingVirtual);
+            game.groundY = Math.max(365, game.height - bottomPaddingVirtual);
+            game.player.x = cssW < 600 ? 115 : 145;
+
+            if (game.state === 'TITLE') {
                 game.player.y = game.groundY;
                 game.player.prevY = game.groundY;
+            } else {
+                const deltaY = game.groundY - oldGroundY;
+                if (Math.abs(deltaY) > 0.5 && Math.abs(deltaY) < 400) {
+                    game.player.y += deltaY;
+                    game.player.prevY += deltaY;
+                    game.platforms.forEach(p => { p.y += deltaY; });
+                    game.ebisuList.forEach(e => { e.y += deltaY; });
+                    game.collectibles.forEach(c => { c.y += deltaY; });
+                    game.bouquetItems.forEach(b => { b.y += deltaY; });
+                    game.dashRings.forEach(r => { r.y += deltaY; });
+                    game.mysteryBoxes.forEach(m => { m.y += deltaY; });
+                    game.obstacles.forEach(o => { o.y += deltaY; });
+                }
             }
         }
+
         window.addEventListener('resize', resizeCanvas);
-        window.addEventListener('orientationchange', () => setTimeout(resizeCanvas, 120));
 
         function initScenery() {
             game.clouds = [];
             for (let i = 0; i < 6; i++) {
                 game.clouds.push({
                     x: Math.random() * game.width,
-                    y: 55 + Math.random() * (game.groundY * 0.35),
+                    y: 65 + Math.random() * 140,
                     scale: 0.65 + Math.random() * 0.6,
-                    speed: 22 + Math.random() * 25
+                    speed: 18 + Math.random() * 25
                 });
             }
             game.speedLines = [];
-            for (let i = 0; i < 14; i++) {
+            for (let i = 0; i < 12; i++) {
                 game.speedLines.push({
                     x: Math.random() * game.width,
-                    y: Math.random() * game.height,
-                    length: 60 + Math.random() * 110,
-                    speed: 900 + Math.random() * 500
+                    y: 50 + Math.random() * (game.groundY - 70),
+                    len: 60 + Math.random() * 90
                 });
             }
+        }
+
+        function addPit(x, width) {
+            game.pits.push({ x, width });
+        }
+
+        function addPlatform(x, y, width, type = 'awning') {
+            game.platforms.push({ x, y, width, height: 18, type, bounceAnim: 0 });
+        }
+
+        function spawnLineOfItems(startX, y, count, spacing, type = 'flower') {
+            for (let i = 0; i < count; i++) {
+                game.collectibles.push({
+                    x: startX + i * spacing,
+                    y,
+                    vy: 0,
+                    type,
+                    collected: false,
+                    bobOffset: i * 0.6
+                });
+            }
+        }
+
+        function spawnArcOfItems(startX, baseY, count, spacing, arcHeight, type = 'flower') {
+            for (let i = 0; i < count; i++) {
+                const t = count > 1 ? i / (count - 1) : 0.5;
+                const arcOffset = Math.sin(t * Math.PI) * arcHeight;
+                game.collectibles.push({
+                    x: startX + i * spacing,
+                    y: baseY - arcOffset,
+                    vy: 0,
+                    type,
+                    collected: false,
+                    bobOffset: i * 0.5
+                });
+            }
+        }
+
+        function spawnBouquet(x, y, label) {
+            game.bouquetsSpawned++;
+            game.bouquetItems.push({
+                x,
+                y,
+                id: game.bouquetsSpawned,
+                label,
+                collected: false
+            });
         }
 
         function spawnNextLevelChunk() {
@@ -1002,14 +1157,12 @@
 
             const startX = game.nextChunkX;
             const gY = game.groundY;
-            const midY = gY - 118;
-            const highY = gY - 228;
-
+            const midY = gY - 115;
+            const highY = gY - 222;
             const cIdx = game.chunkIndex;
             const pattern = cIdx % 5;
             game.chunkIndex++;
 
-            // Guaranteed 5 Special Bridal Bouquets (💐) at chunks 2, 6, 10, 14, 18
             const bouquetSchedule = [2, 6, 10, 14, 18];
             const shouldSpawnBouquet = bouquetSchedule.includes(cIdx) && game.bouquetsSpawned < game.totalBouquets;
 
@@ -1024,22 +1177,17 @@
             if (pattern === 0) {
                 addPlatform(startX, midY, 220, 'awning');
                 addPlatform(startX + 270, highY, 260, 'sky');
-                addPit(startX + 200, 165);
+                addPit(startX + 200, 160);
 
                 spawnLineOfItems(startX + 30, midY - 36, 4, 46, 'flower');
                 spawnLineOfItems(startX + 300, highY - 38, 4, 48, 'envelope');
 
                 if (cIdx === 15) {
-                    game.dashRings.push({
-                        x: startX + 585,
-                        y: highY - 55,
-                        radius: 42,
-                        passed: false
-                    });
+                    game.dashRings.push({ x: startX + 585, y: highY - 55, radius: 42, passed: false });
                 }
 
                 if (shouldSpawnBouquet) {
-                    spawnBouquet(startX + 575, highY - 125, `第 ${game.bouquetsSpawned + 1} 束捧花`);
+                    spawnBouquet(startX + 575, highY - 118, `第 ${game.bouquetsSpawned + 1} 束捧花`);
                 }
 
                 const obs1 = pickObs();
@@ -1048,21 +1196,16 @@
                 game.obstacles.push({ x: startX + 470, y: gY, width: obs2.w, height: obs2.h, emoji: obs2.emoji, hit: false });
 
                 game.nextChunkX = startX + 820;
-
             } else if (pattern === 1) {
                 addPlatform(startX + 30, midY + 12, 145, 'bounce');
-                addPit(startX + 165, 185);
+                addPit(startX + 165, 180);
                 addPlatform(startX + 290, highY - 8, 290, 'sky');
 
                 spawnArcOfItems(startX + 110, midY - 40, 4, 45, 95, 'heart');
                 spawnLineOfItems(startX + 320, highY - 38, 4, 52, 'envelope');
 
                 if (cIdx === 11) {
-                    game.mysteryBoxes.push({
-                        x: startX + 440,
-                        y: highY - 56,
-                        collected: false
-                    });
+                    game.mysteryBoxes.push({ x: startX + 440, y: highY - 56, collected: false });
                 }
 
                 if (shouldSpawnBouquet) {
@@ -1075,27 +1218,15 @@
                 }
 
                 game.nextChunkX = startX + 790;
-
             } else if (pattern === 2) {
-                game.ebisuList.push({
-                    x: startX + 75,
-                    y: gY,
-                    bounced: false,
-                    compression: 0
-                });
-
-                addPit(startX + 150, 190);
+                game.ebisuList.push({ x: startX + 75, y: gY, bounced: false, compression: 0 });
+                addPit(startX + 150, 185);
                 spawnArcOfItems(startX + 150, gY - 190, 6, 54, 110, 'envelope');
 
                 if (shouldSpawnBouquet) {
-                    spawnBouquet(startX + 315, gY - 340, `第 ${game.bouquetsSpawned + 1} 束捧花`);
+                    spawnBouquet(startX + 315, gY - 330, `第 ${game.bouquetsSpawned + 1} 束捧花`);
                 } else if (cIdx === 7) {
-                    game.dashRings.push({
-                        x: startX + 315,
-                        y: gY - 300,
-                        radius: 42,
-                        passed: false
-                    });
+                    game.dashRings.push({ x: startX + 315, y: gY - 295, radius: 42, passed: false });
                 }
 
                 addPlatform(startX + 510, midY, 230, 'awning');
@@ -1105,49 +1236,37 @@
                 game.obstacles.push({ x: startX + 430, y: gY, width: obs.w, height: obs.h, emoji: obs.emoji, hit: false });
 
                 game.nextChunkX = startX + 860;
-
             } else if (pattern === 3) {
                 addPlatform(startX, midY + 15, 165, 'awning');
                 addPlatform(startX + 225, midY - 35, 165, 'awning');
                 addPlatform(startX + 450, highY, 210, 'sky');
-
-                addPit(startX + 155, 150);
-                addPit(startX + 440, 155);
+                addPit(startX + 155, 145);
+                addPit(startX + 440, 150);
 
                 spawnLineOfItems(startX + 25, midY - 22, 3, 46, 'flower');
                 spawnLineOfItems(startX + 250, midY - 72, 3, 46, 'heart');
                 spawnLineOfItems(startX + 480, highY - 38, 3, 48, 'envelope');
 
-                game.ebisuList.push({
-                    x: startX + 305,
-                    y: midY - 35,
-                    bounced: false,
-                    compression: 0
-                });
+                game.ebisuList.push({ x: startX + 305, y: midY - 35, bounced: false, compression: 0 });
 
                 if (shouldSpawnBouquet) {
-                    spawnBouquet(startX + 435, highY - 125, `第 ${game.bouquetsSpawned + 1} 束捧花`);
+                    spawnBouquet(startX + 435, highY - 118, `第 ${game.bouquetsSpawned + 1} 束捧花`);
                 }
 
                 const obs = pickObs();
                 game.obstacles.push({ x: startX + 365, y: gY, width: obs.w, height: obs.h, emoji: obs.emoji, hit: false });
 
                 game.nextChunkX = startX + 820;
-
             } else {
                 const obs1 = pickObs();
                 game.obstacles.push({ x: startX + 85, y: gY, width: obs1.w, height: obs1.h, emoji: obs1.emoji, hit: false });
                 spawnArcOfItems(startX + 20, gY - 55, 4, 40, 80, 'flower');
 
                 addPlatform(startX + 260, midY, 240, 'bounce');
-                addPit(startX + 510, 165);
+                addPit(startX + 510, 160);
 
                 if (cIdx === 4) {
-                    game.mysteryBoxes.push({
-                        x: startX + 380,
-                        y: midY - 52,
-                        collected: false
-                    });
+                    game.mysteryBoxes.push({ x: startX + 380, y: midY - 52, collected: false });
                 }
 
                 if (shouldSpawnBouquet) {
@@ -1161,101 +1280,23 @@
             }
         }
 
-        function addPit(x, width) {
-            game.pits.push({ x, width });
-        }
-
-        function spawnBouquet(x, y, label) {
-            game.bouquetsSpawned++;
-            game.bouquetItems.push({
-                x,
-                y,
-                id: game.bouquetsSpawned,
-                label,
-                collected: false
-            });
-        }
-
-        function addPlatform(x, y, width, type = 'awning') {
-            game.platforms.push({
-                x,
-                y,
-                width,
-                height: 22,
-                type,
-                bounceAnim: 0
-            });
-        }
-
-        function spawnLineOfItems(startX, y, count, spacing, type) {
-            for (let i = 0; i < count; i++) {
-                game.collectibles.push({
-                    x: startX + i * spacing,
-                    y,
-                    type,
-                    collected: false,
-                    bobOffset: i * 0.5
-                });
-            }
-        }
-
-        function spawnArcOfItems(startX, baseY, count, spacingX, arcHeight, type) {
-            for (let i = 0; i < count; i++) {
-                const t = count > 1 ? i / (count - 1) : 0.5;
-                const arcOffset = Math.sin(t * Math.PI) * arcHeight;
-                game.collectibles.push({
-                    x: startX + i * spacingX,
-                    y: baseY - arcOffset,
-                    type,
-                    collected: false,
-                    bobOffset: i * 0.4
-                });
-            }
-        }
-
-        function addFloatingText(text, x, y, color = '#e11d48', size = 20) {
+        function addFloatingText(text, x, y, color = '#e11d48', size = 18) {
             game.floatingTexts.push({
                 text,
                 x,
                 y,
+                vy: -75,
                 color,
                 size,
-                life: 1.0
+                life: 0.95,
+                maxLife: 0.95
             });
-        }
-
-        function validateAndStartGame() {
-            const inputEl = document.getElementById('guest-name-input');
-            const containerEl = document.getElementById('guest-input-container');
-            const errorEl = document.getElementById('guest-name-error');
-
-            const trimmed = (inputEl.value || '').trim();
-            if (!trimmed) {
-                errorEl.classList.remove('hidden');
-                containerEl.classList.remove('shake-error');
-                void containerEl.offsetWidth; // trigger reflow
-                containerEl.classList.add('shake-error');
-                inputEl.focus();
-                return;
-            }
-
-            errorEl.classList.add('hidden');
-            currentGuestName = trimmed;
-            inputEl.blur();
-            resetAndStartGame();
         }
 
         function resetAndStartGame() {
             sfx.init();
             resizeCanvas();
             initScenery();
-
-            if (!currentGuestName) {
-                const raw = (document.getElementById('guest-name-input').value || '').trim();
-                currentGuestName = raw || '婚禮貴賓';
-            }
-
-            document.getElementById('hud-guest-name').textContent = currentGuestName;
 
             game.state = 'PLAYING';
             game.time = 0;
@@ -1264,6 +1305,7 @@
             game.flowers = 0;
             game.bouquets = 0;
             game.bouquetsSpawned = 0;
+            game.bouquetGrandSlamAwarded = false;
             game.combo = 0;
             game.maxCombo = 0;
             game.multiplier = 1;
@@ -1282,13 +1324,19 @@
             p.y = game.groundY;
             p.prevY = game.groundY;
             p.vy = 0;
-            p.jumpsRemaining = 2;
-            p.maxJumps = 2;
+            const baseMaxJumps = selectedRole === 'ebisu' ? 3 : 2;
+            p.jumpsRemaining = baseMaxJumps;
+            p.maxJumps = baseMaxJumps;
             p.squashX = 1;
             p.stretchY = 1;
             p.dizzyTimer = 0;
             p.happyTimer = 0;
             p.fallingInPit = false;
+
+            const jumpBtnSpan = document.querySelector('#btn-jump span:first-child');
+            if (jumpBtnSpan) {
+                jumpBtnSpan.textContent = selectedRole === 'ebisu' ? '🐾 跳躍 / 三連跳' : '🚀 跳躍 / 二段跳';
+            }
 
             game.pits = [];
             game.platforms = [];
@@ -1301,9 +1349,8 @@
             game.particles = [];
             game.floatingTexts = [];
 
-            spawnLineOfItems(p.x + 190, game.groundY - 40, 4, 48, 'flower');
-
-            for (let i = 0; i < 4; i++) {
+            spawnLineOfItems(280, game.groundY - 40, 5, 48, 'flower');
+            while (game.nextChunkX < game.width + 450) {
                 spawnNextLevelChunk();
             }
 
@@ -1311,6 +1358,7 @@
             document.getElementById('result-screen').classList.add('hidden');
             document.getElementById('hud-layer').classList.remove('hidden');
             document.getElementById('touch-controls').classList.remove('hidden');
+            document.getElementById('hud-guest-name').textContent = currentGuestName;
             updateHUD();
         }
 
@@ -1318,15 +1366,19 @@
             if (game.state !== 'PLAYING') return;
             const p = game.player;
             if (p.fallingInPit) return;
-            const maxJumps = game.ebisuMountTimer > 0 ? 3 : 2;
+            const maxJumps = (selectedRole === 'ebisu' || game.ebisuMountTimer > 0) ? 3 : 2;
 
             if (p.jumpsRemaining > 0) {
-                const isFirstJump = p.jumpsRemaining === maxJumps;
-                p.vy = isFirstJump ? -680 : -610;
+                const jumpUsedCount = maxJumps - p.jumpsRemaining + 1;
+                const isFirstJump = jumpUsedCount === 1;
+                p.vy = isFirstJump ? -680 : (jumpUsedCount === 2 ? -615 : -595);
                 p.jumpsRemaining--;
                 p.squashX = 0.78;
                 p.stretchY = 1.26;
                 sfx.playJump(!isFirstJump);
+                if (selectedRole === 'ebisu' && jumpUsedCount === 3) {
+                    sfx.playEbisuMeow(false);
+                }
 
                 for (let i = 0; i < 7; i++) {
                     game.particles.push({
@@ -1335,14 +1387,16 @@
                         vx: (Math.random() - 0.5) * 140 - 60,
                         vy: (Math.random() - 0.5) * 60,
                         size: 5 + Math.random() * 5,
-                        color: isFirstJump ? '#fde047' : '#fb7185',
+                        color: isFirstJump ? '#fde047' : (jumpUsedCount === 3 ? '#fb923c' : '#fb7185'),
                         life: 0.35,
                         maxLife: 0.35
                     });
                 }
 
-                if (!isFirstJump) {
+                if (jumpUsedCount === 2) {
                     addFloatingText('✨ 二段跳！', p.x, p.y - 88, '#ec4899', 16);
+                } else if (jumpUsedCount >= 3) {
+                    addFloatingText('🐾 Ebisu 三連跳！喵～', p.x, p.y - 95, '#ea580c', 18);
                 }
             }
         }
@@ -1353,7 +1407,7 @@
 
             if (game.combo >= 30) game.multiplier = 5;
             else if (game.combo >= 20) game.multiplier = 4;
-            else if (game.combo >= 12) game.multiplier = 3;
+            else if (game.combo >= 10) game.multiplier = 3;
             else if (game.combo >= 5) game.multiplier = 2;
             else game.multiplier = 1;
         }
@@ -1373,18 +1427,18 @@
             game.screenShake = 0.35;
             sfx.playEbisuMeow(true);
             sfx.playDashRing();
-            addFloatingText('🐈🔥 Ebisu 巨貓爆走模式！無敵衝撞！', game.width * 0.5, game.groundY - 260, '#ea580c', 24);
+            addFloatingText('🐈🔥 Ebisu 巨貓爆走模式！無敵衝撞！', game.width * 0.5, game.height * 0.32, '#ea580c', 24);
         }
 
         function triggerMysteryReward(x, y) {
             const roll = Math.random();
             sfx.playDashRing();
             if (roll < 0.5) {
-                addFloatingText('🧧 稀有禮盒：漫天紅包雨！', x, y - 40, '#dc2626', 22);
+                addFloatingText('🧧 稀有禮盒：漫天紅包雨！', x, y - 40, '#dc2626', 20);
                 for (let i = 0; i < 12; i++) {
                     game.collectibles.push({
                         x: game.player.x + 120 + i * 52,
-                        y: game.groundY - 360 + (i % 3) * 45,
+                        y: 60 + (i % 3) * 45,
                         vy: 95 + Math.random() * 60,
                         type: 'envelope',
                         collected: false,
@@ -1394,7 +1448,7 @@
             } else {
                 game.magnetTimer = 5.0;
                 game.score += 600 * game.multiplier;
-                addFloatingText('🧲 稀有禮盒：吸金磁鐵 5 秒！', x, y - 40, '#2563eb', 22);
+                addFloatingText('🧲 稀有禮盒：吸金磁鐵 5 秒！', x, y - 40, '#2563eb', 20);
             }
         }
 
@@ -1407,20 +1461,16 @@
 
             p.squashX += (1 - p.squashX) * Math.min(1, dt * 14);
             p.stretchY += (1 - p.stretchY) * Math.min(1, dt * 14);
-
             if (game.screenShake > 0) game.screenShake = Math.max(0, game.screenShake - dt);
             if (p.dizzyTimer > 0) p.dizzyTimer -= dt;
             if (p.happyTimer > 0) p.happyTimer -= dt;
             if (game.magnetTimer > 0) game.magnetTimer -= dt;
             if (game.dashBoostTimer > 0) game.dashBoostTimer -= dt;
-            if (game.ebisuMountTimer > 0) {
-                game.ebisuMountTimer -= dt;
-            }
+            if (game.ebisuMountTimer > 0) game.ebisuMountTimer -= dt;
 
             if (game.state === 'PLAYING') {
                 const comboBonusSpeed = Math.min(105, game.combo * 2.5);
                 let targetSpeed = game.baseSpeed + comboBonusSpeed;
-
                 if (game.dashBoostTimer > 0) targetSpeed = 690;
                 else if (game.ebisuMountTimer > 0) targetSpeed = 590;
                 else if (p.dizzyTimer > 0) targetSpeed = 260;
@@ -1429,13 +1479,15 @@
 
                 game.currentSpeed += (targetSpeed - game.currentSpeed) * Math.min(1, dt * 10);
                 const moveDelta = game.currentSpeed * dt;
+
                 game.distance += moveDelta;
                 game.nextChunkX -= moveDelta;
 
-                if (game.nextChunkX < game.width + 380) {
+                if (game.nextChunkX < game.width + 350) {
                     spawnNextLevelChunk();
                 }
 
+                // Update Ground Pits
                 for (let i = game.pits.length - 1; i >= 0; i--) {
                     game.pits[i].x -= moveDelta;
                     if (game.pits[i].x + game.pits[i].width < -150) {
@@ -1448,7 +1500,7 @@
                 p.y += p.vy * dt;
 
                 let landedThisFrame = false;
-                const maxJumps = game.ebisuMountTimer > 0 ? 3 : 2;
+                const maxJumps = (selectedRole === 'ebisu' || game.ebisuMountTimer > 0) ? 3 : 2;
 
                 // 1. Multi-Tier Platform Collisions
                 for (let i = game.platforms.length - 1; i >= 0; i--) {
@@ -1457,7 +1509,7 @@
                     if (plat.bounceAnim > 0) plat.bounceAnim = Math.max(0, plat.bounceAnim - dt * 4);
 
                     const withinX = (p.x + 22 > plat.x) && (p.x - 22 < plat.x + plat.width);
-                    const crossedTop = !p.fallingInPit && (p.prevY <= plat.y + 8) && (p.y >= plat.y) && (p.vy >= 0);
+                    const crossedTop = !p.fallingInPit && (p.prevY <= plat.y + 10) && (p.y >= plat.y) && (p.vy >= 0);
 
                     if (withinX && crossedTop) {
                         p.y = plat.y;
@@ -1484,9 +1536,8 @@
                     if (plat.x + plat.width < -120) game.platforms.splice(i, 1);
                 }
 
-                // 2. Ground Landing vs. Falling into Ground Pit
+                // 2. Ground Landing vs. Falling into Ground Pit!
                 const activePit = game.pits.find(pit => p.x > pit.x + 16 && p.x < pit.x + pit.width - 16);
-
                 if (!p.fallingInPit && p.y >= game.groundY) {
                     if (activePit) {
                         p.fallingInPit = true;
@@ -1506,57 +1557,45 @@
                     }
                 }
 
-                if (p.fallingInPit && p.y > game.height + 95) {
+                if (p.fallingInPit && p.y > game.groundY + 150) {
                     triggerGameOver();
                     return;
                 }
 
                 p.tilt = landedThisFrame ? 0 : Math.max(-0.2, Math.min(0.2, p.vy * 0.00028));
 
+                // 3. Ebisu Helper Cats
                 for (let i = game.ebisuList.length - 1; i >= 0; i--) {
                     const ebisu = game.ebisuList[i];
                     ebisu.x -= moveDelta;
-                    if (ebisu.compression > 0) ebisu.compression = Math.max(0, ebisu.compression - dt * 3.5);
+                    if (ebisu.compression > 0) {
+                        ebisu.compression = Math.max(0, ebisu.compression - dt * 3.5);
+                    }
 
                     const dx = Math.abs(p.x - ebisu.x);
                     const dy = Math.abs(p.y - ebisu.y);
-                    if (!ebisu.bounced && dx < 64 && dy < 76) {
+                    if (!ebisu.bounced && !p.fallingInPit && dx < 64 && dy < 76) {
                         ebisu.bounced = true;
                         ebisu.compression = 1.0;
                         p.vy = -920;
                         p.jumpsRemaining = maxJumps;
                         p.happyTimer = 1.2;
-
                         game.ebisuInteractions++;
                         incrementCombo(2);
                         addFeverEnergy(12);
                         const pts = 400 * game.multiplier;
                         game.score += pts;
                         sfx.playEbisuMeow(false);
-                        addFloatingText(`🐈 Ebisu 超級助跳！+${pts}`, ebisu.x, ebisu.y - 85, '#ea580c', 22);
-
-                        for (let k = 0; k < 14; k++) {
-                            const ang = (Math.PI * 2 * k) / 14;
-                            game.particles.push({
-                                x: ebisu.x,
-                                y: ebisu.y - 25,
-                                vx: Math.cos(ang) * 210,
-                                vy: Math.sin(ang) * 210 - 60,
-                                size: 7,
-                                color: k % 2 === 0 ? '#fb923c' : '#fef08a',
-                                life: 0.55,
-                                maxLife: 0.55
-                            });
-                        }
+                        addFloatingText(`🐈 Ebisu 超級助跳！+${pts}`, ebisu.x, ebisu.y - 85, '#ea580c', 20);
                     }
 
                     if (ebisu.x < -120) game.ebisuList.splice(i, 1);
                 }
 
+                // 4. Scarce Diamond Dash Rings
                 for (let i = game.dashRings.length - 1; i >= 0; i--) {
                     const ring = game.dashRings[i];
                     ring.x -= moveDelta;
-
                     const dist = Math.hypot(p.x - ring.x, (p.y - 50) - ring.y);
                     if (!ring.passed && dist < 68) {
                         ring.passed = true;
@@ -1566,17 +1605,16 @@
                         p.happyTimer = 1.0;
                         incrementCombo(3);
                         addFeverEnergy(12);
-
                         const pts = 800 * game.multiplier;
                         game.score += pts;
                         game.screenShake = 0.2;
                         sfx.playDashRing();
-                        addFloatingText(`💍 鑽戒空中噴射！+${pts}`, ring.x, ring.y - 45, '#0284c7', 22);
+                        addFloatingText(`💍 鑽戒空中噴射！+${pts}`, ring.x, ring.y - 45, '#0284c7', 20);
                     }
                     if (ring.x < -100) game.dashRings.splice(i, 1);
                 }
 
-                // 5 Special Hidden Bridal Bouquets (💐)
+                // 5. 5 Special Hidden Bridal Bouquets (💐) with Escalating High Score + Grand Slam!
                 for (let i = game.bouquetItems.length - 1; i >= 0; i--) {
                     const bq = game.bouquetItems[i];
                     bq.x -= moveDelta;
@@ -1584,46 +1622,47 @@
                     if (!bq.collected && dist < 62) {
                         bq.collected = true;
                         game.bouquets++;
-                        p.happyTimer = 1.6;
-                        incrementCombo(5);
-                        addFeverEnergy(25);
+                        p.happyTimer = 1.5;
+                        incrementCombo(3);
+                        addFeverEnergy(16);
 
-                        // Progressive guaranteed high score:
-                        // 1st: 10,000 | 2nd: 12,500 | 3rd: 15,000 | 4th: 17,500 | 5th: 20,000 + combo bonus
-                        const progressiveBase = 10000 + (game.bouquets - 1) * 2500;
-                        const comboBonus = 1000 * game.multiplier;
-                        const pts = progressiveBase + comboBonus;
+                        const escalatingBase = 10000 + game.bouquets * 3000; // 13000, 16000, 19000, 22000, 25000
+                        const comboBonus = 1200 * game.multiplier;
+                        const pts = escalatingBase + comboBonus;
                         game.score += pts;
-                        game.screenShake = 0.25;
+                        game.screenShake = 0.24;
                         sfx.playFanfare();
-                        addFloatingText(`💐 隱藏捧花 (${game.bouquets}/5)！+${pts.toLocaleString()}`, bq.x, bq.y - 45, '#be185d', 23);
+                        addFloatingText(`💐 隱藏捧花 (${game.bouquets}/5)！+${pts.toLocaleString()}`, bq.x, bq.y - 45, '#be185d', 21);
 
-                        // 5-Bouquet Grand Slam Bonus (+30,000 pts) so 5 bouquets ALWAYS beats 4 bouquets!
-                        if (game.bouquets === game.totalBouquets) {
-                            const grandSlamBonus = 30000;
+                        if (game.bouquets === 5 && !game.bouquetGrandSlamAwarded) {
+                            game.bouquetGrandSlamAwarded = true;
+                            const grandSlamBonus = 40000;
                             game.score += grandSlamBonus;
-                            game.screenShake = 0.4;
-                            sfx.playDashRing();
-                            addFloatingText(`👑 5束捧花全制霸大滿貫！+${grandSlamBonus.toLocaleString()}`, game.width * 0.5, game.groundY - 220, '#d97706', 26);
+                            addFloatingText(`👑 5束捧花全制霸大滿貫！+${grandSlamBonus.toLocaleString()}`, game.width * 0.5, game.height * 0.28, '#d97706', 24);
                         }
 
-                        for (let k = 0; k < 18; k++) {
-                            const ang = (Math.PI * 2 * k) / 18;
+                        for (let k = 0; k < 16; k++) {
+                            const ang = (Math.PI * 2 * k) / 16;
                             game.particles.push({
-                                x: bq.x, y: bq.y,
-                                vx: Math.cos(ang) * 210, vy: Math.sin(ang) * 210,
-                                size: 7, color: k % 2 === 0 ? '#f43f5e' : '#fde047',
-                                life: 0.65, maxLife: 0.65
+                                x: bq.x,
+                                y: bq.y,
+                                vx: Math.cos(ang) * 200,
+                                vy: Math.sin(ang) * 200,
+                                size: 7,
+                                color: k % 2 === 0 ? '#f43f5e' : '#fde047',
+                                life: 0.6,
+                                maxLife: 0.6
                             });
                         }
                     }
                     if (bq.collected || bq.x < -120) game.bouquetItems.splice(i, 1);
                 }
 
+                // 6. Scarce Mystery Gift Boxes
                 for (let i = game.mysteryBoxes.length - 1; i >= 0; i--) {
                     const box = game.mysteryBoxes[i];
                     box.x -= moveDelta;
-                    const dist = Math.hypot(p.x - box.x, (p.y - 52) - box.y);
+                    const dist = Math.hypot(p.x - box.x, (p.y - 50) - box.y);
                     if (!box.collected && dist < 58) {
                         box.collected = true;
                         incrementCombo(2);
@@ -1632,17 +1671,23 @@
                     if (box.collected || box.x < -100) game.mysteryBoxes.splice(i, 1);
                 }
 
+                // 7. Collectibles (Flowers, Hearts, Red Envelopes)
                 const magnetActive = game.magnetTimer > 0 || game.ebisuMountTimer > 0;
                 for (let i = game.collectibles.length - 1; i >= 0; i--) {
                     const item = game.collectibles[i];
                     item.x -= moveDelta;
                     if (item.vy) {
-                        item.y = Math.min(game.groundY - 36, item.y + item.vy * dt);
+                        item.y = Math.min(game.groundY - 34, item.y + item.vy * dt);
                     }
 
-                    if (magnetActive && item.x > p.x - 60 && item.x < p.x + 360) {
-                        item.x += (p.x - item.x) * Math.min(1, dt * 9);
-                        item.y += ((p.y - 50) - item.y) * Math.min(1, dt * 9);
+                    if (magnetActive && item.x > -20 && item.x < game.width) {
+                        const dx = p.x - item.x;
+                        const dy = (p.y - 52) - item.y;
+                        const d = Math.hypot(dx, dy);
+                        if (d < 360) {
+                            item.x += (dx / Math.max(1, d)) * 680 * dt;
+                            item.y += (dy / Math.max(1, d)) * 680 * dt;
+                        }
                     }
 
                     const distToPlayer = Math.hypot(p.x - item.x, (p.y - 52) - item.y);
@@ -1652,18 +1697,12 @@
 
                         let basePts = 100;
                         let energy = 1.6;
-                        let icon = '🌸';
-                        let color = '#e11d48';
-
                         if (item.type === 'heart') {
                             basePts = 150;
                             energy = 2.2;
-                            icon = '💖';
                         } else if (item.type === 'envelope') {
                             basePts = 300;
                             energy = 3.2;
-                            icon = '🧧';
-                            color = '#dc2626';
                         }
 
                         game.flowers++;
@@ -1671,21 +1710,6 @@
                         const totalPts = basePts * game.multiplier;
                         game.score += totalPts;
                         sfx.playComboPickup(game.combo, item.type === 'envelope');
-
-                        addFloatingText(`${icon} +${totalPts}`, item.x, item.y - 18, color, item.type === 'envelope' ? 20 : 16);
-
-                        for (let k = 0; k < 5; k++) {
-                            game.particles.push({
-                                x: item.x,
-                                y: item.y,
-                                vx: (Math.random() - 0.5) * 140,
-                                vy: (Math.random() - 0.5) * 140,
-                                size: 4 + Math.random() * 4,
-                                color: item.type === 'envelope' ? '#facc15' : '#fb7185',
-                                life: 0.32,
-                                maxLife: 0.32
-                            });
-                        }
                     }
 
                     if (item.collected || item.x < -100) {
@@ -1693,8 +1717,8 @@
                     }
                 }
 
-                // Obstacles
-                const isInvincible = game.ebisuMountTimer > 0 || game.dashBoostTimer > 0;
+                // 8. Obstacles (Ebisu is fearless against all ground obstacles except pits!)
+                const isInvincible = selectedRole === 'ebisu' || game.ebisuMountTimer > 0 || game.dashBoostTimer > 0;
                 for (let i = game.obstacles.length - 1; i >= 0; i--) {
                     const obs = game.obstacles[i];
                     obs.x -= moveDelta;
@@ -1721,7 +1745,10 @@
                             incrementCombo(2);
                             game.screenShake = 0.2;
                             sfx.playPadBounce();
-                            addFloatingText(`💥 巨貓撞飛！+${smashPts}`, obs.x, obs.y - 60, '#ea580c', 20);
+                            const smashLabel = selectedRole === 'ebisu' && game.ebisuMountTimer <= 0
+                                ? `🐾 Ebisu 撞飛路障！+${smashPts}`
+                                : `💥 巨貓撞飛！+${smashPts}`;
+                            addFloatingText(smashLabel, obs.x, obs.y - 60, '#ea580c', 19);
                         } else if (p.dizzyTimer <= 0) {
                             game.obstaclesHit++;
                             p.dizzyTimer = 0.9;
@@ -1734,13 +1761,14 @@
                             game.score = Math.max(0, game.score - 300);
                             game.screenShake = 0.35;
                             sfx.playCrash();
-                            addFloatingText(lostCombo >= 5 ? `💥 連擊中斷！-300` : `💥 小心路障！-300`, p.x, p.y - 95, '#991b1b', 20);
+                            addFloatingText(lostCombo >= 5 ? `💥 連擊中斷！-300` : `💥 小心路障！-300`, p.x, p.y - 95, '#991b1b', 19);
                         }
                     }
 
                     if (obs.x < -100) game.obstacles.splice(i, 1);
                 }
 
+                // Check Finish Line
                 if (!p.fallingInPit && game.distance >= game.totalDistance) {
                     triggerWeddingFinish();
                 }
@@ -1748,6 +1776,7 @@
                 updateHUD();
             }
 
+            // Update Particles & Floating Texts
             for (let i = game.particles.length - 1; i >= 0; i--) {
                 const pt = game.particles[i];
                 pt.x += pt.vx * dt;
@@ -1758,22 +1787,10 @@
 
             for (let i = game.floatingTexts.length - 1; i >= 0; i--) {
                 const ft = game.floatingTexts[i];
-                ft.y -= 55 * dt;
-                ft.life -= dt * 1.15;
+                ft.y += ft.vy * dt;
+                ft.life -= dt;
                 if (ft.life <= 0) game.floatingTexts.splice(i, 1);
             }
-
-            game.clouds.forEach(c => {
-                c.x -= c.speed * dt;
-                if (c.x < -140) c.x = game.width + 120;
-            });
-            game.speedLines.forEach(sl => {
-                sl.x -= sl.speed * dt;
-                if (sl.x + sl.length < 0) {
-                    sl.x = game.width + Math.random() * 200;
-                    sl.y = Math.random() * (game.groundY - 40);
-                }
-            });
         }
 
         function updateHUD() {
@@ -1783,16 +1800,12 @@
 
             const multEl = document.getElementById('hud-multiplier');
             multEl.textContent = `x${game.multiplier}`;
-            multEl.className = `text-white text-[11px] sm:text-xs font-black px-1.5 sm:px-2 py-0.5 rounded-md border border-[#3b1d11] ${
-                game.multiplier >= 4 ? 'bg-purple-600 scale-110' :
-                game.multiplier >= 3 ? 'bg-orange-500 scale-105' :
-                game.multiplier >= 2 ? 'bg-amber-500' : 'bg-rose-500'
-            }`;
 
             const comboBox = document.getElementById('hud-combo-box');
+            const comboNum = document.getElementById('hud-combo-num');
             if (game.combo >= 3) {
                 comboBox.classList.remove('hidden');
-                document.getElementById('hud-combo-num').textContent = `🔥 ${game.combo} COMBO!`;
+                comboNum.textContent = `${game.combo} COMBO!`;
             } else {
                 comboBox.classList.add('hidden');
             }
@@ -1801,15 +1814,42 @@
             const feverText = document.getElementById('hud-fever-text');
             if (game.ebisuMountTimer > 0) {
                 const pct = (game.ebisuMountTimer / 4.6) * 100;
-                if (feverFill) feverFill.style.width = `${pct}%`;
-                feverText.textContent = '🔥無敵!';
+                feverFill.style.width = `${pct}%`;
+                feverText.textContent = '🔥巨貓中';
             } else {
-                if (feverFill) feverFill.style.width = `${game.feverEnergy}%`;
+                feverFill.style.width = `${game.feverEnergy}%`;
                 feverText.textContent = `${Math.floor(game.feverEnergy)}%`;
             }
 
             const pct = Math.min(100, Math.max(4, (game.distance / game.totalDistance) * 100));
             document.getElementById('hud-progress-fill').style.width = `${pct}%`;
+        }
+
+        function updateGiftBannerUI(score) {
+            const giftBanner = document.getElementById('result-gift-banner');
+            if (!giftBanner) return;
+
+            if (score >= GIFT_TARGET_SCORE) {
+                giftBanner.className = 'rounded-2xl p-2 sm:p-2.5 mb-2 border-2 border-[#3b1d11] text-center bg-gradient-to-r from-amber-300 via-yellow-200 to-rose-200 shadow-[0_4px_0_#3b1d11] combo-pop';
+                giftBanner.innerHTML = `
+                    <div class="text-xs sm:text-sm font-black text-rose-700 flex items-center justify-center gap-1">
+                        <span>🎁 恭喜突破 300,000 分大關！</span>
+                    </div>
+                    <div class="text-[11px] sm:text-xs font-black text-[#3b1d11] mt-0.5 leading-snug">
+                        📸 請立即<span class="text-rose-600 underline decoration-2">截圖此畫面</span>，找新郎拿小禮物！<span class="text-[10px] sm:text-[11px] text-amber-900">（數量有限送完為止）</span>
+                    </div>
+                `;
+            } else {
+                giftBanner.className = 'rounded-2xl p-2 mb-2 border-2 border-dashed border-rose-400 bg-rose-50/90 text-center';
+                giftBanner.innerHTML = `
+                    <div class="text-[11px] sm:text-xs font-black text-rose-700 leading-snug">
+                        🎁 <span class="underline">婚禮有獎挑戰</span>：如果分數超過 <span class="text-rose-600 font-black">300,000</span>，請截圖找新郎拿小禮物！
+                    </div>
+                    <div class="text-[10px] font-bold text-stone-600 mt-0.5">
+                        （數量有限送完為止！目前還差 ${(GIFT_TARGET_SCORE - score).toLocaleString()} 分，快再戰一局！）
+                    </div>
+                `;
+            }
         }
 
         function triggerGameOver() {
@@ -1820,16 +1860,19 @@
             document.getElementById('touch-controls').classList.add('hidden');
             document.getElementById('result-screen').classList.remove('hidden');
             document.getElementById('result-new-record').classList.add('hidden');
+            document.getElementById('result-unlock-ebisu').classList.add('hidden');
 
             document.getElementById('result-guest-name').textContent = currentGuestName;
 
             const pct = Math.min(99, Math.floor((game.distance / game.totalDistance) * 100));
             document.getElementById('result-main-title').textContent = '😱 掉進坑洞！GAME OVER';
-            document.getElementById('result-sub-title').textContent = `${currentGuestName}，距離禮堂只剩 ${100 - pct}% 路程！快爬起來再跑一次！`;
+            document.getElementById('result-sub-title').textContent = `${currentGuestName}，距離婚禮禮堂只剩 ${100 - pct}% 路程！快再跑一次！`;
 
             document.getElementById('res-bouquets').textContent = `${game.bouquets} / 5 💐`;
             document.getElementById('res-combo').textContent = `${game.maxCombo} 連擊`;
             document.getElementById('res-score').textContent = game.score.toLocaleString();
+
+            updateGiftBannerUI(game.score);
 
             const missions = [
                 { done: false, text: `順利跨越所有地面坑洞抵達禮堂（於 ${pct}% 處跌落）` },
@@ -1843,7 +1886,7 @@
                 </div>
             `).join('');
 
-            document.getElementById('result-rank-badge').textContent = `🕳️ 稱號：在紅毯半路摔進洞裡的 ${currentGuestName}`;
+            document.getElementById('result-rank-badge').textContent = `🕳️ ${currentGuestName}：在紅毯半路摔進洞裡的迷糊貴賓`;
             renderResultCoupleCanvas(true);
         }
 
@@ -1857,7 +1900,7 @@
 
             document.getElementById('result-guest-name').textContent = currentGuestName;
             document.getElementById('result-main-title').textContent = 'Tung ❤️ Han';
-            document.getElementById('result-sub-title').textContent = `感謝 ${currentGuestName} 準時奔進禮堂送上祝福！• 2026.10.24`;
+            document.getElementById('result-sub-title').textContent = 'Welcome to Our Wedding! • 2026.10.24';
 
             const isNewRecord = game.score > personalBestScore;
             if (isNewRecord) {
@@ -1872,6 +1915,8 @@
             document.getElementById('res-combo').textContent = `${game.maxCombo} 連擊`;
             document.getElementById('res-score').textContent = game.score.toLocaleString();
 
+            updateGiftBannerUI(game.score);
+
             const missions = [
                 { done: game.bouquets >= 5, text: `收集全部 5 束高難度隱藏捧花（本局：${game.bouquets}/5）` },
                 { done: game.maxCombo >= 25, text: `達成 25 連擊不斷（本局最高：${game.maxCombo} 連擊）` },
@@ -1884,8 +1929,24 @@
                 </div>
             `).join('');
 
+            const allThreeDone = (game.bouquets >= 5) && (game.maxCombo >= 25) && (game.obstaclesHit === 0);
+            const unlockBanner = document.getElementById('result-unlock-ebisu');
+            if (allThreeDone) {
+                const newlyUnlocked = !ebisuUnlocked;
+                ebisuUnlocked = true;
+                updateEbisuRoleCardUI();
+                unlockBanner.classList.remove('hidden');
+                unlockBanner.textContent = newlyUnlocked
+                    ? '🐾 恭喜 3 星全制霸！成功解鎖隱藏角色「橘貓 Ebisu」（三連跳＋無視路障）！'
+                    : '🐾 完美 3 星全制霸！橘貓 Ebisu 為你瘋狂鼓掌喵～！';
+            } else {
+                unlockBanner.classList.add('hidden');
+            }
+
             let rankTitle = '🥂 優雅散步來喝喜酒的貴賓';
-            if (game.bouquets >= 5) rankTitle = '👑 5 束捧花全制霸！傳說級婚禮跑酷宗師！';
+            if (game.score >= GIFT_TARGET_SCORE) rankTitle = '🎁 破 30 萬分神人！快截圖找新郎領禮物！';
+            else if (allThreeDone) rankTitle = '🐾 3 星全制霸！解鎖傳說橘貓 Ebisu 的大宗師！';
+            else if (game.bouquets >= 5) rankTitle = '👑 5 束捧花全制霸！傳說級婚禮跑酷宗師！';
             else if (game.bouquets >= 4 || game.score >= 75000) rankTitle = '🐈 橘貓 Ebisu 認證的頭號搶捧花車神！';
             else if (game.bouquets >= 2 || game.score >= 40000) rankTitle = '💐 使命必達的首席伴郎／伴娘！';
             document.getElementById('result-rank-badge').textContent = `🏆 ${currentGuestName}：${rankTitle}`;
@@ -1900,113 +1961,119 @@
             rctx.clearRect(0, 0, rc.width, rc.height);
 
             if (isGameOver) {
-                drawChibiCharacter(rctx, selectedRole, 125, 118, 74, 92, 0, { isRunning: false, dizzy: true });
-                drawEbisuCat(rctx, 200, 120, 52, 0, 0, false);
+                if (selectedRole === 'ebisu') {
+                    drawEbisuCat(rctx, 160, 112, 60, 0, 0, false, { dizzy: true, isMainRunner: true });
+                } else {
+                    drawChibiCharacter(rctx, selectedRole, 125, 110, 72, 90, 0, { isRunning: false, dizzy: true });
+                    drawEbisuCat(rctx, 200, 112, 50, 0, 0, false);
+                }
                 rctx.font = '900 13px "Noto Sans TC", sans-serif';
                 rctx.fillStyle = '#dc2626';
                 rctx.textAlign = 'center';
-                rctx.fillText(`💬 喵嗚！${currentGuestName} 小心腳下的坑洞呀！`, 160, 22);
+                rctx.fillText(`💬 喵嗚！${currentGuestName} 小心腳下的坑洞呀！`, 160, 20);
                 return;
             }
 
             rctx.strokeStyle = '#fb7185';
             rctx.lineWidth = 7;
             rctx.beginPath();
-            rctx.arc(160, 122, 105, Math.PI, 0);
+            rctx.arc(160, 114, 102, Math.PI, 0);
             rctx.stroke();
 
-            drawChibiCharacter(rctx, 'tung', 102, 119, 74, 92, 0, { isRunning: false, happy: true });
-            drawChibiCharacter(rctx, 'han', 218, 119, 74, 92, 0, { isRunning: false, happy: true });
-            drawEbisuCat(rctx, 160, 121, 50, 0, 0, false);
+            drawChibiCharacter(rctx, 'tung', 102, 110, 72, 90, 0, { isRunning: false, happy: true });
+            drawChibiCharacter(rctx, 'han', 218, 110, 72, 90, 0, { isRunning: false, happy: true });
+            drawEbisuCat(rctx, 160, 114, 50, 0.5, 0.15, false, { isMainRunner: selectedRole === 'ebisu' });
 
-            rctx.font = '24px sans-serif';
+            rctx.font = '22px sans-serif';
             rctx.textAlign = 'center';
-            rctx.fillText('💖', 160, 40);
-            rctx.fillText('✨', 55, 55);
-            rctx.fillText('✨', 265, 55);
+            rctx.fillText('💖', 160, 34);
         }
 
         function drawGame() {
-            if (!Number.isFinite(game.groundY) || !Number.isFinite(game.width) || !Number.isFinite(game.height) || !Number.isFinite(game.scale) || game.scale <= 0) {
-                resizeCanvas();
-            }
-
-            const safeWidth = Number.isFinite(game.width) && game.width > 0 ? game.width : 900;
-            const safeGroundY = Number.isFinite(game.groundY) && game.groundY > 0 ? game.groundY : 450;
-            const safeHeight = Number.isFinite(game.height) && game.height > safeGroundY ? game.height : safeGroundY + 95;
-
+            const dpr = Math.min(window.devicePixelRatio || 1, 2);
             ctx.save();
-
-            // Apply high-DPI & responsive virtual viewport transform
-            const totalScale = (Number.isFinite(game.dpr) ? game.dpr : 1) * (Number.isFinite(game.scale) && game.scale > 0 ? game.scale : 1);
-            ctx.setTransform(totalScale, 0, 0, totalScale, 0, 0);
+            ctx.setTransform(dpr * viewScale, 0, 0, dpr * viewScale, 0, 0);
 
             if (game.screenShake > 0) {
-                const mag = game.screenShake * 18;
+                const mag = game.screenShake * 14;
                 ctx.translate((Math.random() - 0.5) * mag, (Math.random() - 0.5) * mag);
             }
 
-            ctx.clearRect(-40, -40, safeWidth + 80, safeHeight + 80);
-            const progress = game.distance / game.totalDistance;
+            const progress = Math.min(1, game.distance / game.totalDistance);
 
-            // 1. Dynamic 3-Stage Sky Gradient
-            const skyGrad = ctx.createLinearGradient(0, 0, 0, safeGroundY);
+            // 1. Sky Gradient
+            const safeHeight = Number.isFinite(game.height) && game.height > 0 ? game.height : 540;
+            const safeGroundY = Number.isFinite(game.groundY) && game.groundY > 0 ? game.groundY : 450;
+            const skyGrad = ctx.createLinearGradient(0, 0, 0, safeHeight);
             if (game.ebisuMountTimer > 0) {
-                skyGrad.addColorStop(0, '#f59e0b');
+                skyGrad.addColorStop(0, '#f97316');
                 skyGrad.addColorStop(1, '#fef08a');
             } else if (progress < 0.36) {
                 skyGrad.addColorStop(0, '#bae6fd');
                 skyGrad.addColorStop(1, '#fef9c3');
             } else if (progress < 0.72) {
-                skyGrad.addColorStop(0, '#fda4af');
-                skyGrad.addColorStop(1, '#fde68a');
+                skyGrad.addColorStop(0, '#fdba74');
+                skyGrad.addColorStop(1, '#fecdd3');
             } else {
-                skyGrad.addColorStop(0, '#fecdd3');
+                skyGrad.addColorStop(0, '#fbcfe8');
                 skyGrad.addColorStop(1, '#fff1f2');
             }
             ctx.fillStyle = skyGrad;
-            ctx.fillRect(0, 0, safeWidth, safeGroundY);
+            ctx.fillRect(0, 0, game.width, safeHeight);
 
-            // 2. Vintage Sunburst Rays
+            // 2. Vintage Cartoon Sunburst Rays
             ctx.save();
-            ctx.translate(safeWidth * 0.78, safeGroundY * 0.28);
-            ctx.rotate(game.time * 0.15);
-            ctx.fillStyle = 'rgba(255, 255, 255, 0.22)';
+            ctx.translate(game.width * 0.75, 110);
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.24)';
             for (let i = 0; i < 12; i++) {
                 ctx.beginPath();
                 ctx.moveTo(0, 0);
-                ctx.arc(0, 0, 1200, (i * Math.PI) / 6, (i * Math.PI) / 6 + 0.12);
+                const a1 = (i * Math.PI * 2) / 12 + game.time * 0.08;
+                const a2 = a1 + Math.PI / 18;
+                ctx.arc(0, 0, 950, a1, a2);
                 ctx.closePath();
                 ctx.fill();
             }
             ctx.restore();
 
-            // 3. Speed Lines
-            if (game.combo >= 8 || game.ebisuMountTimer > 0 || game.dashBoostTimer > 0) {
-                ctx.strokeStyle = game.ebisuMountTimer > 0 ? 'rgba(255,255,255,0.65)' : 'rgba(255,255,255,0.4)';
-                ctx.lineWidth = 3;
-                game.speedLines.forEach(sl => {
-                    ctx.beginPath();
-                    ctx.moveTo(sl.x, sl.y);
-                    ctx.lineTo(sl.x + sl.length, sl.y);
-                    ctx.stroke();
-                });
-            }
+            // 3. Clouds
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.85)';
+            game.clouds.forEach(c => {
+                c.x -= c.speed * 0.016;
+                if (c.x < -120) c.x = game.width + 100;
+                ctx.beginPath();
+                ctx.arc(c.x, c.y, 26 * c.scale, 0, Math.PI * 2);
+                ctx.arc(c.x + 22 * c.scale, c.y - 6 * c.scale, 22 * c.scale, 0, Math.PI * 2);
+                ctx.arc(c.x + 42 * c.scale, c.y, 20 * c.scale, 0, Math.PI * 2);
+                ctx.fill();
+            });
 
             // 4. Parallax Hills
             const bgOffset = (game.distance * 0.3) % 320;
             ctx.fillStyle = progress > 0.72 ? 'rgba(254, 205, 211, 0.7)' : 'rgba(253, 230, 138, 0.7)';
-            for (let x = -bgOffset; x < safeWidth + 320; x += 320) {
+            for (let x = -bgOffset; x < game.width + 320; x += 320) {
                 ctx.beginPath();
                 ctx.arc(x + 160, safeGroundY, 185, Math.PI, 0);
                 ctx.fill();
             }
 
-            // 5. Ground, Red Carpet & Deadly Abyss Pits
+            // 5. Ground, Deadly Abyss Pits & Bottom Control Deck
+            const roadBeltHeight = 36;
+            const deckTopY = safeGroundY + roadBeltHeight;
+
+            // Running Road Belt (cleanly above the jump button)
             ctx.fillStyle = progress > 0.68 ? '#e11d48' : '#fbbf24';
-            ctx.fillRect(0, safeGroundY, safeWidth, safeHeight - safeGroundY);
+            ctx.fillRect(0, safeGroundY, game.width, roadBeltHeight);
             ctx.fillStyle = '#3b1d11';
-            ctx.fillRect(0, safeGroundY, safeWidth, 5);
+            ctx.fillRect(0, safeGroundY, game.width, 5);
+
+            // Lower Control Deck Backdrop (where the Jump Button sits, so it never overlaps the road)
+            if (safeHeight > deckTopY) {
+                ctx.fillStyle = '#2a120a';
+                ctx.fillRect(0, deckTopY, game.width, safeHeight - deckTopY);
+                ctx.fillStyle = '#78350f';
+                ctx.fillRect(0, deckTopY, game.width, 4);
+            }
 
             game.pits.forEach(pit => {
                 ctx.save();
@@ -2024,87 +2091,98 @@
                 ctx.fillRect(pit.x - 12, safeGroundY, 12, 8);
                 ctx.fillRect(pit.x + pit.width, safeGroundY, 12, 8);
 
-                ctx.fillStyle = 'rgba(248, 113, 113, 0.9)';
+                ctx.fillStyle = 'rgba(248, 113, 113, 0.95)';
                 ctx.font = '900 11px "Noto Sans TC", sans-serif';
                 ctx.textAlign = 'center';
-                ctx.fillText('⚠️ 小心深淵', pit.x + pit.width / 2, safeGroundY + 24);
+                ctx.fillText('⚠️ 小心深淵', pit.x + pit.width / 2, safeGroundY + 23);
                 ctx.restore();
             });
 
+            // 6. Multi-Tier Platforms
             game.platforms.forEach(plat => {
                 ctx.save();
-                const py = plat.y + (plat.bounceAnim ? Math.sin(plat.bounceAnim * Math.PI) * 8 : 0);
+                const bounceOffset = Math.sin(plat.bounceAnim * Math.PI) * 8;
+                ctx.translate(plat.x, plat.y + bounceOffset);
+                ctx.strokeStyle = '#3b1d11';
+                ctx.lineWidth = 3.2;
 
                 if (plat.type === 'bounce') {
-                    ctx.fillStyle = '#ec4899';
-                    ctx.strokeStyle = '#3b1d11';
-                    ctx.lineWidth = 3.5;
+                    ctx.fillStyle = '#f43f5e';
                     ctx.beginPath();
-                    ctx.roundRect(plat.x, py, plat.width, 22, 10);
+                    ctx.roundRect(0, 0, plat.width, 20, 10);
                     ctx.fill();
                     ctx.stroke();
 
-                    ctx.fillStyle = '#ffffff';
+                    ctx.fillStyle = '#fde047';
                     ctx.font = '900 11px "Noto Sans TC", sans-serif';
                     ctx.textAlign = 'center';
-                    ctx.fillText('🍾 彈跳台 BOUNCE', plat.x + plat.width / 2, py + 15);
+                    ctx.fillText('🍾 BOUNCE 彈跳台', plat.width / 2, 14);
                 } else if (plat.type === 'sky') {
                     ctx.fillStyle = '#fef08a';
-                    ctx.strokeStyle = '#3b1d11';
-                    ctx.lineWidth = 3.5;
                     ctx.beginPath();
-                    ctx.roundRect(plat.x, py, plat.width, 20, 10);
+                    ctx.roundRect(0, 0, plat.width, 18, 9);
                     ctx.fill();
                     ctx.stroke();
-
-                    ctx.fillStyle = '#f59e0b';
-                    ctx.fillRect(plat.x + 8, py + 5, plat.width - 16, 4);
                 } else {
-                    ctx.fillStyle = '#fff1f2';
-                    ctx.strokeStyle = '#3b1d11';
-                    ctx.lineWidth = 3.5;
+                    ctx.fillStyle = '#ffffff';
                     ctx.beginPath();
-                    ctx.roundRect(plat.x, py, plat.width, 22, 8);
+                    ctx.roundRect(0, 0, plat.width, 18, 8);
                     ctx.fill();
                     ctx.stroke();
 
                     const stripeW = 24;
-                    ctx.fillStyle = '#f43f5e';
-                    for (let sx = plat.x + 6; sx < plat.x + plat.width - 14; sx += stripeW * 2) {
-                        ctx.fillRect(sx, py + 3, stripeW, 16);
+                    ctx.fillStyle = '#fb7185';
+                    for (let sx = 6; sx < plat.width - 18; sx += stripeW * 2) {
+                        ctx.fillRect(sx, 2, stripeW, 14);
                     }
                 }
                 ctx.restore();
             });
 
+            // 7. Wedding Arch at Finish Line
             const remainingDist = game.totalDistance - game.distance;
             if (remainingDist < game.width + 250) {
                 const archX = game.player.x + remainingDist;
-                drawWeddingArch(ctx, archX, game.groundY);
-                const partnerRole = selectedRole === 'tung' ? 'han' : 'tung';
-                drawChibiCharacter(ctx, partnerRole, archX + 65, game.groundY, 80, 102, game.time, {
-                    isRunning: false,
-                    happy: true
-                });
+                drawWeddingArch(ctx, archX, safeGroundY);
+                if (selectedRole === 'ebisu') {
+                    drawChibiCharacter(ctx, 'tung', archX + 42, safeGroundY, 76, 96, game.time, {
+                        isRunning: false,
+                        happy: true
+                    });
+                    drawChibiCharacter(ctx, 'han', archX + 104, safeGroundY, 76, 96, game.time, {
+                        isRunning: false,
+                        happy: true
+                    });
+                } else {
+                    const partnerRole = selectedRole === 'tung' ? 'han' : 'tung';
+                    drawChibiCharacter(ctx, partnerRole, archX + 65, safeGroundY, 80, 102, game.time, {
+                        isRunning: false,
+                        happy: true
+                    });
+                }
             }
 
+            // 8. Ebisu Helper Cats
             game.ebisuList.forEach(ebisu => {
-                drawEbisuCat(ctx, ebisu.x, ebisu.y, 56, game.time, ebisu.compression, false);
-                ctx.save();
+                drawEbisuCat(ctx, ebisu.x, ebisu.y, 58, game.time, ebisu.compression, false);
                 ctx.font = '900 11px "Noto Sans TC", sans-serif';
                 ctx.fillStyle = '#9a3412';
                 ctx.textAlign = 'center';
-                ctx.fillText('🐾 踩 Ebisu 高跳', ebisu.x, ebisu.y - 60);
-                ctx.restore();
+                ctx.fillText('🐾 Ebisu 助跳!', ebisu.x, ebisu.y - 68);
             });
 
+            // 9. Diamond Dash Rings
             game.dashRings.forEach(ring => {
                 ctx.save();
                 ctx.translate(ring.x, ring.y);
-                ctx.strokeStyle = ring.passed ? '#38bdf8' : '#fbbf24';
+                ctx.strokeStyle = '#38bdf8';
                 ctx.lineWidth = 6;
                 ctx.beginPath();
-                ctx.ellipse(0, 0, 22, 38, 0, 0, Math.PI * 2);
+                ctx.ellipse(0, 0, 26, 40, 0, 0, Math.PI * 2);
+                ctx.stroke();
+
+                ctx.strokeStyle = '#3b1d11';
+                ctx.lineWidth = 2.5;
                 ctx.stroke();
 
                 ctx.font = '24px sans-serif';
@@ -2113,7 +2191,7 @@
                 ctx.restore();
             });
 
-            // 5 Special Challenging Bridal Bouquets (💐)
+            // 9.5 5 Hidden Bridal Bouquets (💐)
             game.bouquetItems.forEach(bq => {
                 const bob = Math.sin(game.time * 7) * 6;
                 ctx.save();
@@ -2127,7 +2205,7 @@
                 ctx.fill();
                 ctx.stroke();
 
-                ctx.font = '36px sans-serif';
+                ctx.font = '34px sans-serif';
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'middle';
                 ctx.fillText('💐', 0, 2);
@@ -2141,54 +2219,30 @@
                 ctx.restore();
             });
 
+            // 10. Mystery Gift Boxes
             game.mysteryBoxes.forEach(box => {
                 const bob = Math.sin(game.time * 8) * 6;
-                ctx.save();
-                ctx.translate(box.x, box.y + bob);
-                ctx.fillStyle = '#fef08a';
-                ctx.strokeStyle = '#ca8a04';
-                ctx.lineWidth = 3;
-                ctx.beginPath();
-                ctx.arc(0, 0, 26, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.stroke();
-                ctx.font = '30px sans-serif';
+                ctx.font = '34px sans-serif';
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'middle';
-                ctx.fillText('🎁', 0, 2);
-                ctx.restore();
+                ctx.fillText('🎁', box.x, box.y + bob);
             });
 
+            // 11. Collectibles
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
             game.collectibles.forEach(item => {
                 const bob = Math.sin(game.time * 6 + item.bobOffset) * 5;
-                ctx.save();
-                ctx.translate(item.x, item.y + bob);
-                let icon = '🌸';
-                let fontSize = 26;
-                if (item.type === 'heart') {
-                    icon = '💖';
-                    fontSize = 26;
-                } else if (item.type === 'envelope') {
-                    icon = '🧧';
-                    fontSize = 30;
-                }
-                ctx.font = `${fontSize}px sans-serif`;
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'middle';
-                ctx.fillText(icon, 0, 0);
-                ctx.restore();
+                ctx.font = item.type === 'envelope' ? '29px sans-serif' : '24px sans-serif';
+                const emoji = item.type === 'envelope' ? '🧧' : (item.type === 'heart' ? '💖' : '🌸');
+                ctx.fillText(emoji, item.x, item.y + bob);
             });
 
+            // 12. Obstacles
             game.obstacles.forEach(obs => {
                 ctx.save();
-                ctx.translate(obs.x, obs.y - obs.height / 2);
+                ctx.translate(obs.x, obs.y - obs.height * 0.45);
                 if (obs.rot) ctx.rotate(obs.rot);
-
-                ctx.fillStyle = 'rgba(239, 68, 68, 0.22)';
-                ctx.beginPath();
-                ctx.arc(0, 2, 24, 0, Math.PI * 2);
-                ctx.fill();
-
                 ctx.font = '36px sans-serif';
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'middle';
@@ -2196,8 +2250,18 @@
                 ctx.restore();
             });
 
+            // 13. Player (Tung, Han, or Ebisu)
             const p = game.player;
-            if (game.ebisuMountTimer > 0) {
+            if (selectedRole === 'ebisu') {
+                const isSuperGiant = game.ebisuMountTimer > 0;
+                drawEbisuCat(ctx, p.x, p.y, isSuperGiant ? 94 : 66, game.time, 0, isSuperGiant, {
+                    dizzy: p.dizzyTimer > 0,
+                    isMainRunner: true,
+                    squashX: p.squashX,
+                    stretchY: p.stretchY,
+                    tilt: p.tilt
+                });
+            } else if (game.ebisuMountTimer > 0) {
                 drawEbisuCat(ctx, p.x, p.y, 92, game.time, 0, true);
                 drawChibiCharacter(ctx, selectedRole, p.x - 4, p.y - 52, p.width, p.height, game.time, {
                     squashX: p.squashX,
@@ -2212,44 +2276,32 @@
                     squashX: p.squashX,
                     stretchY: p.stretchY,
                     tilt: p.tilt,
-                    isJumping: p.y < game.groundY - 2,
+                    isJumping: p.y < safeGroundY - 2,
                     isRunning: game.state === 'PLAYING',
                     dizzy: p.dizzyTimer > 0,
                     happy: p.happyTimer > 0
                 });
             }
 
-            // Draw Guest Name Tag floating above the runner!
+            // Guest Name Floating Tag
             if (game.state === 'PLAYING' && currentGuestName) {
-                const tagY = (game.ebisuMountTimer > 0 ? p.y - 185 : p.y - 135);
+                const tagY = (game.ebisuMountTimer > 0 ? p.y - 185 : (selectedRole === 'ebisu' ? p.y - 96 : p.y - 135));
                 ctx.save();
                 ctx.font = '900 12px "Noto Sans TC", sans-serif';
                 const textW = ctx.measureText(currentGuestName).width;
-                const pillW = Math.max(54, textW + 18);
-
-                ctx.fillStyle = 'rgba(255, 255, 255, 0.92)';
-                ctx.strokeStyle = '#3b1d11';
-                ctx.lineWidth = 2.5;
+                const pillW = textW + 18;
+                ctx.fillStyle = 'rgba(59, 29, 17, 0.85)';
                 ctx.beginPath();
-                ctx.roundRect(p.x - pillW / 2, tagY - 12, pillW, 22, 8);
+                ctx.roundRect(p.x - pillW / 2, tagY - 11, pillW, 20, 10);
                 ctx.fill();
-                ctx.stroke();
-
-                ctx.fillStyle = '#e11d48';
+                ctx.fillStyle = '#fde047';
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'middle';
-                ctx.fillText(currentGuestName, p.x, tagY - 1);
+                ctx.fillText(currentGuestName, p.x, tagY);
                 ctx.restore();
             }
 
-            if (game.magnetTimer > 0) {
-                ctx.strokeStyle = 'rgba(59, 130, 246, 0.6)';
-                ctx.lineWidth = 4;
-                ctx.beginPath();
-                ctx.arc(p.x, p.y - 48, 55 + Math.sin(game.time * 15) * 6, 0, Math.PI * 2);
-                ctx.stroke();
-            }
-
+            // 14. Particles & Floating Texts
             game.particles.forEach(pt => {
                 ctx.save();
                 ctx.globalAlpha = Math.max(0, pt.life / pt.maxLife);
@@ -2262,51 +2314,31 @@
 
             game.floatingTexts.forEach(ft => {
                 ctx.save();
-                ctx.globalAlpha = Math.max(0, ft.life);
+                ctx.globalAlpha = Math.max(0, ft.life / ft.maxLife);
                 ctx.font = `900 ${ft.size}px "Noto Sans TC", sans-serif`;
                 ctx.textAlign = 'center';
-                ctx.lineWidth = 4;
                 ctx.strokeStyle = '#ffffff';
+                ctx.lineWidth = 4;
                 ctx.strokeText(ft.text, ft.x, ft.y);
                 ctx.fillStyle = ft.color;
                 ctx.fillText(ft.text, ft.x, ft.y);
                 ctx.restore();
             });
 
-            ctx.restore();
-        }
+            // 15. Speed Lines during high speed or Giant Ebisu
+            if (game.currentSpeed > 480 || game.ebisuMountTimer > 0) {
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.45)';
+                ctx.lineWidth = 2.5;
+                game.speedLines.forEach(sl => {
+                    sl.x -= game.currentSpeed * 0.032;
+                    if (sl.x < -120) sl.x = game.width + 60;
+                    ctx.beginPath();
+                    ctx.moveTo(sl.x, sl.y);
+                    ctx.lineTo(sl.x + sl.len, sl.y);
+                    ctx.stroke();
+                });
+            }
 
-        function drawWeddingArch(ctx, x, y) {
-            ctx.save();
-            ctx.translate(x, y);
-            ctx.lineWidth = 4;
-            ctx.strokeStyle = '#3b1d11';
-            ctx.fillStyle = '#fff1f2';
-
-            ctx.beginPath();
-            ctx.roundRect(-70, -175, 22, 175, 6);
-            ctx.roundRect(48, -175, 22, 175, 6);
-            ctx.fill();
-            ctx.stroke();
-
-            ctx.lineWidth = 18;
-            ctx.strokeStyle = '#fb7185';
-            ctx.beginPath();
-            ctx.arc(0, -165, 62, Math.PI, 0);
-            ctx.stroke();
-
-            ctx.fillStyle = '#ffffff';
-            ctx.strokeStyle = '#3b1d11';
-            ctx.lineWidth = 3;
-            ctx.beginPath();
-            ctx.roundRect(-68, -210, 136, 32, 10);
-            ctx.fill();
-            ctx.stroke();
-
-            ctx.fillStyle = '#e11d48';
-            ctx.font = '900 13px "Noto Sans TC", sans-serif';
-            ctx.textAlign = 'center';
-            ctx.fillText('💒 Tung ❤️ Han', 0, -190);
             ctx.restore();
         }
 
@@ -2315,14 +2347,20 @@
             if (cTung) {
                 const ctxT = cTung.getContext('2d');
                 ctxT.clearRect(0, 0, cTung.width, cTung.height);
-                drawChibiCharacter(ctxT, 'tung', 55, 116, 72, 92, 0, { isRunning: false, happy: selectedRole === 'tung' });
+                drawChibiCharacter(ctxT, 'tung', 55, 114, 76, 96, 0, {
+                    isRunning: false,
+                    happy: selectedRole === 'tung'
+                });
             }
 
             const cHan = document.getElementById('preview-han');
             if (cHan) {
                 const ctxH = cHan.getContext('2d');
                 ctxH.clearRect(0, 0, cHan.width, cHan.height);
-                drawChibiCharacter(ctxH, 'han', 55, 116, 72, 92, 0, { isRunning: false, happy: selectedRole === 'han' });
+                drawChibiCharacter(ctxH, 'han', 55, 114, 76, 96, 0, {
+                    isRunning: false,
+                    happy: selectedRole === 'han'
+                });
             }
 
             const cEbisu = document.getElementById('preview-ebisu');
@@ -2331,89 +2369,155 @@
                 ctxE.clearRect(0, 0, cEbisu.width, cEbisu.height);
                 drawEbisuCat(ctxE, 25, 50, 38, 0, 0, false);
             }
+
+            const cEbisuRole = document.getElementById('preview-ebisu-role');
+            if (cEbisuRole) {
+                const ctxER = cEbisuRole.getContext('2d');
+                ctxER.clearRect(0, 0, cEbisuRole.width, cEbisuRole.height);
+                drawEbisuCat(ctxER, 46, 106, 56, 0, selectedRole === 'ebisu' ? 0.2 : 0, false, {
+                    isMainRunner: true
+                });
+            }
+        }
+
+        function updateEbisuRoleCardUI() {
+            const btnEbisu = document.getElementById('select-ebisu');
+            const lockTag = document.getElementById('ebisu-card-LockTag');
+            const canvasRole = document.getElementById('preview-ebisu-role');
+            const titleEl = document.getElementById('ebisu-role-title');
+            const descEl = document.getElementById('ebisu-role-desc');
+            const hintEl = document.getElementById('ebisu-lock-hint');
+
+            if (ebisuUnlocked) {
+                btnEbisu.classList.remove('bg-stone-100', 'opacity-85');
+                btnEbisu.classList.add('bg-white');
+                lockTag.textContent = '🐾 已解鎖';
+                lockTag.className = 'absolute top-1 right-1 z-10 bg-orange-500 text-white text-[9px] font-black px-1.5 py-0.5 rounded-full border border-[#3b1d11]';
+                canvasRole.classList.remove('filter', 'brightness-50', 'contrast-125');
+                titleEl.textContent = '🐈 橘貓 Ebisu';
+                descEl.textContent = '三連跳 • 無視路障';
+                descEl.className = 'text-[9px] sm:text-[11px] font-bold text-orange-600';
+                hintEl.classList.add('hidden');
+            }
         }
 
         function setRole(role) {
+            if (role === 'ebisu' && !ebisuUnlocked) {
+                const btnEbisu = document.getElementById('select-ebisu');
+                const hintEl = document.getElementById('ebisu-lock-hint');
+                hintEl.classList.remove('hidden');
+                btnEbisu.classList.remove('shake-error');
+                void btnEbisu.offsetWidth;
+                btnEbisu.classList.add('shake-error');
+                return;
+            }
+            document.getElementById('ebisu-lock-hint').classList.add('hidden');
             selectedRole = role;
             document.getElementById('select-tung').classList.toggle('selected', role === 'tung');
             document.getElementById('select-han').classList.toggle('selected', role === 'han');
+            document.getElementById('select-ebisu').classList.toggle('selected', role === 'ebisu');
             renderPreviews();
         }
 
         document.getElementById('select-tung').addEventListener('click', () => setRole('tung'));
         document.getElementById('select-han').addEventListener('click', () => setRole('han'));
+        document.getElementById('select-ebisu').addEventListener('click', () => setRole('ebisu'));
 
-        // Random Funny Guest Name Generator Button
         document.getElementById('btn-random-name').addEventListener('click', () => {
-            const inputEl = document.getElementById('guest-name-input');
+            const input = document.getElementById('guest-name-input');
             const pick = FUNNY_GUEST_NAMES[Math.floor(Math.random() * FUNNY_GUEST_NAMES.length)];
-            inputEl.value = pick;
+            input.value = pick;
             document.getElementById('guest-name-error').classList.add('hidden');
         });
 
-        document.getElementById('guest-name-input').addEventListener('input', () => {
-            document.getElementById('guest-name-error').classList.add('hidden');
-        });
-
-        document.getElementById('guest-name-input').addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                validateAndStartGame();
+        function validateAndStartGame() {
+            const input = document.getElementById('guest-name-input');
+            const nameVal = input.value.trim();
+            if (!nameVal) {
+                const container = document.getElementById('guest-input-container');
+                document.getElementById('guest-name-error').classList.remove('hidden');
+                container.classList.remove('shake-error');
+                void container.offsetWidth;
+                container.classList.add('shake-error');
+                input.focus();
+                return;
             }
-        });
+            currentGuestName = nameVal;
+            document.getElementById('guest-name-error').classList.add('hidden');
+            resetAndStartGame();
+        }
 
         document.getElementById('btn-start-game').addEventListener('click', validateAndStartGame);
         document.getElementById('btn-replay').addEventListener('click', resetAndStartGame);
         document.getElementById('btn-switch-role').addEventListener('click', () => {
-            setRole(selectedRole === 'tung' ? 'han' : 'tung');
+            const availableRoles = ebisuUnlocked ? ['tung', 'han', 'ebisu'] : ['tung', 'han'];
+            const nextIdx = (availableRoles.indexOf(selectedRole) + 1) % availableRoles.length;
+            setRole(availableRoles[nextIdx]);
             resetAndStartGame();
         });
         document.getElementById('btn-change-guest').addEventListener('click', () => {
             game.state = 'TITLE';
             document.getElementById('result-screen').classList.add('hidden');
             document.getElementById('title-screen').classList.remove('hidden');
-            setTimeout(() => document.getElementById('guest-name-input').select(), 80);
+            renderPreviews();
         });
 
+        // Sound Mute Toggle
         document.getElementById('btn-mute').addEventListener('click', (e) => {
             e.stopPropagation();
             sfx.muted = !sfx.muted;
             document.getElementById('btn-mute').textContent = sfx.muted ? '🔇' : '🔊';
         });
 
-        document.getElementById('btn-jump').addEventListener('pointerdown', (e) => {
-            e.stopPropagation();
+        // Dedicated Jump Button (ONLY way to jump on touch devices)
+        const jumpBtn = document.getElementById('btn-jump');
+        jumpBtn.addEventListener('pointerdown', (e) => {
             e.preventDefault();
+            e.stopPropagation();
             triggerJump();
         });
 
+        // Keyboard Support for Desktop
         window.addEventListener('keydown', (e) => {
-            // Do not intercept keys when typing in the guest name input!
-            if (document.activeElement && document.activeElement.tagName === 'INPUT') {
+            if (document.activeElement === document.getElementById('guest-name-input')) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    validateAndStartGame();
+                }
                 return;
             }
             if (e.code === 'Space' || e.code === 'ArrowUp' || e.code === 'KeyW') {
                 e.preventDefault();
-                if (game.state === 'PLAYING') triggerJump();
-                else if (game.state === 'TITLE') validateAndStartGame();
+                if (game.state === 'PLAYING') {
+                    triggerJump();
+                }
             }
         });
 
-        let lastTime = performance.now();
+        // Main Game Animation Loop
+        let lastFrameTime = performance.now();
         function gameLoop(now) {
-            const dt = Math.min(0.05, (now - lastTime) / 1000);
-            lastTime = now;
+            const dt = Math.min(0.05, Math.max(0.001, (now - lastFrameTime) / 1000));
+            lastFrameTime = now;
             updateGame(dt);
             drawGame();
             requestAnimationFrame(gameLoop);
         }
 
-        window.onload = function () {
+        // Initialize immediately and on load
+        function initApp() {
             resizeCanvas();
             initScenery();
             renderPreviews();
+            lastFrameTime = performance.now();
             requestAnimationFrame(gameLoop);
-        };
+        }
+
+        if (document.readyState === 'loading') {
+            window.addEventListener('DOMContentLoaded', initApp);
+        } else {
+            initApp();
+        }
     </script>
 </body>
 </html>
