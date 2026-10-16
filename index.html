@@ -23,41 +23,43 @@
             width: 100%;
             height: 100dvh;
             font-family: 'Noto Sans TC', 'Fredoka', sans-serif;
-            background: radial-gradient(circle at center, #fffbeb 0%, #fde68a 55%, #f59e0b 100%);
+            background: linear-gradient(135deg, #eae4dc 0%, #dcd3c8 50%, #cfc4b6 100%);
             overflow: hidden;
             touch-action: manipulation;
+            color: #3d3834;
         }
         .cartoon-card {
-            background: #fffdf9;
-            border: 4px solid #3b1d11;
-            box-shadow: 0 8px 0 #3b1d11, 0 16px 28px rgba(59, 29, 17, 0.28);
+            background: #f9f6f0;
+            border: 2.5px solid #4a433e;
+            box-shadow: 0 6px 0 #4a433e, 0 16px 32px rgba(74, 67, 62, 0.16);
         }
         .cartoon-btn {
-            border: 3px solid #3b1d11;
-            box-shadow: 0 4px 0 #3b1d11;
-            transition: transform 0.08s ease, box-shadow 0.08s ease;
+            border: 2px solid #4a433e;
+            box-shadow: 0 3px 0 #4a433e;
+            transition: transform 0.08s ease, box-shadow 0.08s ease, background-color 0.15s ease;
         }
         .cartoon-btn:active {
-            transform: translateY(3px);
-            box-shadow: 0 1px 0 #3b1d11;
+            transform: translateY(2px);
+            box-shadow: 0 1px 0 #4a433e;
         }
         .role-card {
-            border: 3px solid #3b1d11;
-            box-shadow: 0 5px 0 #3b1d11;
-            transition: all 0.14s ease;
+            background: #f3efe8;
+            border: 2px solid #d5cdc3;
+            box-shadow: 0 3px 0 #d5cdc3;
+            transition: all 0.16s ease;
         }
         .role-card.selected {
-            background: linear-gradient(180deg, #fff1f2 0%, #ffe4e6 100%);
-            border-color: #e11d48;
-            box-shadow: 0 5px 0 #9f1239;
+            background: #fdfbfb;
+            border-color: #b57c76;
+            box-shadow: 0 4px 0 #b57c76;
             transform: translateY(-2px);
         }
         @keyframes pulse-fast {
             0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.07); }
+            50% { transform: scale(1.04); }
         }
         .combo-pop {
-            animation: pulse-fast 0.35s infinite ease-in-out;
+            animation: pulse-fast 0.45s infinite ease-in-out;
         }
         @keyframes shake-horizontal {
             0%, 100% { transform: translateX(0); }
@@ -68,65 +70,62 @@
             animation: shake-horizontal 0.35s ease-in-out;
         }
         .custom-scroll::-webkit-scrollbar {
-            width: 6px;
+            width: 5px;
         }
         .custom-scroll::-webkit-scrollbar-thumb {
-            background: rgba(59, 29, 17, 0.25);
+            background: rgba(74, 67, 62, 0.22);
             border-radius: 9999px;
         }
     </style>
 </head>
 <body class="w-full h-[100dvh] flex flex-col items-center justify-center sm:p-2.5 md:p-4">
 
-    <div id="game-wrapper" class="relative w-full h-full sm:max-w-5xl sm:h-[94dvh] sm:max-h-[680px] sm:rounded-3xl overflow-hidden sm:border-4 border-[#3b1d11] sm:shadow-[0_12px_0_#3b1d11] bg-[#fff8eb] flex flex-col">
+    <div id="game-wrapper" class="relative w-full h-full sm:max-w-5xl sm:h-[94dvh] sm:max-h-[680px] sm:rounded-3xl overflow-hidden sm:border-[3px] border-[#4a433e] sm:shadow-[0_10px_0_#4a433e] bg-[#f5f0e8] flex flex-col">
 
-        <!-- TOP HUD LAYER (Ultra-compact 2-row layout for mobile & desktop) -->
+        <!-- TOP HUD LAYER -->
         <div id="hud-layer" class="hidden absolute top-0 left-0 right-0 z-20 p-1.5 sm:p-3 pointer-events-none flex flex-col gap-1 sm:gap-1.5">
             <!-- Row 1: Guest, Score, Flowers, Bouquets, Fever & Mute -->
             <div class="flex items-center justify-between gap-1 sm:gap-2">
                 <div class="flex items-center gap-1 sm:gap-2 min-w-0 flex-1">
                     <!-- Guest Name Pill -->
-                    <div class="bg-[#3b1d11] text-amber-300 border-2 border-[#3b1d11] rounded-lg sm:rounded-xl px-1.5 sm:px-2.5 py-0.5 sm:py-1 shadow-[0_2px_0_rgba(0,0,0,0.25)] flex items-center gap-0.5 sm:gap-1 text-[10px] sm:text-xs font-black max-w-[76px] sm:max-w-[150px] truncate shrink-0">
-                        <span>👤</span>
+                    <div class="bg-[#4a433e] text-[#f5efe6] rounded-lg sm:rounded-xl px-2 sm:px-2.5 py-0.5 sm:py-1 flex items-center gap-1 text-[10px] sm:text-xs font-bold max-w-[78px] sm:max-w-[150px] truncate shrink-0">
                         <span id="hud-guest-name" class="truncate">貴賓</span>
                     </div>
 
                     <!-- Unified Stats Pill -->
-                    <div class="bg-white/95 border-2 border-[#3b1d11] rounded-xl sm:rounded-2xl px-2 sm:px-3 py-0.5 sm:py-1 shadow-[0_2px_0_#3b1d11] flex items-center gap-1.5 sm:gap-2.5 shrink-0">
-                        <div class="flex items-center gap-0.5 sm:gap-1">
-                            <span class="text-xs sm:text-base">🏆</span>
-                            <span id="hud-score" class="font-black text-[#3b1d11] text-xs sm:text-base tabular-nums">0</span>
+                    <div class="bg-[#f9f6f0]/95 border-2 border-[#4a433e] rounded-xl sm:rounded-2xl px-2 sm:px-3 py-0.5 sm:py-1 shadow-[0_2px_0_#4a433e] flex items-center gap-1.5 sm:gap-2.5 shrink-0">
+                        <div class="flex items-center gap-1">
+                            <span class="text-xs sm:text-sm">🏆</span>
+                            <span id="hud-score" class="font-black text-[#3d3834] text-xs sm:text-base tabular-nums">0</span>
                         </div>
-                        <div class="h-3 sm:h-4 w-[1.5px] bg-[#3b1d11]/20"></div>
+                        <div class="h-3 sm:h-4 w-[1px] bg-[#4a433e]/20"></div>
                         <div class="flex items-center gap-0.5 sm:gap-1">
                             <span class="text-xs sm:text-sm">🌸</span>
-                            <span id="hud-flowers" class="font-black text-rose-600 text-xs sm:text-sm tabular-nums">0</span>
+                            <span id="hud-flowers" class="font-bold text-[#a86464] text-xs sm:text-sm tabular-nums">0</span>
                         </div>
-                        <div class="h-3 sm:h-4 w-[1.5px] bg-[#3b1d11]/20"></div>
-                        <!-- 5 Hidden Bouquets Counter -->
-                        <div class="flex items-center gap-0.5 bg-rose-50 px-1 sm:px-1.5 py-0.5 rounded-md border border-rose-300" title="挑戰收集 5 束隱藏捧花">
+                        <div class="h-3 sm:h-4 w-[1px] bg-[#4a433e]/20"></div>
+                        <div class="flex items-center gap-0.5 bg-[#efe6e4] px-1.5 py-0.5 rounded-md border border-[#cbb2ae]">
                             <span class="text-xs sm:text-sm">💐</span>
-                            <span id="hud-bouquets" class="font-black text-rose-600 text-[10px] sm:text-xs tabular-nums">0/5</span>
+                            <span id="hud-bouquets" class="font-bold text-[#9c5a56] text-[10px] sm:text-xs tabular-nums">0/5</span>
                         </div>
-                        <!-- Multiplier Badge -->
-                        <div id="hud-multiplier" class="bg-rose-500 text-white text-[10px] sm:text-xs font-black px-1 sm:px-1.5 py-0.5 rounded border border-[#3b1d11] transition-transform">
+                        <div id="hud-multiplier" class="bg-[#b57c76] text-white text-[10px] sm:text-xs font-bold px-1.5 py-0.5 rounded">
                             x1
                         </div>
                     </div>
 
                     <!-- Ebisu Fever Gauge -->
-                    <div class="bg-white/95 border-2 border-[#3b1d11] rounded-xl sm:rounded-2xl px-1.5 sm:px-2.5 py-0.5 sm:py-1 shadow-[0_2px_0_#3b1d11] flex items-center gap-1 shrink-0">
+                    <div class="bg-[#f9f6f0]/95 border-2 border-[#4a433e] rounded-xl sm:rounded-2xl px-2 sm:px-2.5 py-0.5 sm:py-1 shadow-[0_2px_0_#4a433e] flex items-center gap-1 shrink-0">
                         <span class="text-xs sm:text-sm">🐈</span>
-                        <div class="hidden sm:block w-16 h-2.5 bg-amber-100 rounded-full border border-[#3b1d11] overflow-hidden relative">
-                            <div id="hud-fever-fill" class="h-full bg-gradient-to-r from-orange-400 via-amber-500 to-rose-500 transition-all duration-150" style="width: 0%"></div>
+                        <div class="hidden sm:block w-14 h-2 bg-[#e6dfd5] rounded-full overflow-hidden relative">
+                            <div id="hud-fever-fill" class="h-full bg-[#c88a65] transition-all duration-150" style="width: 0%"></div>
                         </div>
-                        <span id="hud-fever-text" class="text-[10px] sm:text-xs font-black text-orange-700 whitespace-nowrap">0%</span>
+                        <span id="hud-fever-text" class="text-[10px] sm:text-xs font-bold text-[#8c6246] whitespace-nowrap">0%</span>
                     </div>
                 </div>
 
                 <!-- Right: Sound Toggle -->
                 <div class="flex items-center pointer-events-auto shrink-0">
-                    <button id="btn-mute" type="button" class="cartoon-btn bg-amber-300 hover:bg-amber-400 text-[#3b1d11] font-black w-7 h-7 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl flex items-center justify-center text-xs sm:text-sm">
+                    <button id="btn-mute" type="button" class="cartoon-btn bg-[#e8e0d5] hover:bg-[#ddd3c5] text-[#3d3834] font-bold w-7 h-7 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl flex items-center justify-center text-xs sm:text-sm">
                         🔊
                     </button>
                 </div>
@@ -134,17 +133,15 @@
 
             <!-- Row 2: Slim Progress Bar & Combo Badge -->
             <div class="flex items-center gap-1.5">
-                <div class="flex-1 bg-white/90 border-2 border-[#3b1d11] rounded-full h-4 sm:h-5 px-2 flex items-center gap-1.5 shadow-[0_2px_0_#3b1d11]">
-                    <span class="text-[9px] sm:text-[11px] font-black text-[#3b1d11] shrink-0">🏃 奔向禮堂</span>
-                    <div class="relative flex-1 h-1.5 sm:h-2 bg-amber-100 rounded-full overflow-hidden border border-[#3b1d11]">
-                        <div id="hud-progress-fill" class="h-full bg-gradient-to-r from-amber-400 via-rose-500 to-pink-500 rounded-full transition-all duration-75" style="width: 0%"></div>
+                <div class="flex-1 bg-[#f9f6f0]/90 border-2 border-[#4a433e] rounded-full h-4 sm:h-5 px-2 flex items-center gap-1.5 shadow-[0_2px_0_#4a433e]">
+                    <div class="relative flex-1 h-1.5 sm:h-2 bg-[#e6dfd5] rounded-full overflow-hidden">
+                        <div id="hud-progress-fill" class="h-full bg-gradient-to-r from-[#c89d7c] to-[#b57c76] rounded-full transition-all duration-75" style="width: 0%"></div>
                     </div>
-                    <span id="hud-runner-icon" class="text-[9px] sm:text-[11px] font-black text-rose-600 shrink-0">💒 2026.10.24</span>
+                    <span id="hud-runner-icon" class="text-[9px] sm:text-[10px] font-bold text-[#7a6f67] shrink-0">💒 10.24</span>
                 </div>
 
-                <!-- Dynamic Combo Counter -->
-                <div id="hud-combo-box" class="hidden combo-pop bg-gradient-to-r from-amber-400 to-rose-500 text-white border-2 border-[#3b1d11] rounded-lg px-2 py-0.5 shadow-[0_2px_0_#3b1d11] shrink-0">
-                    <span id="hud-combo-num" class="font-black text-[10px] sm:text-xs">10 COMBO!</span>
+                <div id="hud-combo-box" class="hidden combo-pop bg-[#b57c76] text-white border-2 border-[#4a433e] rounded-lg px-2 py-0.5 shadow-[0_2px_0_#4a433e] shrink-0">
+                    <span id="hud-combo-num" class="font-bold text-[10px] sm:text-xs">10 COMBO</span>
                 </div>
             </div>
         </div>
@@ -154,197 +151,171 @@
 
         <!-- MOBILE / TOUCH ACTION BUTTON (JUMP ONLY) -->
         <div id="touch-controls" class="hidden absolute bottom-2 sm:bottom-3 left-0 right-0 z-20 flex justify-center items-center pointer-events-none px-4">
-            <button id="btn-jump" type="button" class="pointer-events-auto cartoon-btn bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black px-8 py-2 sm:px-10 sm:py-2.5 rounded-full text-sm sm:text-base flex items-center justify-center gap-2 shadow-[0_4px_0_#3b1d11]">
-                <span>🚀 跳躍 / 二段跳</span>
-                <span class="hidden md:inline text-[11px] bg-black/25 px-2 py-0.5 rounded-full">空白鍵</span>
+            <button id="btn-jump" type="button" class="pointer-events-auto cartoon-btn bg-[#b57c76] hover:bg-[#a66d67] active:bg-[#965f59] text-[#fbf9f5] font-bold px-10 py-2 sm:px-12 sm:py-2.5 rounded-full text-sm sm:text-base flex items-center justify-center gap-2 tracking-wider">
+                <span>JUMP 跳躍</span>
             </button>
         </div>
 
         <!-- TITLE SCREEN -->
-        <div id="title-screen" class="absolute inset-0 bg-black/50 backdrop-blur-[2px] flex items-center justify-center p-2.5 sm:p-4 z-30 overflow-y-auto custom-scroll">
-            <div class="cartoon-card rounded-3xl p-3.5 sm:p-5 md:p-6 w-full max-w-xl text-center relative my-auto">
+        <div id="title-screen" class="absolute inset-0 bg-[#3d3834]/45 backdrop-blur-[3px] flex items-center justify-center p-3 sm:p-4 z-30 overflow-y-auto custom-scroll">
+            <div class="cartoon-card rounded-3xl p-4 sm:p-6 w-full max-w-lg text-center relative my-auto">
                 
                 <!-- Top Wedding Date Pill -->
-                <div class="inline-flex items-center gap-1.5 sm:gap-2 bg-rose-600 text-white text-[11px] sm:text-xs font-black px-3.5 py-1 rounded-full border-2 border-[#3b1d11] shadow-[0_3px_0_#3b1d11] mb-1.5">
-                    <span>💍 2026.10.24</span>
+                <div class="inline-flex items-center gap-2 bg-[#ebe4dc] text-[#6e645c] text-[10px] sm:text-xs font-bold px-3.5 py-1 rounded-full border border-[#c7bdb2] tracking-widest mb-2">
+                    <span>2026.10.24</span>
                     <span>•</span>
-                    <span>Welcome to Our Wedding!</span>
+                    <span>WEDDING RUN</span>
                 </div>
 
-                <h1 class="text-2xl sm:text-3xl md:text-4xl font-black text-[#3b1d11] tracking-tight leading-tight">
-                    Tung <span class="text-rose-500">&amp;</span> Han
+                <h1 class="text-2xl sm:text-4xl font-black text-[#3d3834] tracking-wide leading-tight mb-3">
+                    Tung <span class="text-[#b57c76] font-normal">&amp;</span> Han
                 </h1>
-                <p class="text-[11px] sm:text-xs md:text-sm font-bold text-amber-900 mt-0.5 mb-2.5">
-                    婚禮街機跑酷！飛躍斷崖坑洞、收集 5 束隱藏捧花，準時衝進禮堂 🔥
-                </p>
 
                 <!-- GUEST NAME INPUT BOX -->
-                <div id="guest-input-container" class="bg-rose-50/90 border-2 border-[#3b1d11] rounded-2xl p-2.5 sm:p-3 mb-2.5 text-left shadow-[0_4px_0_#3b1d11] transition-transform">
-                    <div class="flex items-center justify-between mb-1">
-                        <label for="guest-name-input" class="text-xs sm:text-sm font-black text-[#3b1d11] flex items-center gap-1">
-                            <span>✍️ 請輸入來賓大名／暱稱</span>
-                            <span class="text-[10px] font-bold text-rose-600 bg-rose-100 px-1.5 py-0.5 rounded-md border border-rose-300">必填簽到</span>
-                        </label>
-                        <button id="btn-random-name" type="button" class="text-[11px] font-black text-amber-900 bg-amber-200 hover:bg-amber-300 active:translate-y-0.5 px-2 py-0.5 rounded-lg border border-[#3b1d11] transition">
-                            🎲 隨機稱呼
-                        </button>
-                    </div>
-                    <div class="relative">
+                <div id="guest-input-container" class="mb-3.5 text-left transition-transform">
+                    <div class="flex gap-1.5">
                         <input
                             id="guest-name-input"
                             type="text"
                             maxlength="14"
-                            placeholder="例如：伴郎阿傑、大學好友小美..."
-                            class="w-full bg-white border-2 border-[#3b1d11] rounded-xl px-3 py-2 text-sm sm:text-base font-black text-[#3b1d11] placeholder:text-stone-400 placeholder:font-bold focus:outline-none focus:ring-2 focus:ring-rose-400"
+                            placeholder="輸入你的名字或暱稱..."
+                            class="flex-1 bg-white border-2 border-[#4a433e] rounded-xl px-3.5 py-2 text-sm sm:text-base font-bold text-[#3d3834] placeholder:text-[#a89f96] placeholder:font-normal focus:outline-none focus:border-[#b57c76]"
                         />
+                        <button id="btn-random-name" type="button" class="cartoon-btn bg-[#e8e0d5] hover:bg-[#ddd3c5] text-[#4a433e] text-xs font-bold px-3 py-2 rounded-xl shrink-0">
+                            🎲 隨機
+                        </button>
                     </div>
-                    <p id="guest-name-error" class="hidden text-[11px] font-black text-rose-600 mt-1">
-                        ⚠️ 請先輸入您的名字或點選「🎲 隨機稱呼」再出發喔！
+                    <p id="guest-name-error" class="hidden text-[11px] font-bold text-[#b55b52] mt-1 pl-1">
+                        請先輸入名字
                     </p>
                 </div>
 
-                <!-- 3 ROLE SELECTION CARDS (Tung, Han, Secret Ebisu) -->
-                <div class="grid grid-cols-3 gap-1.5 sm:gap-3 mb-2">
+                <!-- 3 ROLE SELECTION CARDS -->
+                <div class="grid grid-cols-3 gap-2 sm:gap-3 mb-3">
                     <!-- Groom: Tung -->
-                    <button id="select-tung" type="button" class="role-card selected rounded-2xl p-1.5 sm:p-2.5 bg-white flex flex-col items-center cursor-pointer text-center">
-                        <div class="w-14 h-16 sm:w-20 sm:h-24 bg-sky-100 rounded-xl border-2 border-[#3b1d11] flex items-center justify-center overflow-hidden mb-1 relative">
+                    <button id="select-tung" type="button" class="role-card selected rounded-2xl p-2 sm:p-3 flex flex-col items-center cursor-pointer text-center">
+                        <div class="w-14 h-16 sm:w-20 sm:h-24 bg-[#e3e8ea] rounded-xl border border-[#4a433e]/30 flex items-center justify-center overflow-hidden mb-1.5 relative">
                             <canvas id="preview-tung" width="110" height="125" class="w-full h-full object-contain"></canvas>
                         </div>
-                        <div class="font-black text-[11px] sm:text-base text-[#3b1d11]">🤵 新郎 Tung</div>
-                        <span class="text-[9px] sm:text-[11px] font-bold text-rose-600">帥氣西裝 • 二段跳</span>
+                        <div class="font-bold text-xs sm:text-sm text-[#3d3834]">Tung</div>
+                        <span class="text-[10px] text-[#7a6f67]">二段跳</span>
                     </button>
 
                     <!-- Bride: Han -->
-                    <button id="select-han" type="button" class="role-card rounded-2xl p-1.5 sm:p-2.5 bg-white flex flex-col items-center cursor-pointer text-center">
-                        <div class="w-14 h-16 sm:w-20 sm:h-24 bg-rose-100 rounded-xl border-2 border-[#3b1d11] flex items-center justify-center overflow-hidden mb-1 relative">
+                    <button id="select-han" type="button" class="role-card rounded-2xl p-2 sm:p-3 flex flex-col items-center cursor-pointer text-center">
+                        <div class="w-14 h-16 sm:w-20 sm:h-24 bg-[#efe3e1] rounded-xl border border-[#4a433e]/30 flex items-center justify-center overflow-hidden mb-1.5 relative">
                             <canvas id="preview-han" width="110" height="125" class="w-full h-full object-contain"></canvas>
                         </div>
-                        <div class="font-black text-[11px] sm:text-base text-[#3b1d11]">👰 新娘 Han</div>
-                        <span class="text-[9px] sm:text-[11px] font-bold text-rose-600">玫瑰花冠 • 二段跳</span>
+                        <div class="font-bold text-xs sm:text-sm text-[#3d3834]">Han</div>
+                        <span class="text-[10px] text-[#7a6f67]">二段跳</span>
                     </button>
 
                     <!-- Secret Role: Ebisu the Orange Cat -->
-                    <button id="select-ebisu" type="button" class="role-card rounded-2xl p-1.5 sm:p-2.5 bg-stone-100 opacity-85 flex flex-col items-center cursor-pointer text-center relative overflow-hidden">
-                        <div id="ebisu-card-LockTag" class="absolute top-1 right-1 z-10 bg-[#3b1d11] text-amber-300 text-[9px] font-black px-1.5 py-0.5 rounded-full">
-                            🔒 隱藏
+                    <button id="select-ebisu" type="button" class="role-card rounded-2xl p-2 sm:p-3 opacity-80 flex flex-col items-center cursor-pointer text-center relative overflow-hidden">
+                        <div id="ebisu-card-LockTag" class="absolute top-1.5 right-1.5 z-10 bg-[#4a433e] text-[#f5efe6] text-[9px] font-bold px-1.5 py-0.5 rounded-full">
+                            🔒
                         </div>
-                        <div id="ebisu-avatar-box" class="w-14 h-16 sm:w-20 sm:h-24 bg-orange-100 rounded-xl border-2 border-[#3b1d11] flex items-center justify-center overflow-hidden mb-1 relative">
+                        <div id="ebisu-avatar-box" class="w-14 h-16 sm:w-20 sm:h-24 bg-[#ede5db] rounded-xl border border-[#4a433e]/30 flex items-center justify-center overflow-hidden mb-1.5 relative">
                             <canvas id="preview-ebisu-role" width="110" height="125" class="w-full h-full object-contain filter brightness-50 contrast-125 transition-all"></canvas>
                         </div>
-                        <div id="ebisu-role-title" class="font-black text-[11px] sm:text-base text-[#3b1d11]">🔒 神秘橘貓</div>
-                        <span id="ebisu-role-desc" class="text-[9px] sm:text-[11px] font-bold text-amber-800">3星全達成解鎖</span>
+                        <div id="ebisu-role-title" class="font-bold text-xs sm:text-sm text-[#3d3834]">Ebisu</div>
+                        <span id="ebisu-role-desc" class="text-[10px] text-[#8c7f75]">三星解鎖</span>
                     </button>
                 </div>
-                <p id="ebisu-lock-hint" class="hidden text-[11px] font-black text-orange-700 bg-orange-100 border border-orange-300 rounded-xl py-1 px-2 mb-2">
-                    🐾 隱藏角色提示：單局達成「5束捧花＋25連擊＋零失誤閃避路障」3星成就即可解鎖橘貓 Ebisu！
+
+                <p id="ebisu-lock-hint" class="hidden text-[11px] font-bold text-[#8c6246] bg-[#efe8df] border border-[#d6c7b5] rounded-xl py-1.5 px-3 mb-3">
+                    單局達成「5 束捧花・25 連擊・零失誤」即可解鎖 Ebisu
                 </p>
 
-                <!-- Game Rules Highlights -->
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-1.5 sm:gap-2 text-left bg-amber-50/95 border-2 border-amber-300 rounded-2xl p-2 sm:p-2.5 mb-3 text-[11px] text-[#3b1d11]">
-                    <div class="flex items-center gap-2">
-                        <canvas id="preview-ebisu" width="56" height="56" class="w-9 h-9 shrink-0 bg-orange-200 rounded-xl border border-[#3b1d11]"></canvas>
-                        <div>
-                            <div class="font-black text-orange-600">🐈 Ebisu 助跳</div>
-                            <div class="text-[10px] leading-tight font-bold text-stone-600">踩橘貓飛越深淵，集滿召喚巨貓！</div>
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-2 sm:border-l border-amber-200 sm:pl-2">
-                        <span class="text-xl sm:text-2xl shrink-0 w-9 text-center">💐</span>
-                        <div>
-                            <div class="font-black text-rose-600">5 束傳奇捧花</div>
-                            <div class="text-[10px] leading-tight font-bold text-stone-600">單束破萬分！集滿 5 束再送大滿貫巨獎！</div>
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-2 sm:border-l border-amber-200 sm:pl-2">
-                        <span class="text-xl sm:text-2xl shrink-0 w-9 text-center">🎁</span>
-                        <div>
-                            <div class="font-black text-rose-700">破 30 萬分送小禮</div>
-                            <div class="text-[10px] leading-tight font-bold text-stone-600">超過 300,000 分截圖找新郎拿限量小禮物！</div>
-                        </div>
-                    </div>
+                <!-- Minimalist Game Highlights -->
+                <div class="flex items-center justify-center gap-2 sm:gap-4 bg-[#efeae2] border border-[#dcd3c8] rounded-xl py-2 px-3 mb-3.5 text-[11px] font-bold text-[#5c534c]">
+                    <span>🐈 踩貓助跳</span>
+                    <span class="text-[#c7bdb2]">|</span>
+                    <span>💐 收集 5 捧花</span>
+                    <span class="text-[#c7bdb2]">|</span>
+                    <span>🎁 30 萬分有禮</span>
                 </div>
 
                 <!-- Start Game CTA -->
-                <button id="btn-start-game" type="button" class="cartoon-btn w-full bg-gradient-to-r from-rose-500 via-pink-500 to-amber-500 hover:from-rose-600 hover:to-amber-600 text-white font-black text-base sm:text-xl py-2.5 sm:py-3 rounded-2xl tracking-wide flex items-center justify-center gap-2">
-                    <span>🔥 簽到完畢！立即出發 START</span>
+                <button id="btn-start-game" type="button" class="cartoon-btn w-full bg-[#b57c76] hover:bg-[#a66d67] text-[#fbf9f5] font-bold text-base sm:text-lg py-2.5 sm:py-3 rounded-2xl tracking-widest flex items-center justify-center gap-2">
+                    <span>START 開始遊戲</span>
                 </button>
-                <div class="mt-2 flex flex-wrap items-center justify-between gap-1 text-[10px] sm:text-[11px] font-bold text-stone-600 px-1">
-                    <span>💡 請按下方「🚀 跳躍 / 二段跳」按鈕起跳（電腦可按空白鍵）</span>
-                    <span class="text-rose-600 font-black ml-auto">👑 最高紀錄：<span id="title-best-score">0</span></span>
+
+                <div class="mt-2.5 flex items-center justify-between text-[11px] font-bold text-[#8c8279] px-1">
+                    <span>空白鍵 / 底部按鈕跳躍</span>
+                    <span>BEST <span id="title-best-score" class="text-[#5c534c]">0</span></span>
                 </div>
             </div>
         </div>
 
         <!-- RESULT SCREEN -->
-        <div id="result-screen" class="hidden absolute inset-0 bg-black/60 backdrop-blur-xs flex items-center justify-center p-2 sm:p-4 z-30 overflow-y-auto custom-scroll">
-            <div class="cartoon-card rounded-3xl p-3 sm:p-5 w-full max-w-md text-center relative my-auto">
+        <div id="result-screen" class="hidden absolute inset-0 bg-[#3d3834]/55 backdrop-blur-[3px] flex items-center justify-center p-3 sm:p-4 z-30 overflow-y-auto custom-scroll">
+            <div class="cartoon-card rounded-3xl p-4 sm:p-5 w-full max-w-md text-center relative my-auto">
                 
-                <div id="result-new-record" class="hidden bg-gradient-to-r from-amber-400 to-yellow-300 text-[#3b1d11] text-[10px] sm:text-xs font-black px-3 py-0.5 rounded-full border-2 border-[#3b1d11] mb-1 shadow inline-block animate-bounce">
-                    🎊 刷新個人最高分紀錄 NEW RECORD! 🎊
+                <div id="result-new-record" class="hidden bg-[#dfd3c3] text-[#4a433e] text-[10px] sm:text-xs font-bold px-3 py-0.5 rounded-full border border-[#4a433e] mb-1.5 inline-block">
+                    NEW RECORD 最高分紀錄
                 </div>
 
-                <div id="result-unlock-ebisu" class="hidden bg-gradient-to-r from-orange-500 via-amber-500 to-rose-500 text-white text-[11px] sm:text-xs font-black px-3 py-1 rounded-2xl border-2 border-[#3b1d11] mb-1.5 shadow-[0_3px_0_#3b1d11] animate-pulse">
-                    🐾 恭喜 3 星全制霸！已解鎖隱藏角色「橘貓 Ebisu」（三連跳＋無視路障）！
+                <div id="result-unlock-ebisu" class="hidden bg-[#7d938a] text-white text-[11px] sm:text-xs font-bold px-3 py-1 rounded-xl border border-[#4a433e] mb-2">
+                    🐾 已解鎖隱藏角色：橘貓 Ebisu
                 </div>
 
-                <!-- Guest Honor Pill -->
-                <div id="result-guest-banner" class="bg-rose-600 text-white text-xs sm:text-sm font-black px-3.5 py-0.5 rounded-full border-2 border-[#3b1d11] shadow-[0_2px_0_#3b1d11] inline-flex items-center gap-1.5 mb-1 max-w-full">
-                    <span>💌 感謝貴賓：</span>
-                    <span id="result-guest-name" class="underline decoration-amber-300 decoration-2 truncate">貴賓</span>
+                <!-- Guest Name Pill -->
+                <div id="result-guest-banner" class="bg-[#ebe4dc] text-[#5c534c] text-xs font-bold px-3 py-0.5 rounded-full border border-[#c7bdb2] inline-flex items-center gap-1 mb-1 max-w-full">
+                    <span>PLAYER</span>
+                    <span>•</span>
+                    <span id="result-guest-name" class="text-[#3d3834] font-black truncate">貴賓</span>
                 </div>
 
-                <h2 id="result-main-title" class="text-xl sm:text-2xl font-black text-[#3b1d11] leading-tight">
-                    Tung ❤️ Han
+                <h2 id="result-main-title" class="text-xl sm:text-2xl font-black text-[#3d3834] leading-tight">
+                    Tung &amp; Han
                 </h2>
-                <p id="result-sub-title" class="text-[11px] sm:text-xs font-bold text-rose-600 mb-1.5">
-                    Welcome to Our Wedding! • 2026.10.24
+                <p id="result-sub-title" class="text-[11px] font-bold text-[#8c8279] mb-2">
+                    2026.10.24
                 </p>
 
-                <!-- 300,000 SCORE GIFT REMINDER BANNER -->
-                <div id="result-gift-banner" class="rounded-2xl p-2 sm:p-2.5 mb-2 border-2 border-[#3b1d11] text-center transition-all">
-                    <!-- Dynamically populated by JS based on score >= 300000 -->
-                </div>
-
                 <!-- Couple & Ebisu Together Showcase -->
-                <div class="bg-gradient-to-b from-rose-100 via-amber-50 to-white border-2 border-[#3b1d11] rounded-2xl p-1.5 sm:p-2 mb-2 relative overflow-hidden">
+                <div class="bg-[#efeae2] border-2 border-[#4a433e] rounded-2xl p-2 mb-2.5 relative overflow-hidden">
                     <canvas id="result-couple-canvas" width="320" height="115" class="w-full h-20 sm:h-24 object-contain mx-auto"></canvas>
-                    <div id="result-rank-badge" class="mt-0.5 inline-block bg-[#3b1d11] text-amber-300 text-[10px] sm:text-xs font-black px-3 py-0.5 rounded-full">
-                        🏆 稱號：傳說級光速搶捧花宗師
+                    <div id="result-rank-badge" class="mt-0.5 inline-block bg-[#4a433e] text-[#f5efe6] text-[11px] font-bold px-3 py-0.5 rounded-full">
+                        傳奇捧花宗師
                     </div>
-                </div>
-
-                <!-- 3-Star Challenge Badges -->
-                <div class="bg-amber-50 border-2 border-amber-300 rounded-2xl p-2 mb-2 text-left">
-                    <div class="text-[10px] sm:text-[11px] font-black text-amber-900 mb-0.5 text-center">⭐ 本局挑戰成就（全達成解鎖橘貓 Ebisu）</div>
-                    <div id="result-missions" class="space-y-0.5 text-[10px] sm:text-xs font-bold"></div>
                 </div>
 
                 <!-- Score Breakdown Grid -->
-                <div class="grid grid-cols-3 gap-1.5 sm:gap-2 mb-2.5">
-                    <div class="bg-rose-50 border-2 border-rose-200 rounded-xl p-1.5">
-                        <div class="text-[10px] font-bold text-rose-700">傳奇捧花</div>
-                        <div id="res-bouquets" class="text-xs sm:text-base font-black text-rose-600">0 / 5 💐</div>
+                <div class="grid grid-cols-3 gap-2 mb-2.5">
+                    <div class="bg-[#f3efe8] border border-[#d5cdc3] rounded-xl p-1.5">
+                        <div class="text-[10px] font-bold text-[#8c8279]">捧花</div>
+                        <div id="res-bouquets" class="text-xs sm:text-sm font-black text-[#9c5a56]">0 / 5</div>
                     </div>
-                    <div class="bg-orange-50 border-2 border-orange-200 rounded-xl p-1.5">
-                        <div class="text-[10px] font-bold text-orange-700">最高連擊</div>
-                        <div id="res-combo" class="text-xs sm:text-base font-black text-orange-600">0 連擊</div>
+                    <div class="bg-[#f3efe8] border border-[#d5cdc3] rounded-xl p-1.5">
+                        <div class="text-[10px] font-bold text-[#8c8279]">最高連擊</div>
+                        <div id="res-combo" class="text-xs sm:text-sm font-black text-[#8c6246]">0</div>
                     </div>
-                    <div class="bg-amber-100 border-2 border-amber-400 rounded-xl p-1.5">
-                        <div class="text-[10px] font-bold text-amber-900">總祝福積分</div>
-                        <div id="res-score" class="text-xs sm:text-base font-black text-[#3b1d11]">0</div>
+                    <div class="bg-[#ebe4dc] border border-[#c7bdb2] rounded-xl p-1.5">
+                        <div class="text-[10px] font-bold text-[#6e645c]">總分</div>
+                        <div id="res-score" class="text-xs sm:text-sm font-black text-[#3d3834]">0</div>
                     </div>
                 </div>
 
+                <!-- 3-Star Challenge Badges (Compact) -->
+                <div class="bg-[#f3efe8] border border-[#d5cdc3] rounded-xl py-1.5 px-2.5 mb-2.5">
+                    <div id="result-missions" class="flex items-center justify-around gap-1 text-[11px] font-bold"></div>
+                </div>
+
+                <!-- 300,000 SCORE GIFT REMINDER BANNER -->
+                <div id="result-gift-banner" class="rounded-xl p-2 mb-3 text-center transition-all"></div>
+
                 <!-- Action Buttons -->
-                <div class="flex flex-wrap gap-2">
-                    <button id="btn-change-guest" type="button" class="cartoon-btn bg-stone-200 hover:bg-stone-300 text-[#3b1d11] font-black px-3 py-2 rounded-xl text-xs">
-                        ✍️ 換人玩
+                <div class="flex gap-2">
+                    <button id="btn-change-guest" type="button" class="cartoon-btn bg-[#e8e0d5] hover:bg-[#ddd3c5] text-[#3d3834] font-bold px-3.5 py-2 rounded-xl text-xs">
+                        換人
                     </button>
-                    <button id="btn-switch-role" type="button" class="cartoon-btn flex-1 bg-amber-300 hover:bg-amber-400 text-[#3b1d11] font-black py-2 rounded-xl text-xs sm:text-sm">
-                        🔄 換角色跑
+                    <button id="btn-switch-role" type="button" class="cartoon-btn flex-1 bg-[#d8cfc4] hover:bg-[#cbbeb0] text-[#3d3834] font-bold py-2 rounded-xl text-xs sm:text-sm">
+                        換角色
                     </button>
-                    <button id="btn-replay" type="button" class="cartoon-btn flex-1 bg-rose-500 hover:bg-rose-600 text-white font-black py-2 rounded-xl text-xs sm:text-sm">
-                        🔥 再戰一局
+                    <button id="btn-replay" type="button" class="cartoon-btn flex-1 bg-[#b57c76] hover:bg-[#a66d67] text-[#fbf9f5] font-bold py-2 rounded-xl text-xs sm:text-sm">
+                        再玩一次
                     </button>
                 </div>
             </div>
@@ -1335,7 +1306,7 @@
 
             const jumpBtnSpan = document.querySelector('#btn-jump span:first-child');
             if (jumpBtnSpan) {
-                jumpBtnSpan.textContent = selectedRole === 'ebisu' ? '🐾 跳躍 / 三連跳' : '🚀 跳躍 / 二段跳';
+                jumpBtnSpan.textContent = selectedRole === 'ebisu' ? 'JUMP 三連跳' : 'JUMP 跳躍';
             }
 
             game.pits = [];
@@ -1394,9 +1365,9 @@
                 }
 
                 if (jumpUsedCount === 2) {
-                    addFloatingText('✨ 二段跳！', p.x, p.y - 88, '#ec4899', 16);
+                    addFloatingText('二段跳', p.x, p.y - 88, '#b57c76', 15);
                 } else if (jumpUsedCount >= 3) {
-                    addFloatingText('🐾 Ebisu 三連跳！喵～', p.x, p.y - 95, '#ea580c', 18);
+                    addFloatingText('喵～三連跳', p.x, p.y - 95, '#c87d55', 16);
                 }
             }
         }
@@ -1427,14 +1398,14 @@
             game.screenShake = 0.35;
             sfx.playEbisuMeow(true);
             sfx.playDashRing();
-            addFloatingText('🐈🔥 Ebisu 巨貓爆走模式！無敵衝撞！', game.width * 0.5, game.height * 0.32, '#ea580c', 24);
+            addFloatingText('🐈 巨貓無敵模式！', game.width * 0.5, game.height * 0.32, '#c87d55', 22);
         }
 
         function triggerMysteryReward(x, y) {
             const roll = Math.random();
             sfx.playDashRing();
             if (roll < 0.5) {
-                addFloatingText('🧧 稀有禮盒：漫天紅包雨！', x, y - 40, '#dc2626', 20);
+                addFloatingText('🧧 紅包雨！', x, y - 40, '#b55b52', 19);
                 for (let i = 0; i < 12; i++) {
                     game.collectibles.push({
                         x: game.player.x + 120 + i * 52,
@@ -1448,7 +1419,7 @@
             } else {
                 game.magnetTimer = 5.0;
                 game.score += 600 * game.multiplier;
-                addFloatingText('🧲 稀有禮盒：吸金磁鐵 5 秒！', x, y - 40, '#2563eb', 20);
+                addFloatingText('🧲 磁鐵開啟！', x, y - 40, '#5b7a8c', 19);
             }
         }
 
@@ -1521,7 +1492,7 @@
                             plat.bounceAnim = 1.0;
                             sfx.playPadBounce();
                             addFeverEnergy(6);
-                            addFloatingText('🍾 香檳彈跳台！', p.x, p.y - 70, '#db2777', 18);
+                            addFloatingText('🍾 彈跳！', p.x, p.y - 70, '#b57c76', 17);
                         } else {
                             if (p.vy > 200) {
                                 p.squashX = 1.24;
@@ -1544,7 +1515,7 @@
                         p.dizzyTimer = 2.0;
                         game.screenShake = 0.35;
                         sfx.playCrash();
-                        addFloatingText('😱 掉進坑洞啦！', p.x, game.groundY - 50, '#dc2626', 22);
+                        addFloatingText('掉進洞裡了！', p.x, game.groundY - 50, '#b55b52', 20);
                     } else {
                         if (p.vy > 220) {
                             p.squashX = 1.25;
@@ -1586,7 +1557,7 @@
                         const pts = 400 * game.multiplier;
                         game.score += pts;
                         sfx.playEbisuMeow(false);
-                        addFloatingText(`🐈 Ebisu 超級助跳！+${pts}`, ebisu.x, ebisu.y - 85, '#ea580c', 20);
+                        addFloatingText(`🐈 +${pts}`, ebisu.x, ebisu.y - 85, '#c87d55', 19);
                     }
 
                     if (ebisu.x < -120) game.ebisuList.splice(i, 1);
@@ -1609,12 +1580,12 @@
                         game.score += pts;
                         game.screenShake = 0.2;
                         sfx.playDashRing();
-                        addFloatingText(`💍 鑽戒空中噴射！+${pts}`, ring.x, ring.y - 45, '#0284c7', 20);
+                        addFloatingText(`💍 +${pts}`, ring.x, ring.y - 45, '#5b7a8c', 19);
                     }
                     if (ring.x < -100) game.dashRings.splice(i, 1);
                 }
 
-                // 5. 5 Special Hidden Bridal Bouquets (💐) with Escalating High Score + Grand Slam!
+                // 5. 5 Special Hidden Bridal Bouquets (💐)
                 for (let i = game.bouquetItems.length - 1; i >= 0; i--) {
                     const bq = game.bouquetItems[i];
                     bq.x -= moveDelta;
@@ -1626,19 +1597,19 @@
                         incrementCombo(3);
                         addFeverEnergy(16);
 
-                        const escalatingBase = 10000 + game.bouquets * 3000; // 13000, 16000, 19000, 22000, 25000
+                        const escalatingBase = 10000 + game.bouquets * 3000;
                         const comboBonus = 1200 * game.multiplier;
                         const pts = escalatingBase + comboBonus;
                         game.score += pts;
                         game.screenShake = 0.24;
                         sfx.playFanfare();
-                        addFloatingText(`💐 隱藏捧花 (${game.bouquets}/5)！+${pts.toLocaleString()}`, bq.x, bq.y - 45, '#be185d', 21);
+                        addFloatingText(`💐 ${game.bouquets}/5 (+${pts.toLocaleString()})`, bq.x, bq.y - 45, '#9c5a56', 20);
 
                         if (game.bouquets === 5 && !game.bouquetGrandSlamAwarded) {
                             game.bouquetGrandSlamAwarded = true;
                             const grandSlamBonus = 40000;
                             game.score += grandSlamBonus;
-                            addFloatingText(`👑 5束捧花全制霸大滿貫！+${grandSlamBonus.toLocaleString()}`, game.width * 0.5, game.height * 0.28, '#d97706', 24);
+                            addFloatingText(`👑 五捧花大滿貫 +${grandSlamBonus.toLocaleString()}`, game.width * 0.5, game.height * 0.28, '#b57c76', 22);
                         }
 
                         for (let k = 0; k < 16; k++) {
@@ -1745,23 +1716,19 @@
                             incrementCombo(2);
                             game.screenShake = 0.2;
                             sfx.playPadBounce();
-                            const smashLabel = selectedRole === 'ebisu' && game.ebisuMountTimer <= 0
-                                ? `🐾 Ebisu 撞飛路障！+${smashPts}`
-                                : `💥 巨貓撞飛！+${smashPts}`;
-                            addFloatingText(smashLabel, obs.x, obs.y - 60, '#ea580c', 19);
+                            addFloatingText(`💥 +${smashPts}`, obs.x, obs.y - 60, '#c87d55', 18);
                         } else if (p.dizzyTimer <= 0) {
                             game.obstaclesHit++;
                             p.dizzyTimer = 0.9;
                             p.vy = -310;
                             p.squashX = 1.3;
                             p.stretchY = 0.72;
-                            const lostCombo = game.combo;
                             game.combo = 0;
                             game.multiplier = 1;
                             game.score = Math.max(0, game.score - 300);
                             game.screenShake = 0.35;
                             sfx.playCrash();
-                            addFloatingText(lostCombo >= 5 ? `💥 連擊中斷！-300` : `💥 小心路障！-300`, p.x, p.y - 95, '#991b1b', 19);
+                            addFloatingText('💥 -300', p.x, p.y - 95, '#991b1b', 18);
                         }
                     }
 
@@ -1805,7 +1772,7 @@
             const comboNum = document.getElementById('hud-combo-num');
             if (game.combo >= 3) {
                 comboBox.classList.remove('hidden');
-                comboNum.textContent = `${game.combo} COMBO!`;
+                comboNum.textContent = `${game.combo} COMBO`;
             } else {
                 comboBox.classList.add('hidden');
             }
@@ -1815,7 +1782,7 @@
             if (game.ebisuMountTimer > 0) {
                 const pct = (game.ebisuMountTimer / 4.6) * 100;
                 feverFill.style.width = `${pct}%`;
-                feverText.textContent = '🔥巨貓中';
+                feverText.textContent = 'FEVER';
             } else {
                 feverFill.style.width = `${game.feverEnergy}%`;
                 feverText.textContent = `${Math.floor(game.feverEnergy)}%`;
@@ -1830,23 +1797,20 @@
             if (!giftBanner) return;
 
             if (score >= GIFT_TARGET_SCORE) {
-                giftBanner.className = 'rounded-2xl p-2 sm:p-2.5 mb-2 border-2 border-[#3b1d11] text-center bg-gradient-to-r from-amber-300 via-yellow-200 to-rose-200 shadow-[0_4px_0_#3b1d11] combo-pop';
+                giftBanner.className = 'rounded-xl p-2.5 mb-3 border-2 border-[#4a433e] bg-[#e3ebe6] text-center shadow-[0_3px_0_#4a433e] combo-pop';
                 giftBanner.innerHTML = `
-                    <div class="text-xs sm:text-sm font-black text-rose-700 flex items-center justify-center gap-1">
-                        <span>🎁 恭喜突破 300,000 分大關！</span>
+                    <div class="text-xs sm:text-sm font-black text-[#3b5249]">
+                        🎁 已突破 300,000 分！
                     </div>
-                    <div class="text-[11px] sm:text-xs font-black text-[#3b1d11] mt-0.5 leading-snug">
-                        📸 請立即<span class="text-rose-600 underline decoration-2">截圖此畫面</span>，找新郎拿小禮物！<span class="text-[10px] sm:text-[11px] text-amber-900">（數量有限送完為止）</span>
+                    <div class="text-[11px] font-bold text-[#4a433e] mt-0.5">
+                        請截圖此畫面找新郎領小禮物（數量有限送完為止）
                     </div>
                 `;
             } else {
-                giftBanner.className = 'rounded-2xl p-2 mb-2 border-2 border-dashed border-rose-400 bg-rose-50/90 text-center';
+                giftBanner.className = 'rounded-xl py-2 px-3 mb-3 border border-[#d5cdc3] bg-[#efeae2] text-center';
                 giftBanner.innerHTML = `
-                    <div class="text-[11px] sm:text-xs font-black text-rose-700 leading-snug">
-                        🎁 <span class="underline">婚禮有獎挑戰</span>：如果分數超過 <span class="text-rose-600 font-black">300,000</span>，請截圖找新郎拿小禮物！
-                    </div>
-                    <div class="text-[10px] font-bold text-stone-600 mt-0.5">
-                        （數量有限送完為止！目前還差 ${(GIFT_TARGET_SCORE - score).toLocaleString()} 分，快再戰一局！）
+                    <div class="text-[11px] font-bold text-[#6e645c]">
+                        🎁 超過 <span class="text-[#9c5a56] font-black">300,000</span> 分可截圖找新郎領小禮物（送完為止）
                     </div>
                 `;
             }
@@ -1865,28 +1829,28 @@
             document.getElementById('result-guest-name').textContent = currentGuestName;
 
             const pct = Math.min(99, Math.floor((game.distance / game.totalDistance) * 100));
-            document.getElementById('result-main-title').textContent = '😱 掉進坑洞！GAME OVER';
-            document.getElementById('result-sub-title').textContent = `${currentGuestName}，距離婚禮禮堂只剩 ${100 - pct}% 路程！快再跑一次！`;
+            document.getElementById('result-main-title').textContent = 'GAME OVER';
+            document.getElementById('result-sub-title').textContent = `進度 ${pct}%`;
 
-            document.getElementById('res-bouquets').textContent = `${game.bouquets} / 5 💐`;
-            document.getElementById('res-combo').textContent = `${game.maxCombo} 連擊`;
+            document.getElementById('res-bouquets').textContent = `${game.bouquets} / 5`;
+            document.getElementById('res-combo').textContent = `${game.maxCombo}`;
             document.getElementById('res-score').textContent = game.score.toLocaleString();
 
             updateGiftBannerUI(game.score);
 
             const missions = [
-                { done: false, text: `順利跨越所有地面坑洞抵達禮堂（於 ${pct}% 處跌落）` },
-                { done: game.bouquets >= 5, text: `收集全部 5 束高難度隱藏捧花（本局：${game.bouquets}/5）` },
-                { done: game.maxCombo >= 25, text: `達成 25 連擊不斷（本局最高：${game.maxCombo} 連擊）` }
+                { done: false, text: `抵達禮堂` },
+                { done: game.bouquets >= 5, text: `5 束捧花` },
+                { done: game.maxCombo >= 25, text: `25 連擊` }
             ];
             document.getElementById('result-missions').innerHTML = missions.map(m => `
-                <div class="flex items-center gap-2 ${m.done ? 'text-emerald-700' : 'text-stone-400'}">
-                    <span class="text-sm">${m.done ? '⭐' : '☆'}</span>
+                <div class="flex items-center gap-1 ${m.done ? 'text-[#4d6b5d]' : 'text-[#a89f96]'}">
+                    <span>${m.done ? '★' : '☆'}</span>
                     <span>${m.text}</span>
                 </div>
             `).join('');
 
-            document.getElementById('result-rank-badge').textContent = `🕳️ ${currentGuestName}：在紅毯半路摔進洞裡的迷糊貴賓`;
+            document.getElementById('result-rank-badge').textContent = '小心腳下坑洞';
             renderResultCoupleCanvas(true);
         }
 
@@ -1899,8 +1863,8 @@
             document.getElementById('result-screen').classList.remove('hidden');
 
             document.getElementById('result-guest-name').textContent = currentGuestName;
-            document.getElementById('result-main-title').textContent = 'Tung ❤️ Han';
-            document.getElementById('result-sub-title').textContent = 'Welcome to Our Wedding! • 2026.10.24';
+            document.getElementById('result-main-title').textContent = 'Tung & Han';
+            document.getElementById('result-sub-title').textContent = '2026.10.24 • Welcome to Our Wedding';
 
             const isNewRecord = game.score > personalBestScore;
             if (isNewRecord) {
@@ -1911,20 +1875,20 @@
                 document.getElementById('result-new-record').classList.add('hidden');
             }
 
-            document.getElementById('res-bouquets').textContent = `${game.bouquets} / 5 💐`;
-            document.getElementById('res-combo').textContent = `${game.maxCombo} 連擊`;
+            document.getElementById('res-bouquets').textContent = `${game.bouquets} / 5`;
+            document.getElementById('res-combo').textContent = `${game.maxCombo}`;
             document.getElementById('res-score').textContent = game.score.toLocaleString();
 
             updateGiftBannerUI(game.score);
 
             const missions = [
-                { done: game.bouquets >= 5, text: `收集全部 5 束高難度隱藏捧花（本局：${game.bouquets}/5）` },
-                { done: game.maxCombo >= 25, text: `達成 25 連擊不斷（本局最高：${game.maxCombo} 連擊）` },
-                { done: game.obstaclesHit === 0, text: `零失誤完美閃避所有炸彈與路障（失誤：${game.obstaclesHit} 次）` }
+                { done: game.bouquets >= 5, text: `5 束捧花` },
+                { done: game.maxCombo >= 25, text: `25 連擊` },
+                { done: game.obstaclesHit === 0, text: `零失誤` }
             ];
             document.getElementById('result-missions').innerHTML = missions.map(m => `
-                <div class="flex items-center gap-2 ${m.done ? 'text-emerald-700' : 'text-stone-400'}">
-                    <span class="text-sm">${m.done ? '⭐' : '☆'}</span>
+                <div class="flex items-center gap-1 ${m.done ? 'text-[#4d6b5d]' : 'text-[#a89f96]'}">
+                    <span>${m.done ? '★' : '☆'}</span>
                     <span>${m.text}</span>
                 </div>
             `).join('');
@@ -1932,24 +1896,20 @@
             const allThreeDone = (game.bouquets >= 5) && (game.maxCombo >= 25) && (game.obstaclesHit === 0);
             const unlockBanner = document.getElementById('result-unlock-ebisu');
             if (allThreeDone) {
-                const newlyUnlocked = !ebisuUnlocked;
                 ebisuUnlocked = true;
                 updateEbisuRoleCardUI();
                 unlockBanner.classList.remove('hidden');
-                unlockBanner.textContent = newlyUnlocked
-                    ? '🐾 恭喜 3 星全制霸！成功解鎖隱藏角色「橘貓 Ebisu」（三連跳＋無視路障）！'
-                    : '🐾 完美 3 星全制霸！橘貓 Ebisu 為你瘋狂鼓掌喵～！';
             } else {
                 unlockBanner.classList.add('hidden');
             }
 
-            let rankTitle = '🥂 優雅散步來喝喜酒的貴賓';
-            if (game.score >= GIFT_TARGET_SCORE) rankTitle = '🎁 破 30 萬分神人！快截圖找新郎領禮物！';
-            else if (allThreeDone) rankTitle = '🐾 3 星全制霸！解鎖傳說橘貓 Ebisu 的大宗師！';
-            else if (game.bouquets >= 5) rankTitle = '👑 5 束捧花全制霸！傳說級婚禮跑酷宗師！';
-            else if (game.bouquets >= 4 || game.score >= 75000) rankTitle = '🐈 橘貓 Ebisu 認證的頭號搶捧花車神！';
-            else if (game.bouquets >= 2 || game.score >= 40000) rankTitle = '💐 使命必達的首席伴郎／伴娘！';
-            document.getElementById('result-rank-badge').textContent = `🏆 ${currentGuestName}：${rankTitle}`;
+            let rankTitle = '優雅喝喜酒貴賓';
+            if (game.score >= GIFT_TARGET_SCORE) rankTitle = '破 30 萬分神人';
+            else if (allThreeDone) rankTitle = '三星全制霸宗師';
+            else if (game.bouquets >= 5) rankTitle = '五捧花大滿貫';
+            else if (game.bouquets >= 4 || game.score >= 75000) rankTitle = '頭號搶捧花車神';
+            else if (game.bouquets >= 2 || game.score >= 40000) rankTitle = '首席伴郎伴娘';
+            document.getElementById('result-rank-badge').textContent = rankTitle;
 
             renderResultCoupleCanvas(false);
         }
@@ -1967,15 +1927,11 @@
                     drawChibiCharacter(rctx, selectedRole, 125, 110, 72, 90, 0, { isRunning: false, dizzy: true });
                     drawEbisuCat(rctx, 200, 112, 50, 0, 0, false);
                 }
-                rctx.font = '900 13px "Noto Sans TC", sans-serif';
-                rctx.fillStyle = '#dc2626';
-                rctx.textAlign = 'center';
-                rctx.fillText(`💬 喵嗚！${currentGuestName} 小心腳下的坑洞呀！`, 160, 20);
                 return;
             }
 
-            rctx.strokeStyle = '#fb7185';
-            rctx.lineWidth = 7;
+            rctx.strokeStyle = '#cbb2ae';
+            rctx.lineWidth = 5;
             rctx.beginPath();
             rctx.arc(160, 114, 102, Math.PI, 0);
             rctx.stroke();
@@ -1984,9 +1940,9 @@
             drawChibiCharacter(rctx, 'han', 218, 110, 72, 90, 0, { isRunning: false, happy: true });
             drawEbisuCat(rctx, 160, 114, 50, 0.5, 0.15, false, { isMainRunner: selectedRole === 'ebisu' });
 
-            rctx.font = '22px sans-serif';
+            rctx.font = '18px sans-serif';
             rctx.textAlign = 'center';
-            rctx.fillText('💖', 160, 34);
+            rctx.fillText('🤍', 160, 34);
         }
 
         function drawGame() {
@@ -2165,10 +2121,6 @@
             // 8. Ebisu Helper Cats
             game.ebisuList.forEach(ebisu => {
                 drawEbisuCat(ctx, ebisu.x, ebisu.y, 58, game.time, ebisu.compression, false);
-                ctx.font = '900 11px "Noto Sans TC", sans-serif';
-                ctx.fillStyle = '#9a3412';
-                ctx.textAlign = 'center';
-                ctx.fillText('🐾 Ebisu 助跳!', ebisu.x, ebisu.y - 68);
             });
 
             // 9. Diamond Dash Rings
@@ -2210,12 +2162,12 @@
                 ctx.textBaseline = 'middle';
                 ctx.fillText('💐', 0, 2);
 
-                ctx.font = '900 11px "Noto Sans TC", sans-serif';
-                ctx.fillStyle = '#be185d';
+                ctx.font = '900 10px "Noto Sans TC", sans-serif';
+                ctx.fillStyle = '#9c5a56';
                 ctx.strokeStyle = '#ffffff';
                 ctx.lineWidth = 3;
-                ctx.strokeText(`✨ 捧花 #${bq.id}`, 0, -34);
-                ctx.fillText(`✨ 捧花 #${bq.id}`, 0, -34);
+                ctx.strokeText(`#${bq.id}`, 0, -34);
+                ctx.fillText(`#${bq.id}`, 0, -34);
                 ctx.restore();
             });
 
@@ -2389,14 +2341,13 @@
             const hintEl = document.getElementById('ebisu-lock-hint');
 
             if (ebisuUnlocked) {
-                btnEbisu.classList.remove('bg-stone-100', 'opacity-85');
-                btnEbisu.classList.add('bg-white');
-                lockTag.textContent = '🐾 已解鎖';
-                lockTag.className = 'absolute top-1 right-1 z-10 bg-orange-500 text-white text-[9px] font-black px-1.5 py-0.5 rounded-full border border-[#3b1d11]';
+                btnEbisu.classList.remove('opacity-80');
+                lockTag.textContent = '🐾';
+                lockTag.className = 'absolute top-1.5 right-1.5 z-10 bg-[#7d938a] text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full';
                 canvasRole.classList.remove('filter', 'brightness-50', 'contrast-125');
-                titleEl.textContent = '🐈 橘貓 Ebisu';
-                descEl.textContent = '三連跳 • 無視路障';
-                descEl.className = 'text-[9px] sm:text-[11px] font-bold text-orange-600';
+                titleEl.textContent = 'Ebisu';
+                descEl.textContent = '三連跳・無敵';
+                descEl.className = 'text-[10px] font-bold text-[#8c6246]';
                 hintEl.classList.add('hidden');
             }
         }
