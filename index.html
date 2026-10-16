@@ -224,7 +224,7 @@
                 </div>
 
                 <p id="ebisu-lock-hint" class="hidden text-[11px] font-bold text-[#8c6246] bg-[#efe8df] border border-[#d6c7b5] rounded-xl py-1.5 px-3 mb-3">
-                    單局達成「5 束捧花・25 連擊・零失誤」即可解鎖 Ebisu
+                    單局達成「5 束捧花・踩貓 5 次・零失誤」即可解鎖 Ebisu
                 </p>
 
                 <!-- Minimalist Game Highlights -->
@@ -289,8 +289,8 @@
                         <div id="res-bouquets" class="text-xs sm:text-sm font-black text-[#9c5a56]">0 / 5</div>
                     </div>
                     <div class="bg-[#f3efe8] border border-[#d5cdc3] rounded-xl p-1.5">
-                        <div class="text-[10px] font-bold text-[#8c8279]">最高連擊</div>
-                        <div id="res-combo" class="text-xs sm:text-sm font-black text-[#8c6246]">0</div>
+                        <div class="text-[10px] font-bold text-[#8c8279]">踩貓</div>
+                        <div id="res-combo" class="text-xs sm:text-sm font-black text-[#8c6246]">0 / 5</div>
                     </div>
                     <div class="bg-[#ebe4dc] border border-[#c7bdb2] rounded-xl p-1.5">
                         <div class="text-[10px] font-bold text-[#6e645c]">總分</div>
@@ -1557,7 +1557,8 @@
                         const pts = 400 * game.multiplier;
                         game.score += pts;
                         sfx.playEbisuMeow(false);
-                        addFloatingText(`🐈 +${pts}`, ebisu.x, ebisu.y - 85, '#c87d55', 19);
+                        const catProgress = game.ebisuInteractions <= 5 ? ` ${game.ebisuInteractions}/5` : '';
+                        addFloatingText(`🐈${catProgress} +${pts}`, ebisu.x, ebisu.y - 85, '#c87d55', 19);
                     }
 
                     if (ebisu.x < -120) game.ebisuList.splice(i, 1);
@@ -1833,15 +1834,15 @@
             document.getElementById('result-sub-title').textContent = `進度 ${pct}%`;
 
             document.getElementById('res-bouquets').textContent = `${game.bouquets} / 5`;
-            document.getElementById('res-combo').textContent = `${game.maxCombo}`;
+            document.getElementById('res-combo').textContent = `${game.ebisuInteractions} / 5`;
             document.getElementById('res-score').textContent = game.score.toLocaleString();
 
             updateGiftBannerUI(game.score);
 
             const missions = [
-                { done: false, text: `抵達禮堂` },
                 { done: game.bouquets >= 5, text: `5 束捧花` },
-                { done: game.maxCombo >= 25, text: `25 連擊` }
+                { done: game.ebisuInteractions >= 5, text: `踩貓 5 次` },
+                { done: false, text: `零失誤` }
             ];
             document.getElementById('result-missions').innerHTML = missions.map(m => `
                 <div class="flex items-center gap-1 ${m.done ? 'text-[#4d6b5d]' : 'text-[#a89f96]'}">
@@ -1876,14 +1877,14 @@
             }
 
             document.getElementById('res-bouquets').textContent = `${game.bouquets} / 5`;
-            document.getElementById('res-combo').textContent = `${game.maxCombo}`;
+            document.getElementById('res-combo').textContent = `${game.ebisuInteractions} / 5`;
             document.getElementById('res-score').textContent = game.score.toLocaleString();
 
             updateGiftBannerUI(game.score);
 
             const missions = [
                 { done: game.bouquets >= 5, text: `5 束捧花` },
-                { done: game.maxCombo >= 25, text: `25 連擊` },
+                { done: game.ebisuInteractions >= 5, text: `踩貓 5 次` },
                 { done: game.obstaclesHit === 0, text: `零失誤` }
             ];
             document.getElementById('result-missions').innerHTML = missions.map(m => `
@@ -1893,7 +1894,7 @@
                 </div>
             `).join('');
 
-            const allThreeDone = (game.bouquets >= 5) && (game.maxCombo >= 25) && (game.obstaclesHit === 0);
+            const allThreeDone = (game.bouquets >= 5) && (game.ebisuInteractions >= 5) && (game.obstaclesHit === 0);
             const unlockBanner = document.getElementById('result-unlock-ebisu');
             if (allThreeDone) {
                 ebisuUnlocked = true;
