@@ -1311,7 +1311,7 @@
             } else if (pattern === 3) {
                 addPlatform(startX, midY + 15, 165, 'awning');
                 addPlatform(startX + 225, midY - 35, 165, 'awning');
-                addPlatform(startX + 450, highY, 210, 'sky');
+                addPlatform(startX + 450, highY, 240, 'sky');
                 addPit(startX + 155, 145);
                 addPit(startX + 440, 150);
 
@@ -1322,7 +1322,7 @@
                 game.ebisuList.push({ x: startX + 305, y: midY - 35, bounced: false, compression: 0 });
 
                 if (shouldSpawnBouquet) {
-                    spawnBouquet(startX + 435, highY - 118, `第 ${game.bouquetsSpawned + 1} 束捧花`);
+                    spawnBouquet(startX + 645, highY - 130, `第 ${game.bouquetsSpawned + 1} 束捧花`);
                 }
 
                 const obs = pickObs();
