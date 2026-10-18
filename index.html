@@ -190,11 +190,11 @@
                     </p>
                 </div>
 
-                <!-- 3 ROLE SELECTION CARDS -->
-                <div class="grid grid-cols-3 gap-2 sm:gap-3 mb-3">
+                <!-- ROLE SELECTION CARDS (3 by default, expands to 4 when Flower Girl is unlocked) -->
+                <div id="role-grid" class="grid grid-cols-3 gap-2 sm:gap-2.5 mb-3 transition-all">
                     <!-- Groom: Tung -->
-                    <button id="select-tung" type="button" class="role-card selected rounded-2xl p-2 sm:p-3 flex flex-col items-center cursor-pointer text-center">
-                        <div class="w-14 h-16 sm:w-20 sm:h-24 bg-[#e3e8ea] rounded-xl border border-[#4a433e]/30 flex items-center justify-center overflow-hidden mb-1.5 relative">
+                    <button id="select-tung" type="button" class="role-card selected rounded-2xl p-2 sm:p-2.5 flex flex-col items-center cursor-pointer text-center">
+                        <div class="w-13 h-16 sm:w-20 sm:h-24 bg-[#e3e8ea] rounded-xl border border-[#4a433e]/30 flex items-center justify-center overflow-hidden mb-1.5 relative w-full">
                             <canvas id="preview-tung" width="110" height="125" class="w-full h-full object-contain"></canvas>
                         </div>
                         <div class="font-bold text-xs sm:text-sm text-[#3d3834]">Tung</div>
@@ -202,29 +202,46 @@
                     </button>
 
                     <!-- Bride: Han -->
-                    <button id="select-han" type="button" class="role-card rounded-2xl p-2 sm:p-3 flex flex-col items-center cursor-pointer text-center">
-                        <div class="w-14 h-16 sm:w-20 sm:h-24 bg-[#efe3e1] rounded-xl border border-[#4a433e]/30 flex items-center justify-center overflow-hidden mb-1.5 relative">
+                    <button id="select-han" type="button" class="role-card rounded-2xl p-2 sm:p-2.5 flex flex-col items-center cursor-pointer text-center">
+                        <div class="w-13 h-16 sm:w-20 sm:h-24 bg-[#efe3e1] rounded-xl border border-[#4a433e]/30 flex items-center justify-center overflow-hidden mb-1.5 relative w-full">
                             <canvas id="preview-han" width="110" height="125" class="w-full h-full object-contain"></canvas>
                         </div>
                         <div class="font-bold text-xs sm:text-sm text-[#3d3834]">Han</div>
                         <span class="text-[10px] text-[#7a6f67]">二段跳</span>
                     </button>
 
-                    <!-- Secret Role: Ebisu the Orange Cat -->
-                    <button id="select-ebisu" type="button" class="role-card rounded-2xl p-2 sm:p-3 opacity-80 flex flex-col items-center cursor-pointer text-center relative overflow-hidden">
+                    <!-- Secret Role 1: Ebisu the Orange Cat -->
+                    <button id="select-ebisu" type="button" class="role-card rounded-2xl p-2 sm:p-2.5 opacity-80 flex flex-col items-center cursor-pointer text-center relative overflow-hidden">
                         <div id="ebisu-card-LockTag" class="absolute top-1.5 right-1.5 z-10 bg-[#4a433e] text-[#f5efe6] text-[9px] font-bold px-1.5 py-0.5 rounded-full">
                             🔒
                         </div>
-                        <div id="ebisu-avatar-box" class="w-14 h-16 sm:w-20 sm:h-24 bg-[#ede5db] rounded-xl border border-[#4a433e]/30 flex items-center justify-center overflow-hidden mb-1.5 relative">
+                        <div id="ebisu-avatar-box" class="w-13 h-16 sm:w-20 sm:h-24 bg-[#ede5db] rounded-xl border border-[#4a433e]/30 flex items-center justify-center overflow-hidden mb-1.5 relative w-full">
                             <canvas id="preview-ebisu-role" width="110" height="125" class="w-full h-full object-contain filter brightness-50 contrast-125 transition-all"></canvas>
                         </div>
                         <div id="ebisu-role-title" class="font-bold text-xs sm:text-sm text-[#3d3834]">Ebisu</div>
                         <span id="ebisu-role-desc" class="text-[10px] text-[#8c7f75]">三星解鎖</span>
                     </button>
+
+                    <!-- Secret Role 2 (Completely Hidden Until All-Zero Unlock): Flower Girl -->
+                    <button id="select-flowergirl" type="button" class="hidden role-card rounded-2xl p-2 sm:p-2.5 flex flex-col items-center cursor-pointer text-center relative overflow-hidden">
+                        <div class="absolute top-1.5 right-1.5 z-10 bg-[#b57c76] text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full">
+                            🌸
+                        </div>
+                        <div class="w-13 h-16 sm:w-20 sm:h-24 bg-[#f3e8e6] rounded-xl border border-[#4a433e]/30 flex items-center justify-center overflow-hidden mb-1.5 relative w-full">
+                            <canvas id="preview-flowergirl" width="110" height="125" class="w-full h-full object-contain"></canvas>
+                        </div>
+                        <div class="font-bold text-xs sm:text-sm text-[#3d3834]">小花童</div>
+                        <span class="text-[10px] font-bold text-[#9c5a56]">撒花加倍</span>
+                    </button>
                 </div>
 
                 <p id="ebisu-lock-hint" class="hidden text-[11px] font-bold text-[#8c6246] bg-[#efe8df] border border-[#d6c7b5] rounded-xl py-1.5 px-3 mb-3">
                     單局達成「5 束捧花・踩貓 5 次・零失誤」即可解鎖 Ebisu
+                </p>
+
+                <!-- Mysterious Hint for Flower Girl (Appears after Ebisu is unlocked) -->
+                <p id="flowergirl-secret-hint" class="hidden text-[11px] font-bold text-[#6b705c] bg-[#ecebe4] border border-[#c9c7ba] rounded-xl py-1.5 px-3 mb-3 leading-relaxed">
+                    ✨ 傳說不拿捧花、不踩橘貓、還跌了一跤的人，會在禮堂遇見迷路的小花童
                 </p>
 
                 <!-- Minimalist Game Highlights -->
@@ -258,6 +275,10 @@
 
                 <div id="result-unlock-ebisu" class="hidden bg-[#7d938a] text-white text-[11px] sm:text-xs font-bold px-3 py-1 rounded-xl border border-[#4a433e] mb-2">
                     🐾 已解鎖隱藏角色：橘貓 Ebisu
+                </div>
+
+                <div id="result-unlock-flowergirl" class="hidden bg-[#b57c76] text-white text-[11px] sm:text-xs font-bold px-3 py-1 rounded-xl border border-[#4a433e] mb-2">
+                    🌸 遇見迷路的小花童！已解鎖最終隱藏角色
                 </div>
 
                 <!-- Guest Name Pill -->
@@ -472,6 +493,7 @@
 
         let selectedRole = 'tung';
         let ebisuUnlocked = false;
+        let flowerGirlUnlocked = false;
         let currentGuestName = '';
         let personalBestScore = 0;
         const GIFT_TARGET_SCORE = 300000;
@@ -495,10 +517,13 @@
             ctx.save();
             ctx.translate(x, y);
 
+            const isFlowerGirl = role === 'flowergirl';
+            const baseScale = isFlowerGirl ? 0.86 : 1;
+
             const runBob = (isRunning && !isJumping) ? Math.abs(Math.sin(animTime * 19)) * -6 : 0;
             ctx.translate(0, runBob);
             ctx.rotate(tilt);
-            ctx.scale(squashX, stretchY);
+            ctx.scale(squashX * baseScale, stretchY * baseScale);
 
             ctx.lineWidth = 3.4;
             ctx.strokeStyle = '#3b1d11';
@@ -508,14 +533,14 @@
             const legSwing = isRunning ? Math.sin(animTime * 19) * 11 : 0;
 
             // 1. Legs & Shoes
-            ctx.fillStyle = role === 'tung' ? '#1e293b' : '#fda4af';
+            ctx.fillStyle = role === 'tung' ? '#1e293b' : (isFlowerGirl ? '#d69f9a' : '#fda4af');
             ctx.beginPath();
             ctx.roundRect(-13 + legSwing * 0.5, -18, 9, 16, 4);
             ctx.roundRect(4 - legSwing * 0.5, -18, 9, 16, 4);
             ctx.fill();
             ctx.stroke();
 
-            // 2. Torso Outfit (Suit for Tung, Tiered Gown for Han)
+            // 2. Torso Outfit (Suit for Tung, Gown for Han, Petal Dress & Basket for Flower Girl)
             if (role === 'tung') {
                 ctx.fillStyle = '#1e293b';
                 ctx.beginPath();
@@ -553,6 +578,51 @@
                 ctx.arc(-11, -38, 3.8, 0, Math.PI * 2);
                 ctx.fill();
                 ctx.stroke();
+            } else if (isFlowerGirl) {
+                // Flower Girl: Warm Apricot Puff Dress
+                ctx.fillStyle = '#fbf5ec';
+                ctx.beginPath();
+                ctx.moveTo(-15, -48);
+                ctx.lineTo(15, -48);
+                ctx.quadraticCurveTo(26, -28, 27, -15);
+                ctx.lineTo(-27, -15);
+                ctx.quadraticCurveTo(-26, -28, -15, -48);
+                ctx.closePath();
+                ctx.fill();
+                ctx.stroke();
+
+                // Dusty Pink Hem Frill
+                ctx.fillStyle = '#f2d6d3';
+                ctx.beginPath();
+                ctx.roundRect(-24, -21, 48, 7, 3.5);
+                ctx.fill();
+                ctx.stroke();
+
+                // Morandi Rose Waist Ribbon
+                ctx.fillStyle = '#b57c76';
+                ctx.beginPath();
+                ctx.roundRect(-16, -37, 32, 6, 3);
+                ctx.fill();
+                ctx.stroke();
+
+                // Cute Woven Flower Basket held in front
+                ctx.fillStyle = '#d4a373';
+                ctx.beginPath();
+                ctx.arc(14, -30, 8.5, 0, Math.PI);
+                ctx.closePath();
+                ctx.fill();
+                ctx.stroke();
+
+                ctx.beginPath();
+                ctx.arc(14, -30, 7, Math.PI, 0);
+                ctx.stroke();
+
+                // Tiny petals inside basket
+                ctx.fillStyle = '#e07a5f';
+                ctx.beginPath();
+                ctx.arc(11, -31, 3, 0, Math.PI * 2);
+                ctx.arc(17, -31, 3, 0, Math.PI * 2);
+                ctx.fill();
             } else {
                 // Bride Han: Elegant Satin Gown
                 ctx.fillStyle = '#fff1f2';
@@ -592,6 +662,14 @@
                 ctx.arc(-18, headY - 16, 13, 0, Math.PI * 2);
                 ctx.fill();
                 ctx.stroke();
+            } else if (isFlowerGirl) {
+                // Cute Twin Space Buns (雙丸子頭)
+                ctx.fillStyle = '#5c3a21';
+                ctx.beginPath();
+                ctx.arc(-21, headY - 19, 10, 0, Math.PI * 2);
+                ctx.arc(21, headY - 19, 10, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.stroke();
             }
 
             // Face Circle
@@ -602,7 +680,7 @@
             ctx.stroke();
 
             // Hair Front & Styling
-            ctx.fillStyle = role === 'tung' ? '#27272a' : '#451a03';
+            ctx.fillStyle = role === 'tung' ? '#27272a' : (isFlowerGirl ? '#5c3a21' : '#451a03');
             if (role === 'tung') {
                 ctx.beginPath();
                 ctx.arc(0, headY - 4, headR, Math.PI * 1.05, Math.PI * 1.98);
@@ -618,6 +696,29 @@
                 ctx.moveTo(-2, headY - headR);
                 ctx.quadraticCurveTo(6, headY - headR - 11, 14, headY - headR - 5);
                 ctx.stroke();
+            } else if (isFlowerGirl) {
+                // Cute straight bangs with twin bun flowers
+                ctx.beginPath();
+                ctx.arc(0, headY - 3, headR, Math.PI * 1.04, Math.PI * 1.96);
+                ctx.lineTo(25, headY - 6);
+                ctx.quadraticCurveTo(0, headY - 11, -25, headY - 6);
+                ctx.closePath();
+                ctx.fill();
+                ctx.stroke();
+
+                // Morandi Pink Flower Hairpins on both buns
+                ctx.fillStyle = '#d98a84';
+                ctx.beginPath();
+                ctx.arc(-15, headY - 14, 5, 0, Math.PI * 2);
+                ctx.arc(15, headY - 14, 5, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.stroke();
+
+                ctx.fillStyle = '#fef08a';
+                ctx.beginPath();
+                ctx.arc(-15, headY - 14, 2, 0, Math.PI * 2);
+                ctx.arc(15, headY - 14, 2, 0, Math.PI * 2);
+                ctx.fill();
             } else {
                 // Han's parted bangs
                 ctx.beginPath();
@@ -1667,10 +1768,11 @@
                         item.collected = true;
                         incrementCombo(1);
 
-                        let basePts = 100;
+                        const petalBonus = (selectedRole === 'flowergirl' && (item.type === 'flower' || item.type === 'heart')) ? 2 : 1;
+                        let basePts = 100 * petalBonus;
                         let energy = 1.6;
                         if (item.type === 'heart') {
-                            basePts = 150;
+                            basePts = 150 * petalBonus;
                             energy = 2.2;
                         } else if (item.type === 'envelope') {
                             basePts = 300;
@@ -1681,12 +1783,41 @@
                         addFeverEnergy(energy);
                         const totalPts = basePts * game.multiplier;
                         game.score += totalPts;
-                        sfx.playComboPickup(game.combo, item.type === 'envelope');
+                        sfx.playComboPickup(game.combo, item.type === 'envelope' || petalBonus > 1);
+
+                        if (petalBonus > 1) {
+                            for (let k = 0; k < 4; k++) {
+                                game.particles.push({
+                                    x: item.x,
+                                    y: item.y,
+                                    vx: (Math.random() - 0.5) * 110,
+                                    vy: -40 - Math.random() * 70,
+                                    size: 4.5,
+                                    color: k % 2 === 0 ? '#f4a261' : '#e5989b',
+                                    life: 0.4,
+                                    maxLife: 0.4
+                                });
+                            }
+                        }
                     }
 
                     if (item.collected || item.x < -100) {
                         game.collectibles.splice(i, 1);
                     }
+                }
+
+                // Flower Girl gentle petal trail while running
+                if (selectedRole === 'flowergirl' && Math.random() < 0.28) {
+                    game.particles.push({
+                        x: p.x - 16,
+                        y: p.y - 24 - Math.random() * 20,
+                        vx: -60 - Math.random() * 40,
+                        vy: 20 + Math.random() * 30,
+                        size: 4,
+                        color: Math.random() < 0.5 ? '#e5989b' : '#fae1dd',
+                        life: 0.45,
+                        maxLife: 0.45
+                    });
                 }
 
                 // 8. Obstacles (Ebisu is fearless against all ground obstacles except pits!)
@@ -1826,6 +1957,7 @@
             document.getElementById('result-screen').classList.remove('hidden');
             document.getElementById('result-new-record').classList.add('hidden');
             document.getElementById('result-unlock-ebisu').classList.add('hidden');
+            document.getElementById('result-unlock-flowergirl').classList.add('hidden');
 
             document.getElementById('result-guest-name').textContent = currentGuestName;
 
@@ -1895,17 +2027,30 @@
             `).join('');
 
             const allThreeDone = (game.bouquets >= 5) && (game.ebisuInteractions >= 5) && (game.obstaclesHit === 0);
+            const isStrictAllZero = (game.bouquets === 0) && (game.ebisuInteractions === 0) && (game.obstaclesHit > 0);
+
             const unlockBanner = document.getElementById('result-unlock-ebisu');
+            const unlockFlowerGirlBanner = document.getElementById('result-unlock-flowergirl');
+
             if (allThreeDone) {
                 ebisuUnlocked = true;
-                updateEbisuRoleCardUI();
                 unlockBanner.classList.remove('hidden');
             } else {
                 unlockBanner.classList.add('hidden');
             }
 
+            if (isStrictAllZero) {
+                flowerGirlUnlocked = true;
+                unlockFlowerGirlBanner.classList.remove('hidden');
+            } else {
+                unlockFlowerGirlBanner.classList.add('hidden');
+            }
+
+            updateEbisuRoleCardUI();
+
             let rankTitle = '優雅喝喜酒貴賓';
             if (game.score >= GIFT_TARGET_SCORE) rankTitle = '破 30 萬分神人';
+            else if (isStrictAllZero) rankTitle = '遇見小花童的神秘貴賓';
             else if (allThreeDone) rankTitle = '三星全制霸宗師';
             else if (game.bouquets >= 5) rankTitle = '五捧花大滿貫';
             else if (game.bouquets >= 4 || game.score >= 75000) rankTitle = '頭號搶捧花車神';
@@ -1937,9 +2082,16 @@
             rctx.arc(160, 114, 102, Math.PI, 0);
             rctx.stroke();
 
-            drawChibiCharacter(rctx, 'tung', 102, 110, 72, 90, 0, { isRunning: false, happy: true });
-            drawChibiCharacter(rctx, 'han', 218, 110, 72, 90, 0, { isRunning: false, happy: true });
-            drawEbisuCat(rctx, 160, 114, 50, 0.5, 0.15, false, { isMainRunner: selectedRole === 'ebisu' });
+            if (selectedRole === 'flowergirl' || flowerGirlUnlocked) {
+                drawChibiCharacter(rctx, 'tung', 88, 110, 72, 90, 0, { isRunning: false, happy: true });
+                drawEbisuCat(rctx, 138, 114, 46, 0.5, 0.15, false);
+                drawChibiCharacter(rctx, 'flowergirl', 184, 110, 72, 90, 0, { isRunning: false, happy: true });
+                drawChibiCharacter(rctx, 'han', 236, 110, 72, 90, 0, { isRunning: false, happy: true });
+            } else {
+                drawChibiCharacter(rctx, 'tung', 102, 110, 72, 90, 0, { isRunning: false, happy: true });
+                drawChibiCharacter(rctx, 'han', 218, 110, 72, 90, 0, { isRunning: false, happy: true });
+                drawEbisuCat(rctx, 160, 114, 50, 0.5, 0.15, false, { isMainRunner: selectedRole === 'ebisu' });
+            }
 
             rctx.font = '18px sans-serif';
             rctx.textAlign = 'center';
@@ -2107,6 +2259,16 @@
                         happy: true
                     });
                     drawChibiCharacter(ctx, 'han', archX + 104, safeGroundY, 76, 96, game.time, {
+                        isRunning: false,
+                        happy: true
+                    });
+                } else if (selectedRole === 'flowergirl') {
+                    drawChibiCharacter(ctx, 'tung', archX + 26, safeGroundY, 74, 94, game.time, {
+                        isRunning: false,
+                        happy: true
+                    });
+                    drawEbisuCat(ctx, archX + 70, safeGroundY, 48, game.time, 0.1, false);
+                    drawChibiCharacter(ctx, 'han', archX + 114, safeGroundY, 74, 94, game.time, {
                         isRunning: false,
                         happy: true
                     });
@@ -2331,6 +2493,16 @@
                     isMainRunner: true
                 });
             }
+
+            const cFlowerGirl = document.getElementById('preview-flowergirl');
+            if (cFlowerGirl) {
+                const ctxFG = cFlowerGirl.getContext('2d');
+                ctxFG.clearRect(0, 0, cFlowerGirl.width, cFlowerGirl.height);
+                drawChibiCharacter(ctxFG, 'flowergirl', 55, 114, 76, 96, 0, {
+                    isRunning: false,
+                    happy: selectedRole === 'flowergirl'
+                });
+            }
         }
 
         function updateEbisuRoleCardUI() {
@@ -2340,16 +2512,29 @@
             const titleEl = document.getElementById('ebisu-role-title');
             const descEl = document.getElementById('ebisu-role-desc');
             const hintEl = document.getElementById('ebisu-lock-hint');
+            const secretHintEl = document.getElementById('flowergirl-secret-hint');
+            const roleGrid = document.getElementById('role-grid');
+            const btnFlowerGirl = document.getElementById('select-flowergirl');
 
             if (ebisuUnlocked) {
                 btnEbisu.classList.remove('opacity-80');
                 lockTag.textContent = '🐾';
-                lockTag.className = 'absolute top-1.5 right-1.5 z-10 bg-[#7d938a] text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full';
+                lockTag.Name = 'absolute top-1.5 right-1.5 z-10 bg-[#7d938a] text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full';
                 canvasRole.classList.remove('filter', 'brightness-50', 'contrast-125');
                 titleEl.textContent = 'Ebisu';
                 descEl.textContent = '三連跳・無敵';
                 descEl.className = 'text-[10px] font-bold text-[#8c6246]';
                 hintEl.classList.add('hidden');
+            }
+
+            if (flowerGirlUnlocked) {
+                roleGrid.classList.remove('grid-cols-3');
+                roleGrid.classList.add('grid-cols-4');
+                btnFlowerGirl.classList.remove('hidden');
+                secretHintEl.classList.add('hidden');
+                renderPreviews();
+            } else if (ebisuUnlocked) {
+                secretHintEl.classList.remove('hidden');
             }
         }
 
@@ -2363,17 +2548,21 @@
                 btnEbisu.classList.add('shake-error');
                 return;
             }
+            if (role === 'flowergirl' && !flowerGirlUnlocked) return;
+
             document.getElementById('ebisu-lock-hint').classList.add('hidden');
             selectedRole = role;
             document.getElementById('select-tung').classList.toggle('selected', role === 'tung');
             document.getElementById('select-han').classList.toggle('selected', role === 'han');
             document.getElementById('select-ebisu').classList.toggle('selected', role === 'ebisu');
+            document.getElementById('select-flowergirl').classList.toggle('selected', role === 'flowergirl');
             renderPreviews();
         }
 
         document.getElementById('select-tung').addEventListener('click', () => setRole('tung'));
         document.getElementById('select-han').addEventListener('click', () => setRole('han'));
         document.getElementById('select-ebisu').addEventListener('click', () => setRole('ebisu'));
+        document.getElementById('select-flowergirl').addEventListener('click', () => setRole('flowergirl'));
 
         document.getElementById('btn-random-name').addEventListener('click', () => {
             const input = document.getElementById('guest-name-input');
@@ -2402,7 +2591,9 @@
         document.getElementById('btn-start-game').addEventListener('click', validateAndStartGame);
         document.getElementById('btn-replay').addEventListener('click', resetAndStartGame);
         document.getElementById('btn-switch-role').addEventListener('click', () => {
-            const availableRoles = ebisuUnlocked ? ['tung', 'han', 'ebisu'] : ['tung', 'han'];
+            const availableRoles = ['tung', 'han'];
+            if (ebisuUnlocked) availableRoles.push('ebisu');
+            if (flowerGirlUnlocked) availableRoles.push('flowergirl');
             const nextIdx = (availableRoles.indexOf(selectedRole) + 1) % availableRoles.length;
             setRole(availableRoles[nextIdx]);
             resetAndStartGame();
